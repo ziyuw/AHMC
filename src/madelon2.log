@@ -1,0 +1,14 @@
+2011-05-20 15:17:53,482 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 100:10 0.05 
+2011-05-20 15:17:53,495 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 20 
+2011-05-20 15:21:38,194 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 1: 
+2011-05-20 15:22:24,993 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 89:10 0.0560994024376 
+2011-05-20 15:22:24,997 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 40 
+2011-05-20 15:25:44,550 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 21: 
+2011-05-20 15:26:31,424 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 332:10 0.0695535379261 
+2011-05-20 15:26:31,428 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 60 
+2011-05-20 15:38:01,965 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 41: 
+2011-05-20 15:38:48,620 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 543:10 0.047904902869 
+2011-05-20 15:38:48,624 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 80 
+2011-05-20 15:56:42,423 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 61: 
+2011-05-20 15:57:28,680 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1721:10 0.127703934097 
+2011-05-20 15:57:28,685 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 100 

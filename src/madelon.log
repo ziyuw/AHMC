@@ -1,0 +1,211 @@
+2011-05-19 14:33:29,393 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 100:10 0.05 
+2011-05-19 14:33:29,398 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 2 
+2011-05-19 14:33:33,333 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 1 
+2011-05-19 14:34:23,765 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 62:10 0.0513761379177 
+2011-05-19 14:34:23,769 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 4 
+2011-05-19 14:34:26,299 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 3 
+2011-05-19 14:35:16,756 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 178:10 0.22637191007 
+2011-05-19 14:35:16,761 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 6 
+2011-05-19 14:35:23,781 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 5 
+2011-05-19 14:36:13,036 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 107:10 0.259470710866 
+2011-05-19 14:36:13,040 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 8 
+2011-05-19 14:36:17,299 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 7 
+2011-05-19 14:37:06,519 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 404:10 0.118183080077 
+2011-05-19 14:37:06,523 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 10 
+2011-05-19 14:37:21,943 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 9 
+2011-05-19 14:38:10,672 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1942:10 0.141790855762 
+2011-05-19 14:38:10,676 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 12 
+2011-05-19 14:39:24,934 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 11 
+2011-05-19 14:40:13,540 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1706:10 0.207572882535 
+2011-05-19 14:40:13,544 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 14 
+2011-05-19 14:41:18,579 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 13 
+2011-05-19 14:42:07,034 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1824:10 0.2698216453 
+2011-05-19 14:42:07,038 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 16 
+2011-05-19 14:43:16,601 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 15 
+2011-05-19 14:44:05,335 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 664:10 0.0778176034593 
+2011-05-19 14:44:05,339 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 18 
+2011-05-19 14:44:10,991 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 100:10 0.05 
+2011-05-19 14:44:10,996 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 2 
+2011-05-19 14:44:15,017 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 1: 
+2011-05-19 14:45:02,046 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 38:10 0.0506049553693 
+2011-05-19 14:45:02,050 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 4 
+2011-05-19 14:45:03,649 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 3: 
+2011-05-19 14:45:50,331 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 949:10 0.239502351991 
+2011-05-19 14:45:50,336 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 6 
+2011-05-19 14:46:26,562 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 5: 
+2011-05-19 14:47:12,104 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1825:10 0.149423802273 
+2011-05-19 14:47:12,108 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 8 
+2011-05-19 14:48:21,763 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 7: 
+2011-05-19 14:49:07,472 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1473:10 0.0304211425302 
+2011-05-19 14:49:07,477 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 10 
+2011-05-19 14:50:03,705 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 9: 
+2011-05-19 14:50:48,883 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 810:10 0.258678167961 
+2011-05-19 14:50:48,887 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 12 
+2011-05-19 14:51:19,892 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 11: 
+2011-05-19 14:52:04,988 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 565:10 0.0196565532831 
+2011-05-19 14:52:04,992 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 14 
+2011-05-19 14:52:26,614 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 13: 
+2011-05-19 14:53:12,099 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 739:10 0.042222222347 
+2011-05-19 14:53:12,104 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 16 
+2011-05-19 14:53:40,239 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 15: 
+2011-05-19 14:54:25,774 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 328:10 0.0485595552098 
+2011-05-19 14:54:25,778 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 18 
+2011-05-19 14:54:38,385 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 17: 
+2011-05-19 14:55:23,897 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 190:10 0.186414182279 
+2011-05-19 14:55:23,901 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 20 
+2011-05-19 14:55:31,304 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 19: 
+2011-05-19 14:56:16,515 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1286:10 0.2122806765 
+2011-05-19 14:56:16,520 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 22 
+2011-05-19 14:57:05,673 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 21: 
+2011-05-19 14:57:50,865 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1704:10 0.253817624537 
+2011-05-19 14:57:50,870 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 24 
+2011-05-19 14:58:54,896 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 23: 
+2011-05-19 14:59:40,104 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1873:10 0.0654934760949 
+2011-05-19 14:59:40,109 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 26 
+2011-05-19 15:00:51,734 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 25: 
+2011-05-19 15:01:36,991 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1289:10 0.121569985667 
+2011-05-19 15:01:36,995 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 28 
+2011-05-19 15:02:26,292 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 27: 
+2011-05-19 15:03:11,763 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 451:10 0.109105065285 
+2011-05-19 15:03:11,767 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 30 
+2011-05-19 15:03:29,125 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 29: 
+2011-05-19 15:04:14,592 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 59:10 0.162188862771 
+2011-05-19 15:04:14,597 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 32 
+2011-05-19 15:04:16,984 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 31: 
+2011-05-19 15:05:02,519 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 913:10 0.0959259258012 
+2011-05-19 15:05:02,524 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 34 
+2011-05-19 15:05:37,354 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 33: 
+2011-05-19 15:06:22,605 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1672:10 0.0556539199583 
+2011-05-19 15:06:22,610 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 36 
+2011-05-19 15:07:26,272 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 35: 
+2011-05-19 15:08:11,459 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1388:10 0.292228064828 
+2011-05-19 15:08:11,463 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 38 
+2011-05-19 15:09:03,971 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 37: 
+2011-05-19 15:09:49,417 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 476:10 0.14699311325 
+2011-05-19 15:09:49,421 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 40 
+2011-05-19 15:10:07,642 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 39: 
+2011-05-19 15:10:52,764 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1957:10 0.193840586952 
+2011-05-19 15:10:52,768 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 42 
+2011-05-19 15:12:07,586 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 41: 
+2011-05-19 15:12:52,999 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1202:10 0.182035657141 
+2011-05-19 15:12:53,003 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 44 
+2011-05-19 15:13:38,973 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 43: 
+2011-05-19 15:14:24,433 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 504:10 0.213951731461 
+2011-05-19 15:14:24,438 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 46 
+2011-05-19 15:14:43,746 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 45: 
+2011-05-19 15:15:29,246 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1114:10 0.23028831987 
+2011-05-19 15:15:29,251 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 48 
+2011-05-19 15:16:11,679 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 47: 
+2011-05-19 15:16:57,073 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 164:10 0.263036037867 
+2011-05-19 15:16:57,077 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 50 
+2011-05-19 15:17:03,498 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 49: 
+2011-05-19 15:17:49,024 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1472:10 0.198735412042 
+2011-05-19 15:17:49,028 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 52 
+2011-05-19 15:18:45,194 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 51: 
+2011-05-19 15:19:30,696 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1928:10 0.285964732947 
+2011-05-19 15:19:30,701 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 54 
+2011-05-19 15:20:43,553 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 53: 
+2011-05-19 15:21:29,158 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 470:10 0.277930117256 
+2011-05-19 15:21:29,162 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 56 
+2011-05-19 15:21:47,276 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 55: 
+2011-05-19 15:22:32,819 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1612:10 0.222131019108 
+2011-05-19 15:22:32,824 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 58 
+2011-05-19 15:23:34,073 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 57: 
+2011-05-19 15:24:19,442 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1010:10 0.0807820401698 
+2011-05-19 15:24:19,447 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 60 
+2011-05-19 15:24:58,200 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 59: 
+2011-05-19 15:25:43,545 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1477:10 0.166928032567 
+2011-05-19 15:25:43,550 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 62 
+2011-05-19 15:26:40,082 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 61: 
+2011-05-19 15:27:25,484 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 282:10 0.21704686113 
+2011-05-19 15:27:25,488 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 64 
+2011-05-19 15:27:36,315 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 63: 
+2011-05-19 15:28:21,938 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 652:10 0.151021947874 
+2011-05-19 15:28:21,942 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 66 
+2011-05-19 15:28:46,913 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 65: 
+2011-05-19 15:29:32,277 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1356:10 0.0777635805292 
+2011-05-19 15:29:32,281 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 68 
+2011-05-19 15:30:24,339 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 67: 
+2011-05-19 15:31:09,955 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1601:10 0.117149025009 
+2011-05-19 15:31:09,959 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 70 
+2011-05-19 15:32:10,981 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 69: 
+2011-05-19 15:32:56,495 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 796:10 0.0684921278518 
+2011-05-19 15:32:56,500 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 72 
+2011-05-19 15:33:27,084 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 71: 
+2011-05-19 15:34:12,667 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 335:10 0.0890359056746 
+2011-05-19 15:34:12,672 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 74 
+2011-05-19 15:34:25,683 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 73: 
+2011-05-19 15:35:10,869 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1815:10 0.176083676269 
+2011-05-19 15:35:10,873 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 76 
+2011-05-19 15:36:20,446 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 75: 
+2011-05-19 15:37:47,009 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 100:10 0.05 
+2011-05-19 15:37:47,014 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 20 
+2011-05-19 15:38:26,815 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 1: 
+2011-05-19 15:39:14,315 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 60:10 0.0493247823684 
+2011-05-19 15:39:14,320 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 40 
+2011-05-19 15:39:38,528 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 21: 
+2011-05-19 15:40:25,680 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 485:10 0.102854775977 
+2011-05-19 15:40:25,684 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 60 
+2011-05-19 15:40:39,645 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 100:10 0.05 
+2011-05-19 15:40:39,650 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 20 
+2011-05-19 15:41:18,477 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 1: 
+2011-05-19 15:42:06,145 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 65:10 0.0473215617282 
+2011-05-19 15:42:06,149 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 40 
+2011-05-19 15:42:32,478 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 21: 
+2011-05-19 15:43:19,977 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1852:10 0.282956803028 
+2011-05-19 15:43:19,982 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 60 
+2011-05-19 15:52:52,788 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 100:10 0.05 
+2011-05-19 15:52:52,792 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 20 
+2011-05-19 15:53:32,661 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 1: 
+2011-05-19 15:54:07,701 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 100:10 0.05 
+2011-05-19 15:54:07,705 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 20 
+2011-05-19 15:54:47,445 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 1: 
+2011-05-19 15:56:40,189 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 100:10 0.05 
+2011-05-19 15:56:40,194 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 20 
+2011-05-19 15:57:20,017 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 1: 
+2011-05-19 15:57:53,580 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 100:10 0.05 
+2011-05-19 15:57:53,584 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 20 
+2011-05-19 15:58:32,723 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 1: 
+2011-05-19 15:59:19,869 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 82:10 0.0545047374224 
+2011-05-19 15:59:19,873 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 40 
+2011-05-19 15:59:52,500 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 21: 
+2011-05-19 16:00:39,315 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1799:10 0.179875409751 
+2011-05-19 16:00:39,319 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 60 
+2011-05-19 16:11:58,509 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 41: 
+2011-05-19 16:12:45,489 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1091:10 0.0246161744042 
+2011-05-19 16:12:45,494 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 80 
+2011-05-19 16:19:44,337 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 61: 
+2011-05-19 16:20:31,248 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1500:10 0.111910364482 
+2011-05-19 16:20:31,252 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 100 
+2011-05-19 16:29:54,997 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 81: 
+2011-05-19 16:30:41,525 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 770:10 0.15870481668 
+2011-05-19 16:30:41,529 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 120 
+2011-05-19 16:35:37,588 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 101: 
+2011-05-19 16:36:23,951 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1155:10 0.0449844561912 
+2011-05-19 16:36:23,955 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 140 
+2011-05-19 16:43:44,097 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 121: 
+2011-05-19 16:44:30,836 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1699:10 0.086036074011 
+2011-05-19 16:44:30,841 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 160 
+2011-05-19 16:55:21,057 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 141: 
+2011-05-19 16:56:14,874 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 100:10 0.05 
+2011-05-19 16:56:14,880 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 20 
+2011-05-19 16:59:52,283 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 100:10 0.05 
+2011-05-19 16:59:52,292 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 20 
+2011-05-19 17:23:09,970 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 1: 
+2011-05-19 17:23:56,963 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 108:10 0.0495080056156 
+2011-05-19 17:23:56,967 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 40 
+2011-05-19 17:49:00,120 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 21: 
+2011-05-19 17:49:46,953 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 907:10 0.0886092059137 
+2011-05-19 17:49:46,957 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 60 
+2011-05-19 21:13:10,898 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 41: 
+2011-05-19 21:13:57,262 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1114:10 0.166769547325 
+2011-05-19 21:13:57,266 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 80 
+2011-05-20 01:23:02,339 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 61: 
+2011-05-20 01:23:48,769 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 157:10 0.0246761948488 
+2011-05-20 01:23:48,773 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 100 
+2011-05-20 01:59:23,875 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 81: 
+2011-05-20 02:00:10,537 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1266:10 0.115193568054 
+2011-05-20 02:00:10,541 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 120 
+2011-05-20 06:42:41,729 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-pred tmp /home/ziyuw/projects/AHMC/log/templog.net 101: 
+2011-05-20 06:43:28,083 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/mc-spec /home/ziyuw/projects/AHMC/log/templog.net repeat 10 sample-noise heatbath hybrid 1005:10 0.136564952648 
+2011-05-20 06:43:28,087 INFO /home/ziyuw/projects/AHMC/fbm.2004-11-10/bin/net-mc /home/ziyuw/projects/AHMC/log/templog.net 140 
