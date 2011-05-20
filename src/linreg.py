@@ -9,7 +9,7 @@ given by basis
 """
 
 class BayesLinModel:
-    def __init__(self, v_0, w_0, a_0, b_0, epsilon, basis):
+    def __init__(self, v_0, w_0, a_0, b_0, epsilon, basis, RBF_func = None):
 	"""
 	All variables are initialized as matrices except for scalors
 	"""
@@ -25,6 +25,7 @@ class BayesLinModel:
 	self.b_n = float(b_0)
 	self.const_for_b_n = self.mean.H*self.cov_inv*self.mean
 	self.const_for_mean = self.cov_inv*w_0
+	self.RBF_func = RBF_func
     
     def update(self, x, y_n):
 	"""
@@ -33,14 +34,12 @@ class BayesLinModel:
 	x is a column vector
 	y_n (scalar) is the objective value
 	"""
-	
 	# Change x into features
 	x = self.compute_RBF(x)
 	
 	# Rank 2 update
 	self.n = self.n + 1.0
 	self.cov = self.cov - (self.cov*x*x.H*self.cov)/(1+x.H*self.cov*x)
-	
 	
 	# Update cov_inv
 	self.cov_inv = self.cov_inv + x*x.H
@@ -72,40 +71,51 @@ class BayesLinModel:
 	# Change x into features
 	x = self.compute_RBF(x)
 	
+	#print x.H*self.cov*x, self.b_n
+	
 	predict_mean = x.H*self.mean
 	predict_var = (self.b_n/self.a_n)*(1.0 + x.H*self.cov*x)
-	degree_free = 2*self.a_n
+	df = float(2*self.a_n)
 	
-	return float(predict_mean), float(predict_var), degree_free
+	return float(predict_mean), float(df*predict_var/(df-2)), df
 	
     def compute_RBF(self, x):
 	"""
 	Compute the Gaussian RBF features given input
 	
 	x is a column vector
+	NOTE: rescale the RBF seems necessary
 	"""
-	x = reshape(x, (1, shape(x)[0]))
+	if shape(x)[0] > 1:
+	    x = reshape(x, (1, shape(x)[0]))
 	size = shape(self.basis)[0]
 	
 	# Features is a column vector
-	features = mat(empty((size, 1)))
+	features = mat(zeros((size, 1)))
 	
 	counter = 0
 	for item in self.basis:
-	    features[counter] = exp(-(self.epsilon*linalg.norm(x - item))**2)
+	    if self.RBF_func == None:
+		features[counter] = exp(-(self.epsilon*linalg.norm(x - item))**2)
+	    else:
+		features[counter] = self.RBF_func(x, item, self.epsilon)
 	    counter = counter + 1
+	
 	return features
 
-class group_linreg():
-    def __init__(self, epsilons, v_0, w_0, a_0, b_0, basis):
+class group_linreg:
+    def __init__(self, epsilons, v_0, w_0, a_0, b_0, basis, RBF_func = None):
 	"""
 	epsilons is a list of epsilons with equal probability
 	"""
+	self.alpha_const = 0.1
+	self.delta = 0.05
+	self.dim = shape(v_0)[0]
 	self.size = size(epsilons)
 	self.linreg_list = []
 	for epsilon in epsilons:
-	    self.linreg_list.append(BayesLinModel(v_0, w_0, a_0, b_0, epsilon, basis))
-    
+	    self.linreg_list.append(BayesLinModel(v_0, w_0, a_0, b_0, epsilon, basis, RBF_func))
+	    
     def update(self, x, y_n):
 	"""
 	Updates each linear model after seeing a new point
@@ -125,12 +135,25 @@ class group_linreg():
 	variances = empty((self.size, 1))
 	
 	for i in range(self.size):
-	    means[i], variances[i], df = self.linreg_list[i].predict(x)
+	    means[i], variances[i], df = self.linreg_list[i].predict(mat(x))
 	
 	# Total law of Expectation
 	predict_mean = mean(means)
 	
+	#print means
+	#print variances
+	
 	# Total law of Variance
 	predict_variance = var(means) + mean(variances)
 	
+	#print predict_variance
+	
 	return predict_mean, predict_variance
+
+    def compute_UCB(self, x, t):
+	# NOTE: Check this out
+	x = array(x); x = mat(reshape(x, (1, shape(x)[0])));
+	mean, variance = self.predict(x)
+	
+	alpha = sqrt(2*log(self.dim*t**2*pi**2/float(6*self.delta)))*self.alpha_const
+	return mean + alpha*variance

@@ -2,10 +2,7 @@ import nlopt
 from numpy import *
 
 def myfunc(x, grad):
-    if grad.size > 0:
-        grad[0] = 0.0
-        grad[1] = 0.5 / sqrt(x[1])
-    return -(x[1]-1)*(x[1]-1) + 5
+    return float(mat(x)*mat(x).H)
 
 # Using DIRECT as the optimization scheme
 opt = nlopt.opt(nlopt.GN_DIRECT, 2)
@@ -17,8 +14,8 @@ opt.set_max_objective(myfunc)
 opt.set_maxeval(1000)
 
 # Set lower and upper bounds
-opt.set_lower_bounds(-5.0)
-opt.set_upper_bounds(5.0)
+opt.set_lower_bounds([-5.0, -5.0])
+opt.set_upper_bounds([5.0, 5.0])
 
 # Optimize with starting point
 x = opt.optimize([1, 5])
