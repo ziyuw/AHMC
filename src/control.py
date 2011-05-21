@@ -153,7 +153,7 @@ class facilities:
     def __init__(self, super_transition_steps, spec):
 	self.super_transition_steps = super_transition_steps
 	self.spec = spec
-	self.spec.ceiling = int(floor(float(self.super_transition_steps)/self.spec.lf_step)))
+	self.spec.ceiling = int(floor(float(self.super_transition_steps)/self.spec.lf_step))
 	self.step_size = self.spec.ceiling
 	self.iter_ct = 0
     
@@ -164,7 +164,7 @@ class facilities:
 	    if 'Fraction of guesses that were wrong' in line:
 		return 1 - float(line.split()[6].split('+-')[0])
 		
-    def opt_iter(opt, logger):
+    def opt_iter(self, opt, logger):
 	
 	# Change stepsize and epsilon
 	mcspec_command = self.spec.generate_mcspec_command()
@@ -205,6 +205,7 @@ class facilities:
 	
 	print "	New params:", self.spec.epsilon, self.spec.lf_step
 	
-	self.step_size = int(floor(float(self.super_transition_steps)/self.spec.lf_step)))
+	self.step_size = int(floor(float(self.super_transition_steps)/self.spec.lf_step))
 	self.spec.ceiling = self.spec.ceiling + self.step_size
+	print "step_size:", self.step_size
 	self.iter_ct = self.iter_ct + 1
