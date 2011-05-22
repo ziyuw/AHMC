@@ -49,6 +49,9 @@ MADELON_spec.hidden_layer_specs.append(hw_1)
 
 # Set up neural net
 netspec_cmd = MADELON_spec.generate_netspec_command()
+
+print netspec.to_string(netspec_cmd)
+
 retcode = subprocess.check_call(netspec_cmd)
 print 'net-spec reuslt:', retcode
 
