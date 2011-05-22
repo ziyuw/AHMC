@@ -1,7 +1,6 @@
 from numpy import *
 from linreg import *
 from util import *
-from matplotlib.pyplot import *
 
 
 def myfunc(x, grad):
