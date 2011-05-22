@@ -1,4 +1,3 @@
-import nlopt
 from numpy import *
 from linreg import *
 from util import *
@@ -38,7 +37,7 @@ class optimize:
 	self.objective_func = lambda x, grad: self.linearmodel.compute_UCB(x, alpha)
 	self.set_lower_bound(); self.set_upper_bound()
 	
-	self.bf_opt_steps = [0.01, 10.0]
+	self.bf_opt_steps = [0.1, 10.0]
 	
     def set_lower_bound(self):
 	self.lb = []
@@ -58,7 +57,7 @@ class optimize:
 	self.dim = len(self.bounds)
 	self.set_lower_bound(); self.set_upper_bound()
 	self.linearmodel = group_linreg(self.epsilons, self.v_0, self.w_0, self.a_0, self.b_0, self.basis, RBF_func = self.RBF_func)
-	self.objective_func = lambda x, grad: self.linearmodel.compute_UCB(x, alpha)
+	self.objective_func = lambda x, grad, alpha: self.linearmodel.compute_UCB(x, alpha)
 	
     def update(self, x, y):
 	# NOTE: Pay attention to the shape of x
@@ -74,41 +73,48 @@ class optimize:
 	
 	return mean, var
 	
-    def bf_opt(self):
+    def bf_opt(self, alpha):
 	"""
 	Optimize by trying different values using brute force
 	"""
 	best_param = self.start_point
-	best_objective = self.objective_func(best_param, 0)
+	
+	# Set the objective function with alpha in consideration
+	local_objective_func = lambda x, grad: self.objective_func(x, grad, alpha)
+	
+	best_objective = local_objective_func(best_param, 0)
 	range_list = []
 	
 	for i in range(len(self.bounds)):
 	    tuples = self.bounds[i]
 	    range_list.append(arange(tuples[0], tuples[1], self.bf_opt_steps[i]))
 
-	best_param, best_objective = self.bf_opt_helper(range_list, 0, best_param, choices, best_objective)
+	choices = zeros((len(range_list), 1))
+	best_param, best_objective = self.bf_opt_helper(range_list, 0, best_param, choices, best_objective, local_objective_func)
 	
 	return best_param
 	    
 	    
-    def bf_opt_helper(self, range_list, i, best_param, choices, best_objective):
+    def bf_opt_helper(self, range_list, i, best_param, choices, best_objective, local_objective_func):
 	if i == len(range_list):
-	    x = [range_list[i][choices[i]] for i in len(choices)]
-	    objective = self.linearmodel.compute_UCB(x, alpha)
+	    x = [range_list[j][int(choices[j])] for j in range(len(choices))]
+	    objective = local_objective_func(x, 0)
 	    if objective > best_objective:
 		best_param = x
-		best_objective = self.objective_func(x, grad)
+		best_objective = local_objective_func(x, 0)
 		
 		return best_param, best_objective
 	elif i < len(range_list):
 	    for j in range(len(range_list[i])):
 		choices[i] = j
-		best_param, best_objective = self.bf_opt_helper(range_list, i+1, best_param, choices, best_objective)
+		best_param, best_objective = self.bf_opt_helper(range_list, i+1, best_param, choices, best_objective, local_objective_func)
 	
 	return best_param, best_objective
 	
     def direct(self, alpha):
-	fn = self.objective_func
+	import nlopt
+	
+	fn = lambda x, grad: self.objective_func(x, grad, alpha)
 	
 	# Using DIRECT as the optimization scheme
 	opt = nlopt.opt(nlopt.GN_DIRECT, self.dim)

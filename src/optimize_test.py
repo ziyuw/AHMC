@@ -27,9 +27,10 @@ y_value = 0.5*cos(seq)+1.0
 
 xs = []
 ys = []
-for i in range(200):
-    x = opt.direct(float(i+1))
-    noisy_y = objective(x) + normal(loc=0.0, scale=0.2)
+for i in range(100):
+    # x = opt.direct(float(i+1)) # Use direct to optimize
+    x = opt.bf_opt(float(i+1)) # Use brute force to optimize
+    noisy_y = objective(x) + normal(loc=0.0, scale=0.1)
     print i, x, noisy_y
     xs.append(x)
     ys.append(noisy_y)
