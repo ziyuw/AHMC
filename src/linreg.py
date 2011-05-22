@@ -1,6 +1,6 @@
 from numpy import *
 from numpy.random import *
-import scipy.linalg
+import numpy.linalg
 
 """
 This file handles Bayesian Linear Regression

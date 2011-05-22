@@ -37,7 +37,7 @@ class optimize:
 	self.objective_func = lambda x, grad: self.linearmodel.compute_UCB(x, alpha)
 	self.set_lower_bound(); self.set_upper_bound()
 	
-	self.bf_opt_steps = [0.1, 10.0]
+	self.bf_opt_steps = [0.01, 10.0]
 	
     def set_lower_bound(self):
 	self.lb = []
