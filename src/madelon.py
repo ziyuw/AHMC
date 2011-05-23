@@ -17,7 +17,7 @@ logger.setLevel(logging.INFO)
 
 # Find the paths
 command_path = get_command_path()
-file_path = get_file_path()+"templog.net"
+file_path = get_file_path()+"madelon" +  + ".net"
 data_file = get_data_path('MADELON')+'combined.data.sel'
 
 MADELON_spec = netspec(file_path, command_path, data_file)
@@ -73,7 +73,7 @@ print 'net-gen reuslt:', retcode
 
 
 # Setup opt
-lambdas = array([0.29, 2000])
+lambdas = array([0.20, 2000.0])
 fn = lambda x, item, epsilon: util.Gaussian_RBF_lambda(x, item, epsilon, lambdas)
 opt = optimize(RBF_func = fn)
 
@@ -83,7 +83,6 @@ super_transition_steps = 10000
 MADELON_spec.lf_step = 500
 MADELON_spec.window_size = 10
 MADELON_spec.epsilon = 0.10
-
 
 facility = facilities(super_transition_steps, MADELON_spec)
 
