@@ -13,7 +13,7 @@ conf = config('path_config.cfg')
 cur_counter = str(conf.get_and_set_run_counter())
 
 logger = logging.getLogger('madelon' + cur_counter)
-hdlr = logging.FileHandler(get_run_log_path('MADELON')+'madelon' + cur_counter + '.log')
+hdlr = logging.FileHandler(conf.get_run_log_path('MADELON')+'madelon' + cur_counter + '.log')
 formatter = logging.Formatter('%(message)s')
 hdlr.setFormatter(formatter)
 logger.addHandler(hdlr) 

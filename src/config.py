@@ -7,14 +7,14 @@ class config:
     def get_run_counter(self):
 	config = ConfigParser.RawConfigParser()
 	config.read(self.config_file)
-	return config.get('Section3', int)
+	return config.getint('Section3', 'cur_counter')
 	
     def get_and_set_run_counter(self):
 	config = ConfigParser.RawConfigParser()
 	config.read(self.config_file)
 	
-	counter = config.get('Section3', int)
-	config.set('Section3', 'int', str(counter + 1))
+	counter = config.getint('Section3', 'cur_counter')
+	config.set('Section3', 'cur_counter', str(counter + 1))
 	with open(self.config_file, 'wb') as configfile:
 	    self.config.write(configfile)
 	return counter
