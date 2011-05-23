@@ -16,7 +16,7 @@ class config:
 	counter = config.getint('Section3', 'cur_counter')
 	config.set('Section3', 'cur_counter', str(counter + 1))
 	with open(self.config_file, 'wb') as configfile:
-	    self.config.write(configfile)
+	    config.write(configfile)
 	return counter
 
     def get_run_log_path(self, data_set_name):
