@@ -4,10 +4,13 @@ from config_setup import *
 from optimize import *
 from numpy import *
 import util
+from config import *
 
 import logging
 
-cur_counter = str(get_and_set_run_counter())
+
+conf = config('path_config.cfg')
+cur_counter = str(conf.get_and_set_run_counter())
 
 logger = logging.getLogger('madelon' + cur_counter)
 hdlr = logging.FileHandler(get_run_log_path('MADELON')+'madelon' + cur_counter + '.log')
@@ -17,9 +20,9 @@ logger.addHandler(hdlr)
 logger.setLevel(logging.INFO)
 
 # Find the paths
-command_path = get_command_path()
-file_path = get_file_path()+"madelon" +  + ".net"
-data_file = get_data_path('MADELON')+'combined.data.sel'
+command_path = conf.get_command_path()
+file_path = conf.get_file_path()+"madelon" +  + ".net"
+data_file = conf.get_data_path('MADELON')+'combined.data.sel'
 
 MADELON_spec = netspec(file_path, command_path, data_file)
 

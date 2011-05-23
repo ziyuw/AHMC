@@ -15,4 +15,3 @@ config.set('Section4', 'MADELON', '/ubc/cs/home/z/ziyuw/projects/AHMC/run_log/')
 with open('path_config.cfg', 'wb') as configfile:
     config.write(configfile)
 
-
