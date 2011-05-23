@@ -209,5 +209,5 @@ class facilities:
 	
 	self.step_size = int(floor(float(self.super_transition_steps)/self.spec.lf_step))
 	self.spec.ceiling = self.spec.ceiling + self.step_size
-	print "step_size:", self.step_size
+	print "	step_size:", self.step_size
 	self.iter_ct = self.iter_ct + 1
