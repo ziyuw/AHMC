@@ -200,7 +200,7 @@ class facilities:
 	print "	Finished Update."
 	
 	# Do optimization
-	x = opt.direct(float(self.iter_ct+1))
+	x = opt.bf_opt(float(self.iter_ct+1))
 	
 	self.spec.epsilon = x[0]
 	self.spec.lf_step = int(floor(x[1]))
