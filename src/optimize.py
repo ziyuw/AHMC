@@ -81,6 +81,7 @@ class optimize:
 	# Set the objective function with alpha in consideration
 	local_objective_func = lambda x, grad: self.objective_func(x, grad, alpha)
 	
+	print best_param
 	best_objective = local_objective_func(best_param, 0)
 	range_list = []
 	
