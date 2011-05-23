@@ -107,7 +107,7 @@ MADELON_spec.lf_step = 500
 MADELON_spec.window_size = 8
 MADELON_spec.epsilon = 0.10
 
-MADELON_spec.repeat_iteration = 5
+MADELON_spec.repeat_iteration = 1
 facility.setup_ceiling()
 
 MADELON_spec.sample_sigmas = True
