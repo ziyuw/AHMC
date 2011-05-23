@@ -49,11 +49,9 @@ MADELON_spec.hidden_layer_specs.append(hw_1)
 
 # Set up neural net
 netspec_cmd = MADELON_spec.generate_netspec_command()
+print netspec.to_string(netspec_cmd)
 retcode = subprocess.check_call(netspec_cmd)
 print 'net-spec reuslt:', retcode
-
-netspec_cmd_str = netspec.to_string(netspec_cmd)
-print netspec_cmd_str
 
 
 modelspec_command = MADELON_spec.generate_modelspec_command()
@@ -61,13 +59,15 @@ print netspec.to_string(modelspec_command)
 retcode = subprocess.check_call(modelspec_command)
 print 'model-spec reuslt:', retcode
 
+
 dataspec_command = MADELON_spec.generate_dataspec_command()
 print netspec.to_string(dataspec_command)
 retcode = subprocess.check_call(dataspec_command)
 print 'data-spec reuslt:', retcode
 
+
 netgen_command = MADELON_spec.generate_netgen_command()
-#print netgen_command
+print netspec.to_string(netgen_command)
 retcode = subprocess.check_call(netgen_command)
 print 'net-gen reuslt:', retcode
 
