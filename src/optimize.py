@@ -13,7 +13,7 @@ def myfunc(x, grad):
 class optimize:
     def __init__(self, RBF_func = None):
 	self.num_basis = 500
-	self.bounds = [(0.01,0.21), (5.0, 2000.0)]
+	self.bounds = [(0.01,0.21), (10.0, 2000.0)]
 	self.basis = lhsample(self.num_basis, self.bounds)
 	self.v_0 = mat(eye(self.num_basis))
 	self.w_0 = mat(zeros((self.num_basis, 1)))
