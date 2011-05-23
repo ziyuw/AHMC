@@ -190,7 +190,7 @@ class facilities:
 	logger.info(netpred_command_str)
 	
 	process = subprocess.Popen(netpred_command, shell=False, stdout=subprocess.PIPE)
-	result = netspec.to_string(process.communicate())
+	result = process.communicate()
 	reward = facilities.class_err(result)
 	print "	Finished prediction."
 	print "	Reward:", reward
