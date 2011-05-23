@@ -198,7 +198,7 @@ class facilities:
 	print "	Reward:", reward
 	
 	logger.info("	Finished prediction.")
-	logger.info("	Reward:", reward)
+	logger.info("	Reward: " + str(reward))
 
 	opt.update([self.spec.epsilon, self.spec.lf_step], reward)
 	print "	Finished Update."
@@ -212,12 +212,11 @@ class facilities:
 	self.spec.lf_step = int(floor(x[1]))
 	
 	print "	New params:", self.spec.epsilon, self.spec.lf_step
-	
-	logger.info("	New params:", self.spec.epsilon, self.spec.lf_step)
+	logger.info("	New params: " + str(self.spec.epsilon) + " " + str(self.spec.lf_step))
 	
 	self.step_size = int(floor(float(self.super_transition_steps)/self.spec.lf_step))
 	self.spec.ceiling = self.spec.ceiling + self.step_size
 	print "	step_size:", self.step_size
-	logger.info("	step_size:", self.step_size)
+	logger.info("	step_size: " + str(self.step_size))
 	
 	self.iter_ct = self.iter_ct + 1
