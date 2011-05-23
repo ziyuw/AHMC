@@ -8,7 +8,7 @@ config.set('Section1', 'file_path', '/home/ziyuw/projects/AHMC/log/')
 config.add_section('Section2')
 config.set('Section2', 'MADELON', '/home/ziyuw/projects/AHMC/Data/MADELON/MADELON/')
 
-# Writing our configuration file to 'example.cfg'
+# Writing our configuration file to 'path_config.cfg'
 with open('path_config.cfg', 'wb') as configfile:
     config.write(configfile)
     
