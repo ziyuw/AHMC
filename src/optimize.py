@@ -12,7 +12,7 @@ def myfunc(x, grad):
 
 class optimize:
     def __init__(self, RBF_func = None):
-	self.num_basis = 200
+	self.num_basis = 500
 	self.bounds = [(0.01,0.21), (5.0, 2000.0)]
 	self.basis = lhsample(self.num_basis, self.bounds)
 	self.v_0 = mat(eye(self.num_basis))
@@ -29,7 +29,7 @@ class optimize:
 	
 	# NOTE: How to choose a_0 and b_0?
 	# NOTE: This can be chosen in smart ways probably
-	self.epsilons =  arange(15.0, 20.0, 1.0)
+	self.epsilons =  arange(5.0, 20.0, 1.0)
 
 	self.dim = len(self.bounds)
 	self.linearmodel = group_linreg(self.epsilons, self.v_0, self.w_0, self.a_0, self.b_0, self.basis, RBF_func = self.RBF_func)
