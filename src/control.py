@@ -32,9 +32,9 @@ class netspec:
 	self.data_file = data_file; self.train_range = ''
 	self.test_range = ''; self.model_spec = 'binary'
 	
-	self.init_value = 0.5; self.repeat_iteration = 10
+	self.init_value = 0.5; self.repeat_iteration = 5
 	
-	self.lf_step = 1000; self.window_size = 10
+	self.lf_step = 1000; self.window_size = 8
 	self.epsilon = 0.25; self.ceiling = 100
 	
 	
@@ -107,13 +107,14 @@ class netspec:
 	Generate the command for mc-spec
 	
 	mc-spec blog.net repeat 10 sample-noise heatbath hybrid 100:10 0.2
+	mc-spec $log repeat 5 sample-sigmas heatbath 0.8 hybrid 800:8 0.05 negate
 	"""
 	cmd = []; cmd.append(self.command_path+'mc/mc-spec')
 	cmd.append(self.file_path); cmd.append('repeat')
-	cmd.append(self.repeat_iteration); cmd.append('sample-noise')
-	cmd.append('heatbath'); cmd.append('hybrid')
+	cmd.append(self.repeat_iteration); cmd.append('sample-sigmas')
+	cmd.append('heatbath'); cmd.append('0.8'); cmd.append('hybrid')
 	cmd.append(str(self.lf_step) + ":" + str(self.window_size))
-	cmd.append(self.epsilon)
+	cmd.append(self.epsilon); cmd.append('negate')
 	
 	return self.make_string(cmd)
 	
