@@ -7,10 +7,11 @@ import util
 
 import logging
 
+cur_counter = str(get_and_set_run_counter())
 
-logger = logging.getLogger('madelon')
-hdlr = logging.FileHandler('./madelon2.log')
-formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+logger = logging.getLogger('madelon' + cur_counter)
+hdlr = logging.FileHandler(get_run_log_path('MADELON')+'madelon' + cur_counter + '.log')
+formatter = logging.Formatter('%(message)s')
 hdlr.setFormatter(formatter)
 logger.addHandler(hdlr) 
 logger.setLevel(logging.INFO)

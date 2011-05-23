@@ -169,35 +169,41 @@ class facilities:
 	
 	# Change stepsize and epsilon
 	mcspec_command = self.spec.generate_mcspec_command()
-	
 	mcspec_command_str = netspec.to_string(mcspec_command)
-	logger.info(mcspec_command_str)
+	#logger.info(mcspec_command_str)
 	
 	retcode = subprocess.check_call(mcspec_command)
 	print "	Finished setting specs."
+	logger.info("	Finished setting specs.")
 	
 	# Run the chain for a little bit
 	netmc_command = self.spec.generate_netmc_command()
 	
 	netmc_command_str = netspec.to_string(netmc_command)
-	logger.info(netmc_command_str)
+	#logger.info(netmc_command_str)
 	
 	retcode = subprocess.check_call(netmc_command)
 	print "	Finished running the chain."
+	logger.info("	Finished running the chain.")
 	
 	# Run prediction and calculate reward
 	netpred_command = self.spec.generate_netpred_command(self.spec.ceiling - self.step_size+1)
 	netpred_command_str = netspec.to_string(netpred_command)
-	logger.info(netpred_command_str)
+	#logger.info(netpred_command_str)
 	
 	process = subprocess.Popen(netpred_command, shell=False, stdout=subprocess.PIPE)
 	result = process.communicate()
 	reward = facilities.class_err(result)
 	print "	Finished prediction."
 	print "	Reward:", reward
+	
+	logger.info("	Finished prediction.")
+	logger.info("	Reward:", reward)
 
 	opt.update([self.spec.epsilon, self.spec.lf_step], reward)
 	print "	Finished Update."
+	
+	logger.info("	Finished Update.")
 	
 	# Do optimization
 	x = opt.bf_opt(float(self.iter_ct+1))
@@ -207,7 +213,11 @@ class facilities:
 	
 	print "	New params:", self.spec.epsilon, self.spec.lf_step
 	
+	logger.info("	New params:", self.spec.epsilon, self.spec.lf_step)
+	
 	self.step_size = int(floor(float(self.super_transition_steps)/self.spec.lf_step))
 	self.spec.ceiling = self.spec.ceiling + self.step_size
 	print "	step_size:", self.step_size
+	logger.info("	step_size:", self.step_size)
+	
 	self.iter_ct = self.iter_ct + 1

@@ -19,7 +19,7 @@ def get_run_counter():
     return config.get('Section3', int)
     
 def get_and_set_run_counter():
-    int counter = config.get('Section3', int)
+    counter = config.get('Section3', int)
     config.set('Section3', int, counter + 1)
     return counter
 
