@@ -13,7 +13,7 @@ def myfunc(x, grad):
 class optimize:
     def __init__(self, RBF_func = None):
 	self.num_basis = 200
-	self.bounds = [(0.01,0.2), (5.0, 2000.0)]
+	self.bounds = [(0.01,0.21), (5.0, 2000.0)]
 	self.basis = lhsample(self.num_basis, self.bounds)
 	self.v_0 = mat(eye(self.num_basis))
 	self.w_0 = mat(zeros((self.num_basis, 1)))
@@ -36,7 +36,7 @@ class optimize:
 	self.objective_func = lambda x, grad, alpha: self.linearmodel.compute_UCB(x, alpha)
 	self.set_lower_bound(); self.set_upper_bound()
 	
-	self.bf_opt_steps = [0.1, 100.0]
+	self.bf_opt_steps = [0.05, 100.0]
 	
     def set_lower_bound(self):
 	self.lb = []
