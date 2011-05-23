@@ -108,7 +108,7 @@ class group_linreg:
 	"""
 	epsilons is a list of epsilons with equal probability
 	"""
-	self.alpha_const = 0.5
+	self.alpha_const = 0.3
 	self.delta = 0.05
 	self.dim = shape(v_0)[0]
 	self.size = size(epsilons)
