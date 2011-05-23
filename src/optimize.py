@@ -33,7 +33,7 @@ class optimize:
 
 	self.dim = len(self.bounds)
 	self.linearmodel = group_linreg(self.epsilons, self.v_0, self.w_0, self.a_0, self.b_0, self.basis, RBF_func = self.RBF_func)
-	self.objective_func = lambda x, grad: self.linearmodel.compute_UCB(x, alpha)
+	self.objective_func = lambda x, grad, alpha: self.linearmodel.compute_UCB(x, alpha)
 	self.set_lower_bound(); self.set_upper_bound()
 	
 	self.bf_opt_steps = [0.01, 10.0]
