@@ -66,7 +66,7 @@ class netspec:
 	"""
 	cmd = []
 	
-	cmd.append(self.command_path+'bin/model-spec'); cmd.append(self.file_path)
+	cmd.append(self.command_path+'util/model-spec'); cmd.append(self.file_path)
 	cmd.append(self.model_spec)
 	
 	return self.make_string(cmd)
@@ -77,7 +77,7 @@ class netspec:
 	
 	data-spec rlog.net 1 1 / rdata@1:100 . rdata@101:200 .
 	"""
-	cmd = []; cmd.append(self.command_path+'bin/data-spec')
+	cmd = []; cmd.append(self.command_path+'util/data-spec')
 	cmd.append(self.file_path)
 	cmd.append(self.num_input_units)
 	cmd.append(self.num_output_units)
@@ -97,7 +97,7 @@ class netspec:
 	
 	net-gen rlog.net fix 0.5
 	"""
-	cmd = []; cmd.append(self.command_path+'bin/net-gen')
+	cmd = []; cmd.append(self.command_path+'net/net-gen')
 	cmd.append(self.file_path); cmd.append('fix')
 	cmd.append(self.init_value)
 	
@@ -109,7 +109,7 @@ class netspec:
 	
 	mc-spec blog.net repeat 10 sample-noise heatbath hybrid 100:10 0.2
 	"""
-	cmd = []; cmd.append(self.command_path+'bin/mc-spec')
+	cmd = []; cmd.append(self.command_path+'mc/mc-spec')
 	cmd.append(self.file_path); cmd.append('repeat')
 	cmd.append(self.repeat_iteration); cmd.append('sample-noise')
 	cmd.append('heatbath'); cmd.append('hybrid')
@@ -124,7 +124,7 @@ class netspec:
 	
 	net-mc rlog.net 1
 	"""
-	cmd = []; cmd.append(self.command_path+'bin/net-mc')
+	cmd = []; cmd.append(self.command_path+'net/net-mc')
 	cmd.append(self.file_path); cmd.append(self.ceiling)
 	
 	return self.make_string(cmd)
@@ -135,7 +135,7 @@ class netspec:
 	
 	net-pred itn rlog.net 101
 	"""
-	cmd = []; cmd.append(self.command_path+'bin/net-pred')
+	cmd = []; cmd.append(self.command_path+'net/net-pred')
 	cmd.append('tmp'); cmd.append(self.file_path)
 	cmd.append(str(discard)+':');
 	

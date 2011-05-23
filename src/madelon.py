@@ -57,12 +57,12 @@ print netspec_cmd_str
 
 
 modelspec_command = MADELON_spec.generate_modelspec_command()
-#print modelspec_command
+print netspec.to_string(modelspec_command)
 retcode = subprocess.check_call(modelspec_command)
 print 'model-spec reuslt:', retcode
 
 dataspec_command = MADELON_spec.generate_dataspec_command()
-#print dataspec_command
+print netspec.to_string(dataspec_command)
 retcode = subprocess.check_call(dataspec_command)
 print 'data-spec reuslt:', retcode
 
