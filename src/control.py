@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import subprocess
 from numpy import *
 
@@ -37,8 +38,8 @@ class netspec:
 	self.lf_step = 1000; self.window_size = 8
 	self.epsilon = 0.25; self.ceiling = 100
 	
-	self.sample = True; self.decay = '0.8'
-	self.negate = True
+	self.sample_sigmas = True; self.decay = '0.8'
+	self.negate = True; self.use_decay = True
 	
     def make_string(self, cmd):
 	for i in range(size(cmd)):
@@ -113,10 +114,22 @@ class netspec:
 	"""
 	cmd = []; cmd.append(self.command_path+'mc/mc-spec')
 	cmd.append(self.file_path); cmd.append('repeat')
-	cmd.append(self.repeat_iteration); cmd.append('sample-sigmas')
-	cmd.append('heatbath'); cmd.append('0.8'); cmd.append('hybrid')
+	cmd.append(self.repeat_iteration)
+	
+	if self.sample_sigmas:
+	    cmd.append('sample-sigmas')
+	
+	cmd.append('heatbath')
+	
+	if self.use_decay:
+	    cmd.append(self.decay)
+	
+	cmd.append('hybrid')
 	cmd.append(str(self.lf_step) + ":" + str(self.window_size))
-	cmd.append(self.epsilon); cmd.append('negate')
+	cmd.append(self.epsilon); 
+	
+	if self.negate:
+	    cmd.append('negate')
 	
 	return self.make_string(cmd)
 	
@@ -155,8 +168,8 @@ class facilities:
     def __init__(self, super_transition_steps, spec):
 	self.super_transition_steps = super_transition_steps
 	self.spec = spec
-	self.spec.ceiling = int(floor(float(self.super_transition_steps)/self.spec.lf_step))
-	self.step_size = self.spec.ceiling
+	#self.spec.ceiling = int(floor(float(self.super_transition_steps)/self.spec.lf_step))
+	#self.step_size = self.spec.ceiling
 	self.iter_ct = 0
     
     @staticmethod
@@ -167,33 +180,37 @@ class facilities:
 		splitted = line.split()
 		return 1 - float(splitted[len(splitted)-1].split('+-')[0])
 
-    def starter_run(self):
+    def setup_ceiling(self):
+	self.step_size = int(floor(float(self.super_transition_steps)/self.spec.lf_step))
+	self.spec.ceiling = self.spec.ceiling + self.step_size
+
+    def starter_run(self, logger):
 	# Change stepsize and epsilon
 	mcspec_command = self.spec.generate_mcspec_command()
 	mcspec_command_str = netspec.to_string(mcspec_command)
+	print mcspec_command_str
 	#logger.info(mcspec_command_str)
 	
 	retcode = subprocess.check_call(mcspec_command)
-	print "	Finished setting specs."
-	logger.info("	Finished setting specs.")
+	print "Starter Run: Finished setting specs."
+	logger.info("Starter Run: Finished setting specs.")
 	
 	# Run the chain for a little bit
-	netmc_command = self.spec.generate_netmc_command()
-	
+	netmc_command = self.spec.generate_netmc_command()	
 	netmc_command_str = netspec.to_string(netmc_command)
 	#logger.info(netmc_command_str)
 	
 	retcode = subprocess.check_call(netmc_command)
-	print "	Finished running the chain."
-	logger.info("	Finished running the chain.")
-
-
+	print "Starter Run: Finished running the chain."
+	logger.info("Starter Run: Finished running the chain.")
+	
     def opt_iter(self, opt, logger):
 	
 	# Change stepsize and epsilon
 	mcspec_command = self.spec.generate_mcspec_command()
 	mcspec_command_str = netspec.to_string(mcspec_command)
 	#logger.info(mcspec_command_str)
+	print mcspec_command_str
 	
 	retcode = subprocess.check_call(mcspec_command)
 	print "	Finished setting specs."
@@ -237,8 +254,10 @@ class facilities:
 	print "	New params:", self.spec.epsilon, self.spec.lf_step
 	logger.info("	New params: " + str(self.spec.epsilon) + " " + str(self.spec.lf_step))
 	
-	self.step_size = int(floor(float(self.super_transition_steps)/self.spec.lf_step))
-	self.spec.ceiling = self.spec.ceiling + self.step_size
+	#self.step_size = int(floor(float(self.super_transition_steps)/self.spec.lf_step))
+	#self.spec.ceiling = self.spec.ceiling + self.step_size
+	self.setup_ceiling()
+	
 	print "	step_size:", self.step_size
 	logger.info("	step_size: " + str(self.step_size))
 	

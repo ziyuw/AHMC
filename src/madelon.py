@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import subprocess
 from control import *
 from optimize import *
@@ -31,8 +32,6 @@ MADELON_spec.num_hidden_layers = 2
 MADELON_spec.num_output_units = 1
 MADELON_spec.hidden_output_weights = 'x0.1:1:4'
 MADELON_spec.output_bias = '10'
-
-MADELON_spec.repeat_iteration = 1
 
 MADELON_spec.train_range = '1:1800'
 MADELON_spec.test_range = '1801:2000'
@@ -85,11 +84,35 @@ opt = optimize(RBF_func = fn)
 # First run
 super_transition_steps = 10000
 
+# Starter run setup
+MADELON_spec.lf_step = 100
+MADELON_spec.window_size = 4
+MADELON_spec.epsilon = 0.02
+
+MADELON_spec.repeat_iteration = 40
+MADELON_spec.ceiling = 10
+MADELON_spec.sample_sigmas = False
+MADELON_spec.use_decay = False
+MADELON_spec.negate = False
+
+
+facility = facilities(super_transition_steps, MADELON_spec)
+
+# Starter Run
+facility.starter_run(logger)
+
+
+# Final runs setup
 MADELON_spec.lf_step = 500
 MADELON_spec.window_size = 8
 MADELON_spec.epsilon = 0.10
 
-facility = facilities(super_transition_steps, MADELON_spec)
+MADELON_spec.repeat_iteration = 5
+facility.setup_ceiling()
+
+MADELON_spec.sample_sigmas = True
+MADELON_spec.use_decay = True
+MADELON_spec.negate = True
 
 # Loop
 for i in range(100):
