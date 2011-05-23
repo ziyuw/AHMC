@@ -202,6 +202,8 @@ class facilities:
 	# Do optimization
 	x = opt.bf_opt(float(self.iter_ct+1))
 	
+	print x
+	
 	self.spec.epsilon = x[0]
 	self.spec.lf_step = int(floor(x[1]))
 	
