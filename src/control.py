@@ -37,6 +37,8 @@ class netspec:
 	self.lf_step = 1000; self.window_size = 8
 	self.epsilon = 0.25; self.ceiling = 100
 	
+	self.sample = True; self.decay = '0.8'
+	self.negate = True
 	
     def make_string(self, cmd):
 	for i in range(size(cmd)):
@@ -164,7 +166,28 @@ class facilities:
 	    if 'Fraction of guesses that were wrong' in line:
 		splitted = line.split()
 		return 1 - float(splitted[len(splitted)-1].split('+-')[0])
-		
+
+    def starter_run(self):
+	# Change stepsize and epsilon
+	mcspec_command = self.spec.generate_mcspec_command()
+	mcspec_command_str = netspec.to_string(mcspec_command)
+	#logger.info(mcspec_command_str)
+	
+	retcode = subprocess.check_call(mcspec_command)
+	print "	Finished setting specs."
+	logger.info("	Finished setting specs.")
+	
+	# Run the chain for a little bit
+	netmc_command = self.spec.generate_netmc_command()
+	
+	netmc_command_str = netspec.to_string(netmc_command)
+	#logger.info(netmc_command_str)
+	
+	retcode = subprocess.check_call(netmc_command)
+	print "	Finished running the chain."
+	logger.info("	Finished running the chain.")
+
+
     def opt_iter(self, opt, logger):
 	
 	# Change stepsize and epsilon
