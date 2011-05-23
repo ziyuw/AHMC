@@ -162,6 +162,7 @@ class facilities:
 	#splited = result.split('\n')
 	for line in result:
 	    if 'Fraction of guesses that were wrong' in line:
+		print line.split()
 		return 1 - float(line.split()[6].split('+-')[0])
 		
     def opt_iter(self, opt, logger):
