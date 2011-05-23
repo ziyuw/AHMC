@@ -1,6 +1,5 @@
 import subprocess
 from numpy import *
-from config_setup import *
 
 class hidden_weights:
     def __init__(self):
