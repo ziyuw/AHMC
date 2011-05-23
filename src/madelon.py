@@ -32,8 +32,10 @@ MADELON_spec.num_output_units = 1
 MADELON_spec.hidden_output_weights = 'x0.1:1:4'
 MADELON_spec.output_bias = '10'
 
-MADELON_spec.train_range = '1:5'
-MADELON_spec.test_range = '6:200'
+MADELON_spec..repeat_iteration = 1
+
+MADELON_spec.train_range = '1:1800'
+MADELON_spec.test_range = '1801:2000'
 
 hw_0 = hidden_weights()
 hw_0.index = 0
