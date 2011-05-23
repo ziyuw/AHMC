@@ -1,6 +1,5 @@
 import subprocess
 from control import *
-from config_setup import *
 from optimize import *
 from numpy import *
 import util
