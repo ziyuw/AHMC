@@ -94,4 +94,5 @@ facility = facilities(super_transition_steps, MADELON_spec)
 # Loop
 for i in range(100):
     print "Iteration:", i
+    logger.info("Iteration: " + str(i))
     facility.opt_iter(opt, logger)
