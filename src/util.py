@@ -1,5 +1,7 @@
 from numpy import *
 from numpy.random import *
+from statistics import *
+from special_funcs import *
 
 def lhsample(N, bounds):
     """ 
@@ -16,15 +18,16 @@ def lhsample(N, bounds):
     for d in xrange(D): 
         shuffle(sample[:,d])
     return sample
+
+def student_t_cdf(x, mu, sigma, df):
+    return StudentTCDF(df, float(x-mu)/sigma)
     
+def student_t_pdf_mod(x, mu, sigma, df):
     
-def multitpdf(x, df, mu, sigma, d):
-    """
-    Calculate the density of multivariate student T distribution
-    """
-    const = divide(scipy.special.gamma(float(df + d)/2), scipy.special.gamma(float(df)/2))
-    return const*power(det(sigma)*power(df*pi, d), -0.5)*power(1 + 1.0/df*(x-mu).H*inv(sigma)*(x-mu), -float(df+d)/2)
+    const = exp(gammln(float(df + 1)/2)-gammln(float(df)/2))/sigma
+    const = const * power(df*pi, -0.5)
+    return (float(1+((x-mu)/sigma)**2/float(df)))**(-(float(df-1)/2))
 
 def Gaussian_RBF_lambda(x, item, epsilon, lambdas):
     return exp(-(epsilon*linalg.norm((x - item)/lambdas))**2)
-    
+

@@ -1,6 +1,7 @@
 from numpy import *
 from numpy.random import *
 import numpy.linalg
+import util
 
 """
 This file handles Bayesian Linear Regression
@@ -22,10 +23,13 @@ class BayesLinModel:
 	self.mean = w_0	# The mean
 	self.a_0 = float(a_0)
 	self.a_n = a_0
+	self.b_0 = b_0
 	self.b_n = float(b_0)
 	self.const_for_b_n = self.mean.H*self.cov_inv*self.mean
 	self.const_for_mean = self.cov_inv*w_0
 	self.RBF_func = RBF_func
+	
+	self.best_obj = None
     
     def update(self, x, y_n):
 	"""
@@ -51,11 +55,10 @@ class BayesLinModel:
 	# update a_n and b_n
 	self.a_n = self.a_0 + self.n/2
 	self.const_for_b_n = self.const_for_b_n + y_n**2
-	self.b_n = self.b_n + 0.5*(self.const_for_b_n - self.mean.H*self.cov_inv*self.mean)
+	self.b_n = self.b_0 + 0.5*(self.const_for_b_n - self.mean.H*self.cov_inv*self.mean)
 	
-	#print self.mean.H*self.cov_inv*self.mean, "product", y_n**2
-	#print self.a_n
-	#print self.b_n
+	if self.best_obj == None or self.best_obj < y_n:
+	    self.best_obj = y_n
 
     def predict(self, x):
 	"""
@@ -76,6 +79,8 @@ class BayesLinModel:
 	predict_mean = x.H*self.mean
 	predict_var = (self.b_n/self.a_n)*(1.0 + x.H*self.cov*x)
 	df = float(2*self.a_n)
+	
+	#print x, float(df*predict_var/(df-2))
 	
 	return float(predict_mean), float(df*predict_var/(df-2)), df
 	
@@ -102,13 +107,30 @@ class BayesLinModel:
 	    counter = counter + 1
 	
 	return features
+	
+    def expected_improvement(self, x):
+	# NOTE: Check this out
+	x = array(x); x = mat(reshape(x, (1, shape(x)[0])));
+	mean, variance, df = self.predict(x)
+	
+	mean = mean - self.best_obj
+	sigma = sqrt(variance)
+	const = -util.student_t_pdf_mod(0.0, mean, sigma, df)/(-float(df-1)/(df*variance))
+	
+	#print 'in lin', x, const
+	
+	const = const + mean*(1-util.student_t_cdf(0.0, mean, sigma, df))
+	
+	
+	return const
+
 
 class group_linreg:
     def __init__(self, epsilons, v_0, w_0, a_0, b_0, basis, RBF_func = None):
 	"""
 	epsilons is a list of epsilons with equal probability
 	"""
-	self.alpha_const = 0.2
+	self.alpha_const = 1.0
 	self.delta = 0.05
 	self.dim = shape(v_0)[0]
 	self.size = size(epsilons)
@@ -150,10 +172,18 @@ class group_linreg:
 	
 	return predict_mean, predict_variance
 
+    def expected_improvement(self, x):
+	means = empty((self.size, 1))
+	for i in range(self.size):
+	    #print x
+	    means[i] = self.linreg_list[i].expected_improvement(x)
+	return mean(means)
+
     def compute_UCB(self, x, t):
 	# NOTE: Check this out
 	x = array(x); x = mat(reshape(x, (1, shape(x)[0])));
 	mean, variance = self.predict(x)
 	
 	alpha = sqrt(2*log(self.dim*t**2*pi**2/float(6*self.delta)))*self.alpha_const
+	#alpha = 0.2
 	return mean + alpha*variance

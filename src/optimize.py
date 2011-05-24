@@ -18,8 +18,8 @@ class optimize:
 	self.v_0 = mat(eye(self.num_basis))
 	self.w_0 = mat(zeros((self.num_basis, 1)))
 	
-	self.a_0 = 0.1
-	self.b_0 = 0.1
+	self.a_0 = 2.0
+	self.b_0 = 1.0
 	self.start_point = [0.1, 100]
 	self.maxeval = 1000
 	self.lb = []
@@ -29,11 +29,12 @@ class optimize:
 	
 	# NOTE: How to choose a_0 and b_0?
 	# NOTE: This can be chosen in smart ways probably
-	self.epsilons =  arange(5.0, 20.0, 1.0)
+	self.epsilons =  arange(15.0, 20.0, 1.0)
 
 	self.dim = len(self.bounds)
 	self.linearmodel = group_linreg(self.epsilons, self.v_0, self.w_0, self.a_0, self.b_0, self.basis, RBF_func = self.RBF_func)
-	self.objective_func = lambda x, grad, alpha: self.linearmodel.compute_UCB(x, alpha)
+	#self.objective_func = lambda x, grad, alpha: self.linearmodel.compute_UCB(x, alpha)
+	self.objective_func = lambda x, grad, alpha: self.linearmodel.expected_improvement(x)
 	self.set_lower_bound(); self.set_upper_bound()
 	
 	self.bf_opt_steps = [0.02, 100.0]
@@ -56,7 +57,8 @@ class optimize:
 	self.dim = len(self.bounds)
 	self.set_lower_bound(); self.set_upper_bound()
 	self.linearmodel = group_linreg(self.epsilons, self.v_0, self.w_0, self.a_0, self.b_0, self.basis, RBF_func = self.RBF_func)
-	self.objective_func = lambda x, grad, alpha: self.linearmodel.compute_UCB(x, alpha)
+	#self.objective_func = lambda x, grad, alpha: self.linearmodel.compute_UCB(x, alpha)
+	self.objective_func = lambda x, grad, alpha: self.linearmodel.expected_improvement(x)
 	
     def update(self, x, y):
 	# NOTE: Pay attention to the shape of x

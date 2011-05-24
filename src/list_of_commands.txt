@@ -32,3 +32,8 @@ net-spec $log $dim 20 8 1 / - 0.05:1:2 0.2:1 - x0.3:1 - 0.2:1 - x0.1:1:4 - - 10
 // net-spec for sel
 net-spec log.net 500 20 8 1 / - 0.1:1:2 0.2:1 - x0.3:1 - 0.2:1 - x0.1:1:4 - 10
 net-spec $log $dim 20 8 1 / - 0.1:1:2 0.2:1 - x0.3:1 - 0.2:1 - x0.1:1:4 - - 10
+
+
+# Get rejection rate
+./net-plt t r ../../log/madelon0.net
+

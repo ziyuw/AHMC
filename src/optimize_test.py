@@ -2,6 +2,7 @@ from optimize import *
 import util
 from numpy import *
 from numpy.random import *
+from matplotlib.pyplot import *
 
 def objective(seq):
     return float(0.5*cos(seq)+1)
@@ -19,22 +20,22 @@ opt.epsilons =  arange(15.0, 16.0, 0.5)
 opt.bf_opt_steps = [0.1]
 opt.reinitialize()
 
-
-
 seq = arange(2.0, 7.0, 0.1)
 #y_value = -(0.5*seq*seq*seq - 0.1*seq*seq)
 y_value = 0.5*cos(seq)+1.0
 
 xs = []
 ys = []
-for i in range(100):
+x = opt.start_point
+for i in range(50):
     # x = opt.direct(float(i+1)) # Use direct to optimize
-    x = opt.bf_opt(float(i+1)) # Use brute force to optimize
-    noisy_y = objective(x) + normal(loc=0.0, scale=0.1)
+    
+    noisy_y = objective(x)# + normal(loc=0.0, scale=0.1)
     print i, x, noisy_y
     xs.append(x)
     ys.append(noisy_y)
     opt.update(x, noisy_y)
+    x = opt.bf_opt(float(i+1)) # Use brute force to optimize
     
 print "Training finished."
 
