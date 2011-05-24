@@ -37,3 +37,9 @@ net-spec $log $dim 20 8 1 / - 0.1:1:2 0.2:1 - x0.3:1 - 0.2:1 - x0.1:1:4 - - 10
 # Get rejection rate
 ./net-plt t r ../../log/madelon0.net
 
+
+# Get net-pred
+./net/net-display -p ../log/madelon0.net
+
+
+./fbm.2004-11-10/net/net-pred m ./log/madelon0.net 1: / ./Data/MADELON/valid.data.sel ./Data/MADELON/valid.classes

@@ -33,7 +33,7 @@ class netspec:
 	self.data_file = data_file; self.train_range = ''
 	self.test_range = ''; self.model_spec = 'binary'
 	
-	self.init_value = 0.25; self.repeat_iteration = 5
+	self.init_value = 0.5; self.repeat_iteration = 5
 	
 	self.lf_step = 1000; self.window_size = 8
 	self.epsilon = 0.25; self.ceiling = 100
