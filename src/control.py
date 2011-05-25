@@ -133,6 +133,18 @@ class netspec:
 	
 	return self.make_string(cmd)
 	
+    def generate_net_display_command(self, index):
+	"""
+	Generate the command for net-display
+	
+	net-display madelon0.net 2:
+	"""
+	cmd = []; cmd.append(self.command_path+'net/net-display')
+	cmd.append('-p'); cmd.append(self.file_path);
+	cmd.append(str(index))
+	
+	return self.make_string(cmd)
+	
     def generate_netmc_command(self):
 	"""
 	Generate the command for net-mc
@@ -172,13 +184,22 @@ class facilities:
 	#self.step_size = self.spec.ceiling
 	self.iter_ct = 0
     
+    def get_weights(self, t):
+	netdisp_command = self.spec.generate_net_display_command(t)
+	process = subprocess.Popen(netdisp_command, shell=False, stdout=subprocess.PIPE)
+	result = process.communicate()
+	
+	w_list = result[0].split('\n')
+	for item in w_list:
+	    print item
+    
     @staticmethod
     def class_err(result):
 	#splited = result.split('\n')
 	for line in result:
 	    if 'Fraction of guesses that were wrong' in line:
 		splitted = line.split()
-		return 1 - float(splitted[len(splitted)-1].split('+-')[0])
+		return float(0.2 - float(splitted[len(splitted)-1].split('+-')[0]))*100
 
     def setup_ceiling(self):
 	self.step_size = int(floor(float(self.super_transition_steps)/self.spec.lf_step))
@@ -262,3 +283,5 @@ class facilities:
 	logger.info("	step_size: " + str(self.step_size))
 	
 	self.iter_ct = self.iter_ct + 1
+	
+	#self.get_weights(self.iter_ct)

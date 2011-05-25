@@ -33,8 +33,8 @@ MADELON_spec.num_output_units = 1
 MADELON_spec.hidden_output_weights = 'x0.1:1:4'
 MADELON_spec.output_bias = '10'
 
-MADELON_spec.train_range = '1:1800'
-MADELON_spec.test_range = '1801:2000'
+MADELON_spec.train_range = '1:10'
+MADELON_spec.test_range = '11:20'
 
 hw_0 = hidden_weights()
 hw_0.index = 0
@@ -77,7 +77,7 @@ print 'net-gen reuslt:', retcode
 
 
 # Setup opt
-lambdas = array([0.20, 2000.0])
+lambdas = array([0.40, 2000.0])
 fn = lambda x, item, epsilon: util.Gaussian_RBF_lambda(x, item, epsilon, lambdas)
 opt = optimize(RBF_func = fn)
 
@@ -103,9 +103,9 @@ facility.starter_run(logger)
 
 
 # Final runs setup
-MADELON_spec.lf_step = 500
+MADELON_spec.lf_step = 800
 MADELON_spec.window_size = 8
-MADELON_spec.epsilon = 0.10
+MADELON_spec.epsilon = 0.05
 
 MADELON_spec.repeat_iteration = 1
 facility.setup_ceiling()
