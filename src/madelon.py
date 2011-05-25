@@ -23,7 +23,7 @@ logger.setLevel(logging.INFO)
 command_path = conf.get_command_path()
 file_path = conf.get_file_path()+"madelon" + cur_counter + ".net"
 data_file = conf.get_data_path('MADELON')+'combined.data.sel'
-test_data_file = conf.get_data_path('MADELON')+'combined_valid.data.sel'
+test_data_file = conf.get_data_path('MADELON')+"combined.data.sel"#+'combined_valid.data.sel'
 
 MADELON_spec = netspec(file_path, command_path, data_file, test_data_file)
 
