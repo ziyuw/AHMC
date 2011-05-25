@@ -224,7 +224,7 @@ class facilities:
 	return 1 - mean(w_list)
     
     def annealing_schedule(self):
-	return float(self.iter_ct)**-0.1
+	return float(self.iter_ct+1.0)**-0.1
     
     @staticmethod
     def class_err(result):
