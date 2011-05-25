@@ -168,7 +168,11 @@ class netspec:
 	net-pred itn rlog.net 101
 	"""
 	cmd = []; cmd.append(self.command_path+'net/net-pred')
-	cmd.append('tmp'); cmd.append(self.file_path)
+	if self.model_spec == 'binary':
+	    cmd.append('tmp')
+	elif self.model_spec == 'real':
+	    cmd.append('tn')
+	cmd.append(self.file_path)
 	cmd.append(str(discard)+':');
 	
 	return self.make_string(cmd)
@@ -231,6 +235,14 @@ class facilities:
 	return float(self.iter_ct+1.0)**-0.1
     
     @staticmethod
+    def sqrt_err(result):
+	#splited = result.split('\n')
+	for line in result:
+	    if 'Average squared error guessing mean' in line:
+		splitted = line.split()
+		return float(0.01-float(splitted[len(splitted)-1].split('+-')[0]))*100
+    
+    @staticmethod
     def class_err(result):
 	#splited = result.split('\n')
 	for line in result:
@@ -285,7 +297,11 @@ class facilities:
 	
 	process = subprocess.Popen(netpred_command, shell=False, stdout=subprocess.PIPE)
 	result = process.communicate()
-	reward = facilities.class_err(result)
+	
+	if self.spec.model_spec == 'binary':
+	    reward = facilities.class_err(result)
+	elif self.spec.model_spec == 'real':
+	    reward = facilities.sqrt_err(result)
 	print "	Finished prediction."
 	print "	Reward:", reward
 	

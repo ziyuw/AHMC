@@ -122,7 +122,7 @@ MADELON_spec.repeat_iteration = 1
 facility.setup_ceiling()
 
 MADELON_spec.sample_sigmas = True
-MADELON_spec.use_decay = True
+MADELON_spec.use_decay = False
 MADELON_spec.negate = True
 
 # Loop
