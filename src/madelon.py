@@ -78,12 +78,21 @@ print 'net-gen reuslt:', retcode
 
 
 # Setup opt
-lambdas = array([0.40, 2000.0])
+lambdas = array([1000.0])
+
 fn = lambda x, item, epsilon: util.Gaussian_RBF_lambda(x, item, epsilon, lambdas)
-opt = optimize(RBF_func = fn)
+opt = optimize(fn)
+
+opt.bounds = [(1.0, 1001.0)]
+opt.num_basis = 500
+opt.start_point = [50.0]
+opt.maxeval = 100
+opt.epsilons =  arange(12.0, 16.0, 0.5)
+opt.bf_opt_steps = [10.0]
+opt.reinitialize()
 
 # First run
-super_transition_steps = 20000
+super_transition_steps = 10000
 
 # Starter run setup
 MADELON_spec.lf_step = 100
@@ -103,9 +112,9 @@ facility = facilities(super_transition_steps, MADELON_spec)
 facility.starter_run(logger)
 
 # Final runs setup
-MADELON_spec.lf_step = 800
-MADELON_spec.window_size = 1
-MADELON_spec.epsilon = 0.05
+MADELON_spec.lf_step = 500
+MADELON_spec.window_size = 8
+MADELON_spec.epsilon = 0.1
 
 MADELON_spec.repeat_iteration = 1
 facility.setup_ceiling()

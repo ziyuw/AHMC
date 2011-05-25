@@ -193,6 +193,7 @@ class facilities:
 	self.super_transition_steps = super_transition_steps
 	self.spec = spec
 	self.iter_ct = 0
+	self.anneal_const = 0.2
     
     def get_weights(self, t):
 	"""
@@ -290,7 +291,7 @@ class facilities:
 	# Get the acceptence rate
 	accpt_rate = self.acceptence_rate()
 
-	opt.update([self.spec.epsilon, self.spec.lf_step], reward)
+	opt.update([self.spec.epsilon*self.spec.lf_step], reward)
 	print "	Finished Update."
 	
 	logger.info("	Finished Update.")
@@ -298,8 +299,12 @@ class facilities:
 	# Do optimization
 	x = opt.bf_opt(float(self.iter_ct+1))
 	
-	self.spec.epsilon = x[0]
-	self.spec.lf_step = int(floor(x[1]))
+	if accpt_rate > 0.7:
+	    self.spec.epsilon = self.spec.epsilon + self.annealing_schedule()*self.anneal_const
+	elif accpt_rate < 0.6:
+	    self.spec.epsilon = self.spec.epsilon - self.annealing_schedule()*self.anneal_const
+	
+	self.spec.lf_step = int(float(x)/self.spec.epsilon)
 	
 	print "	New params:", self.spec.epsilon, self.spec.lf_step
 	logger.info("	New params: " + str(self.spec.epsilon) + " " + str(self.spec.lf_step))
