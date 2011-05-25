@@ -83,7 +83,7 @@ fn = lambda x, item, epsilon: util.Gaussian_RBF_lambda(x, item, epsilon, lambdas
 opt = optimize(RBF_func = fn)
 
 # First run
-super_transition_steps = 10000
+super_transition_steps = 20000
 
 # Starter run setup
 MADELON_spec.lf_step = 100
@@ -105,7 +105,7 @@ facility.starter_run(logger)
 
 # Final runs setup
 MADELON_spec.lf_step = 800
-MADELON_spec.window_size = 8
+MADELON_spec.window_size = 1
 MADELON_spec.epsilon = 0.05
 
 MADELON_spec.repeat_iteration = 1
