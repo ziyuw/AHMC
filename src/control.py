@@ -193,7 +193,7 @@ class facilities:
 	self.super_transition_steps = super_transition_steps
 	self.spec = spec
 	self.iter_ct = 0
-	self.anneal_const = 0.2
+	self.anneal_const = 0.05
     
     def get_weights(self, t):
 	"""
@@ -304,8 +304,9 @@ class facilities:
 	elif accpt_rate < 0.6:
 	    self.spec.epsilon = self.spec.epsilon - self.annealing_schedule()*self.anneal_const
 	
-	self.spec.lf_step = int(float(x)/self.spec.epsilon)
+	self.spec.lf_step = int(float(x[0])/self.spec.epsilon)
 	
+	print "	New Trajectory length:", x[0]
 	print "	New params:", self.spec.epsilon, self.spec.lf_step
 	logger.info("	New params: " + str(self.spec.epsilon) + " " + str(self.spec.lf_step))
 
