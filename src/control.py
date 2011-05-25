@@ -169,6 +169,17 @@ class netspec:
 	
 	return self.make_string(cmd)
     
+    def generate_accpt_command(self):
+	"""
+	Generate command that can be used for acceptence rate
+	
+	net-plt t r madelon0.net
+	"""
+	cmd = []; cmd.append(self.command_path+'net/net-plt')
+	cmd.append('t'); cmd.append('r'); cmd.append(self.file_path)
+	
+	return self.make_string(cmd)
+    
     @staticmethod
     def to_string(cmd):
 	cmd_string = ''
@@ -181,11 +192,13 @@ class facilities:
     def __init__(self, super_transition_steps, spec):
 	self.super_transition_steps = super_transition_steps
 	self.spec = spec
-	#self.spec.ceiling = int(floor(float(self.super_transition_steps)/self.spec.lf_step))
-	#self.step_size = self.spec.ceiling
 	self.iter_ct = 0
     
     def get_weights(self, t):
+	"""
+	For a future implementation using autocorrelations
+	"""
+	
 	netdisp_command = self.spec.generate_net_display_command(t)
 	process = subprocess.Popen(netdisp_command, shell=False, stdout=subprocess.PIPE)
 	result = process.communicate()
@@ -193,6 +206,24 @@ class facilities:
 	w_list = result[0].split('\n')
 	for item in w_list:
 	    print item
+    
+    def acceptence_rate(self):
+	"""
+	Get the latest acceptence rate
+	"""
+	
+	accpt_command = self.spec.generate_accpt_command()
+	process = subprocess.Popen(accpt_command, shell=False, stdout=subprocess.PIPE)
+	result = process.communicate()
+	
+	w_list = result[0].strip('\n').split('\n')
+	w_list = w_list[len(w_list) - self.step_size - 1:len(w_list)-1]
+	w_list = [float(x.split()[1]) for x in w_list]
+	
+	return 1 - mean(w_list)
+    
+    def annealing_schedule(self):
+	return float(self.iter_ct)**-0.1
     
     @staticmethod
     def class_err(result):
@@ -220,8 +251,6 @@ class facilities:
 	# Run the chain for a little bit
 	netmc_command = self.spec.generate_netmc_command()	
 	netmc_command_str = netspec.to_string(netmc_command)
-	#logger.info(netmc_command_str)
-	
 	retcode = subprocess.check_call(netmc_command)
 	print "Starter Run: Finished running the chain."
 	logger.info("Starter Run: Finished running the chain.")
@@ -231,7 +260,6 @@ class facilities:
 	# Change stepsize and epsilon
 	mcspec_command = self.spec.generate_mcspec_command()
 	mcspec_command_str = netspec.to_string(mcspec_command)
-	#logger.info(mcspec_command_str)
 	print mcspec_command_str
 	
 	retcode = subprocess.check_call(mcspec_command)
@@ -242,8 +270,6 @@ class facilities:
 	netmc_command = self.spec.generate_netmc_command()
 	
 	netmc_command_str = netspec.to_string(netmc_command)
-	#logger.info(netmc_command_str)
-	
 	retcode = subprocess.check_call(netmc_command)
 	print "	Finished running the chain."
 	logger.info("	Finished running the chain.")
@@ -251,7 +277,6 @@ class facilities:
 	# Run prediction and calculate reward
 	netpred_command = self.spec.generate_netpred_command(self.spec.ceiling - self.step_size+1)
 	netpred_command_str = netspec.to_string(netpred_command)
-	#logger.info(netpred_command_str)
 	
 	process = subprocess.Popen(netpred_command, shell=False, stdout=subprocess.PIPE)
 	result = process.communicate()
@@ -261,6 +286,9 @@ class facilities:
 	
 	logger.info("	Finished prediction.")
 	logger.info("	Reward: " + str(reward))
+	
+	# Get the acceptence rate
+	accpt_rate = self.acceptence_rate()
 
 	opt.update([self.spec.epsilon, self.spec.lf_step], reward)
 	print "	Finished Update."
@@ -275,9 +303,7 @@ class facilities:
 	
 	print "	New params:", self.spec.epsilon, self.spec.lf_step
 	logger.info("	New params: " + str(self.spec.epsilon) + " " + str(self.spec.lf_step))
-	
-	#self.step_size = int(floor(float(self.super_transition_steps)/self.spec.lf_step))
-	#self.spec.ceiling = self.spec.ceiling + self.step_size
+
 	self.setup_ceiling()
 	
 	print "	step_size:", self.step_size

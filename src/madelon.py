@@ -34,8 +34,8 @@ MADELON_spec.num_output_units = 1
 MADELON_spec.hidden_output_weights = 'x0.1:1:4'
 MADELON_spec.output_bias = '10'
 
-MADELON_spec.train_range = '1:2000'
-MADELON_spec.test_range = '1:600'
+MADELON_spec.train_range = '1:20'
+MADELON_spec.test_range = '1:6'
 
 hw_0 = hidden_weights()
 hw_0.index = 0
@@ -101,7 +101,6 @@ facility = facilities(super_transition_steps, MADELON_spec)
 
 # Starter Run
 facility.starter_run(logger)
-
 
 # Final runs setup
 MADELON_spec.lf_step = 800
