@@ -23,8 +23,9 @@ logger.setLevel(logging.INFO)
 command_path = conf.get_command_path()
 file_path = conf.get_file_path()+"madelon" + cur_counter + ".net"
 data_file = conf.get_data_path('MADELON')+'combined.data.sel'
+test_data_file = conf.get_data_path('MADELON')+'combined_valid.data.sel'
 
-MADELON_spec = netspec(file_path, command_path, data_file)
+MADELON_spec = netspec(file_path, command_path, data_file, test_data_file)
 
 MADELON_spec.num_input_units = 38
 MADELON_spec.num_hidden_layers = 2
@@ -33,8 +34,8 @@ MADELON_spec.num_output_units = 1
 MADELON_spec.hidden_output_weights = 'x0.1:1:4'
 MADELON_spec.output_bias = '10'
 
-MADELON_spec.train_range = '1:10'
-MADELON_spec.test_range = '11:20'
+MADELON_spec.train_range = '1:2000'
+MADELON_spec.test_range = '1:600'
 
 hw_0 = hidden_weights()
 hw_0.index = 0
@@ -82,7 +83,7 @@ fn = lambda x, item, epsilon: util.Gaussian_RBF_lambda(x, item, epsilon, lambdas
 opt = optimize(RBF_func = fn)
 
 # First run
-super_transition_steps = 10000
+super_transition_steps = 20000
 
 # Starter run setup
 MADELON_spec.lf_step = 100
@@ -104,7 +105,7 @@ facility.starter_run(logger)
 
 # Final runs setup
 MADELON_spec.lf_step = 800
-MADELON_spec.window_size = 8
+MADELON_spec.window_size = 1
 MADELON_spec.epsilon = 0.05
 
 MADELON_spec.repeat_iteration = 1
