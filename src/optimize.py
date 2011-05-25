@@ -18,8 +18,8 @@ class optimize:
 	self.v_0 = mat(eye(self.num_basis))
 	self.w_0 = mat(zeros((self.num_basis, 1)))
 	
-	self.a_0 = 2.0
-	self.b_0 = 1.0
+	self.a_0 = 5.0
+	self.b_0 = 2.0
 	self.start_point = [0.1, 100]
 	self.maxeval = 1000
 	self.lb = []

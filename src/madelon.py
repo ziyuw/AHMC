@@ -83,7 +83,7 @@ lambdas = array([1000.0])
 fn = lambda x, item, epsilon: util.Gaussian_RBF_lambda(x, item, epsilon, lambdas)
 opt = optimize(fn)
 
-opt.bounds = [(1.0, 1001.0)]
+opt.bounds = [(5.0, 1001.0)]
 opt.num_basis = 500
 opt.start_point = [50.0]
 opt.maxeval = 100
@@ -120,7 +120,7 @@ MADELON_spec.repeat_iteration = 1
 facility.setup_ceiling()
 
 MADELON_spec.sample_sigmas = True
-#MADELON_spec.use_decay = True
+MADELON_spec.use_decay = True
 MADELON_spec.negate = True
 
 # Loop

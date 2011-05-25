@@ -293,9 +293,9 @@ class facilities:
 
 	opt.update([self.spec.epsilon*self.spec.lf_step], reward)
 	print "	Finished Update."
-	
+	print "	Average accpt rate:", str(accpt_rate)
 	logger.info("	Finished Update.")
-	
+	logger.info("	Average accpt rate: " + str(accpt_rate))
 	# Do optimization
 	x = opt.bf_opt(float(self.iter_ct+1))
 	
@@ -308,6 +308,7 @@ class facilities:
 	
 	print "	New Trajectory length:", x[0]
 	print "	New params:", self.spec.epsilon, self.spec.lf_step
+	logger.info("	New Trajectory length: " + str(x[0]))
 	logger.info("	New params: " + str(self.spec.epsilon) + " " + str(self.spec.lf_step))
 
 	self.setup_ceiling()
