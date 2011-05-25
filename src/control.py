@@ -34,6 +34,8 @@ class netspec:
 	self.test_data_file = test_data_file
 	self.test_range = ''; self.model_spec = 'binary'
 	
+	self.noise_level = ''; self.int_target = 0
+	
 	self.init_value = 0.5; self.repeat_iteration = 5
 	
 	self.lf_step = 1000; self.window_size = 8
@@ -71,6 +73,8 @@ class netspec:
 	
 	cmd.append(self.command_path+'util/model-spec'); cmd.append(self.file_path)
 	cmd.append(self.model_spec)
+	if self.model_spec == 'real':
+	    cmd.append(self.noise_level)
 	
 	return self.make_string(cmd)
 	
@@ -84,8 +88,8 @@ class netspec:
 	cmd.append(self.file_path)
 	cmd.append(self.num_input_units)
 	cmd.append(self.num_output_units)
-	# NOTE: HERE I ASSUME THE BIANRY CASE HOLDS
-	cmd.append(2)
+	if self.int_target != 0:
+	    cmd.append(self.int_target)
 	cmd.append('/')
 	cmd.append(self.data_file+'@'+self.train_range)
 	cmd.append('.')

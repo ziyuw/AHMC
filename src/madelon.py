@@ -37,6 +37,8 @@ MADELON_spec.output_bias = '10'
 MADELON_spec.train_range = '1:1900'
 MADELON_spec.test_range = '1901:2000'
 
+MADELON_spec.int_target = 2
+
 hw_0 = hidden_weights()
 hw_0.index = 0
 hw_0.num_units = 20
@@ -83,11 +85,11 @@ lambdas = array([1000.0])
 fn = lambda x, item, epsilon: util.Gaussian_RBF_lambda(x, item, epsilon, lambdas)
 opt = optimize(fn)
 
-opt.bounds = [(5.0, 1001.0)]
+opt.bounds = [(10.0, 1010.0)]
 opt.num_basis = 500
 opt.start_point = [50.0]
 opt.maxeval = 100
-opt.epsilons =  arange(12.0, 16.0, 0.5)
+opt.epsilons =  arange(13.0, 18.0, 0.5)
 opt.bf_opt_steps = [10.0]
 opt.reinitialize()
 
