@@ -22,7 +22,7 @@ class hidden_weights:
 	return cmd
 
 class netspec:
-    def __init__(self, file_path, command_path, data_file):
+    def __init__(self, file_path, command_path, data_file, test_data_file):
 	self.file_path = file_path # The location that stores the log file
 	self.command_path = command_path
 	self.num_input_units = 0; self.input_offset = '-'
@@ -31,6 +31,7 @@ class netspec:
 	self.input_output_weights = '-'; self.output_bias = '-'
 	
 	self.data_file = data_file; self.train_range = ''
+	self.test_data_file = test_data_file
 	self.test_range = ''; self.model_spec = 'binary'
 	
 	self.init_value = 0.5; self.repeat_iteration = 5
@@ -88,7 +89,7 @@ class netspec:
 	cmd.append('/')
 	cmd.append(self.data_file+'@'+self.train_range)
 	cmd.append('.')
-	cmd.append(self.data_file+'@'+self.test_range)
+	cmd.append(self.test_data_file+'@'+self.test_range)
 	cmd.append('.')
 	
 	return self.make_string(cmd)

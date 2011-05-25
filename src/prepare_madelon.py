@@ -1,12 +1,14 @@
 import subprocess
 from control import *
 from config_setup import *
+from config import *
 
-path = get_data_path('MADELON')
-train_data = open(path + 'train.data.sel', 'r')
-label_file = open(path + 'madelon_train.labels', 'r')
+conf = config('path_config.cfg')
+path = conf.get_data_path('MADELON')
+train_data = open(path + 'valid.data.sel', 'r')
+label_file = open(path + 'madelon_valid.labels', 'r')
 
-final_file = open(path + 'combined.data.sel', 'w')
+final_file = open(path + 'combined_valid.data.sel', 'w')
 
 
 while True:
