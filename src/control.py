@@ -202,7 +202,7 @@ class facilities:
 	self.spec = spec
 	self.iter_ct = 0
 	self.anneal_const = 0.05
-	self.last_probs = []
+	self.last_probs = deque([])
 	self.num_probs = 5
 	self.prob_thresh = 0.01
 	self.opt = opt
