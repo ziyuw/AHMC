@@ -35,7 +35,7 @@ MADELON_spec.hidden_output_weights = 'x0.1:0.1'
 MADELON_spec.output_bias = '1'
 
 MADELON_spec.train_range = '1:200'
-MADELON_spec.test_range = '401:600'
+MADELON_spec.test_range = '201:400'
 
 hw_0 = hidden_weights()
 hw_0.index = 0
