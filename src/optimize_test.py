@@ -24,7 +24,7 @@ opt.bounds = [(5.0, 1005.0)]
 opt.num_basis = 100
 opt.start_point = [50.0]
 opt.maxeval = 100
-opt.epsilons =  arange(12.0, 18.0, 0.5)
+opt.epsilons =  arange(17.5, 18.0, 0.5)
 opt.bf_opt_steps = [10.0]
 opt.reinitialize()
 

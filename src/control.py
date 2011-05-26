@@ -232,15 +232,15 @@ class facilities:
 	return 1 - mean(w_list)
     
     def annealing_schedule(self):
-	return float(self.iter_ct+1.0)**-0.1
+	return float(self.iter_ct+1.0)**-0.4
     
     @staticmethod
     def sqrt_err(result):
 	#splited = result.split('\n')
 	for line in result:
-	    if 'Average squared error guessing mean' in line:
-		splitted = line.split()
-		return float(0.01-float(splitted[len(splitted)-1].split('+-')[0]))*100
+	    if 'total' in line:
+		splitted = line.strip('()').split()
+		return float(0.01-float(splitted[len(splitted)-1].split('+-')[0]))*1000
     
     @staticmethod
     def class_err(result):
