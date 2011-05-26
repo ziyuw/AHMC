@@ -74,13 +74,13 @@ print 'net-gen reuslt:', retcode
 
 
 # Setup opt
-lambdas = array([1900.0])
+lambdas = array([4900.0])
 
 fn = lambda x, item, epsilon: util.Gaussian_RBF_lambda(x, item, epsilon, lambdas)
 opt = optimize(fn)
 
-opt.bounds = [(105.0, 2005.0)]
-opt.num_basis = 100
+opt.bounds = [(105.0, 5005.0)]
+opt.num_basis = 200
 opt.start_point = [50.0]
 opt.maxeval = 100
 opt.epsilons =  arange(12.0, 16.0, 0.5)
@@ -109,7 +109,7 @@ facility.starter_run(logger)
 
 # Final runs setup
 MADELON_spec.lf_step = 500
-MADELON_spec.window_size = 1
+MADELON_spec.window_size = 10
 MADELON_spec.epsilon = 0.1
 
 MADELON_spec.repeat_iteration = 1
@@ -120,7 +120,7 @@ MADELON_spec.sample_sigmas = True
 #MADELON_spec.negate = True
 
 # Loop
-for i in range(1000):
+for i in range(200):
     print "Iteration:", i
     logger.info("Iteration: " + str(i))
     facility.opt_iter(logger)
