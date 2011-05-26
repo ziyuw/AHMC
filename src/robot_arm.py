@@ -92,7 +92,7 @@ super_transition_steps = 32000
 
 # Starter run setup
 MADELON_spec.lf_step = 100
-MADELON_spec.window_size = 4
+MADELON_spec.window_size = 1
 MADELON_spec.epsilon = 0.02
 
 MADELON_spec.repeat_iteration = 40
@@ -102,14 +102,14 @@ MADELON_spec.use_decay = False
 MADELON_spec.negate = False
 
 
-facility = facilities(super_transition_steps, MADELON_spec)
+facility = facilities(super_transition_steps, MADELON_spec, opt)
 
 # Starter Run
 facility.starter_run(logger)
 
 # Final runs setup
 MADELON_spec.lf_step = 500
-MADELON_spec.window_size = 8
+MADELON_spec.window_size = 1
 MADELON_spec.epsilon = 0.1
 
 MADELON_spec.repeat_iteration = 1
@@ -123,4 +123,4 @@ MADELON_spec.sample_sigmas = True
 for i in range(1000):
     print "Iteration:", i
     logger.info("Iteration: " + str(i))
-    facility.opt_iter(opt, logger)
+    facility.opt_iter(logger)

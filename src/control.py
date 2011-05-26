@@ -197,11 +197,24 @@ class netspec:
 	
 class facilities:
     
-    def __init__(self, super_transition_steps, spec):
+    def __init__(self, super_transition_steps, spec, opt):
 	self.super_transition_steps = super_transition_steps
 	self.spec = spec
 	self.iter_ct = 0
 	self.anneal_const = 0.05
+	self.last_probs = []
+	self.num_probs = 5
+	self.prob_thresh = 0.01
+	self.opt = opt
+	self.reinitialized = False
+    
+    def update_last_probs(self, prob):
+	self.last_probs.append(prob)
+	if len(self.last_probs) == self.num_probs+1:
+	    self.last_probs.popleft()
+	if len(self.last_probs) == self.num_probs and sum([1 for x in self.last_probs if x < self.prob_thresh]) == self.num_probs and not self.reinitialized:
+	    self.opt.reinitialize()
+	    self.reinitialized = True
     
     def get_weights(self, t):
 	"""
@@ -272,7 +285,7 @@ class facilities:
 	print "Starter Run: Finished running the chain."
 	logger.info("Starter Run: Finished running the chain.")
 	
-    def opt_iter(self, opt, logger):
+    def opt_iter(self, logger):
 	
 	# Change stepsize and epsilon
 	mcspec_command = self.spec.generate_mcspec_command()
@@ -308,19 +321,24 @@ class facilities:
 	logger.info("	Finished prediction.")
 	logger.info("	Reward: " + str(reward))
 	
-	print "	Extreme Prob:", opt.prob_obs_x_or_extm([self.spec.epsilon*self.spec.lf_step], reward) 
-	logger.info("	Extreme Prob: " + str(opt.prob_obs_x_or_extm([self.spec.epsilon*self.spec.lf_step], reward)[0]) )
+	extreme_prob = self.opt.prob_obs_x_or_extm([self.spec.epsilon*self.spec.lf_step], reward)[0]
+	
+	print "	Extreme Prob:", extreme_prob
+	logger.info("	Extreme Prob: " + str(extreme_prob))
+	
+	# NOTE: extreme prob here
+	self.update_last_probs(extreme_prob)
 	
 	# Get the acceptence rate
 	accpt_rate = self.acceptence_rate()
 
-	opt.update([self.spec.epsilon*self.spec.lf_step], reward)
+	self.opt.update([self.spec.epsilon*self.spec.lf_step], reward)
 	print "	Finished Update."
 	print "	Average accpt rate:", str(accpt_rate)
 	logger.info("	Finished Update.")
 	logger.info("	Average accpt rate: " + str(accpt_rate))
 	# Do optimization
-	x = opt.bf_opt(float(self.iter_ct+1))
+	x = self.opt.bf_opt(float(self.iter_ct+1))
 	
 	if accpt_rate > 0.7:
 	    self.spec.epsilon = self.spec.epsilon + self.annealing_schedule()*self.anneal_const
