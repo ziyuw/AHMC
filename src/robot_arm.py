@@ -120,7 +120,7 @@ MADELON_spec.sample_sigmas = True
 #MADELON_spec.negate = True
 
 # Loop
-for i in range(100):
+for i in range(200):
     print "Iteration:", i
     logger.info("Iteration: " + str(i))
     facility.opt_iter(opt, logger)
