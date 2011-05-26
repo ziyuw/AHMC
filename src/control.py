@@ -308,6 +308,8 @@ class facilities:
 	logger.info("	Finished prediction.")
 	logger.info("	Reward: " + str(reward))
 	
+	print opt.prob_obs_x_or_extm([self.spec.epsilon*self.spec.lf_step], reward), "Extreme Prob"
+	
 	# Get the acceptence rate
 	accpt_rate = self.acceptence_rate()
 

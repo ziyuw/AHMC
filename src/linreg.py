@@ -162,15 +162,40 @@ class group_linreg:
 	# Total law of Expectation
 	predict_mean = mean(means)
 	
-	#print means
-	#print variances
-	
 	# Total law of Variance
 	predict_variance = var(means) + mean(variances)
 	
 	#print predict_variance
 	
 	return predict_mean, predict_variance
+
+    def prob_obs_x_or_extm(self, x, y_n):
+	"""
+	This returns the probability of observing the data or more extreme values
+	"""
+	
+	x = array(x); x = mat(reshape(x, (1, shape(x)[0])));
+	
+	means = empty((self.size, 1))
+	variances = empty((self.size, 1))
+	dfs = empty((self.size, 1))
+	
+	for i in range(self.size):
+	    means[i], variances[i], dfs[i] = self.linreg_list[i].predict(mat(x))
+	
+	# Total law of Expectation
+	predict_mean = mean(means)
+	
+	prob = 0
+	
+	if y_n > predict_mean:
+	    for i in range(self.size):
+		prob = prob + (1-util.student_t_cdf(y_n, means[i], variances[i], dfs[i]))
+	else:
+	    prob = prob + util.student_t_cdf(y_n, means[i], variances[i], dfs[i])
+	
+	
+	return prob/self.size
 
     def expected_improvement(self, x):
 	means = empty((self.size, 1))

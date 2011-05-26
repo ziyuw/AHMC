@@ -2,7 +2,7 @@ import ConfigParser
 
 config = ConfigParser.RawConfigParser()
 
-home_path = '/home/ziyuw/projects/AHMC/'
+home_path = '/home/steven/Documents/School/project/AHMC/'
 
 config.add_section('Section1')
 config.set('Section1', 'command_path', home_path+'fbm.2004-11-10/')

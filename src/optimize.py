@@ -60,6 +60,9 @@ class optimize:
 	#self.objective_func = lambda x, grad, alpha: self.linearmodel.compute_UCB(x, alpha)
 	self.objective_func = lambda x, grad, alpha: self.linearmodel.expected_improvement(x)
 	
+    def prob_obs_x_or_extm(self, x, y_n):
+	return self.linearmodel.prob_obs_x_or_extm(x, y_n)
+	
     def update(self, x, y):
 	# NOTE: Pay attention to the shape of x
 	x = array(x)
