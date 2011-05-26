@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import subprocess
+from collections import deque
 from numpy import *
 
 class hidden_weights:
