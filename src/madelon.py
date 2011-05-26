@@ -108,7 +108,7 @@ MADELON_spec.use_decay = False
 MADELON_spec.negate = False
 
 
-facility = facilities(super_transition_steps, MADELON_spec)
+facility = facilities(super_transition_steps, MADELON_spec, opt)
 
 # Starter Run
 facility.starter_run(logger)
@@ -129,4 +129,4 @@ MADELON_spec.negate = True
 for i in range(100):
     print "Iteration:", i
     logger.info("Iteration: " + str(i))
-    facility.opt_iter(opt, logger)
+    facility.opt_iter(logger)

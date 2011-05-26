@@ -215,6 +215,10 @@ class facilities:
 	if len(self.last_probs) == self.num_probs and sum([1 for x in self.last_probs if x < self.prob_thresh]) == self.num_probs and not self.reinitialized:
 	    self.opt.reinitialize()
 	    self.reinitialized = True
+	    
+	    return True
+	    
+	return False
     
     def get_weights(self, t):
 	"""
@@ -327,7 +331,10 @@ class facilities:
 	logger.info("	Extreme Prob: " + str(extreme_prob))
 	
 	# NOTE: extreme prob here
-	self.update_last_probs(extreme_prob)
+	model_abandoned = self.update_last_probs(extreme_prob)
+	if model_abandoned:
+	    print "MODEL ABANDONED!."
+	    logger.info("MODEL ABANDONED!")
 	
 	# Get the acceptence rate
 	accpt_rate = self.acceptence_rate()
