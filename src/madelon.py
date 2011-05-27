@@ -23,7 +23,7 @@ logger.setLevel(logging.INFO)
 command_path = conf.get_command_path()
 file_path = conf.get_file_path()+"madelon" + cur_counter + ".net"
 data_file = conf.get_data_path('MADELON')+'combined.data.sel'
-test_data_file = conf.get_data_path('MADELON')+"combined.data.sel"#+'combined_valid.data.sel'
+test_data_file = conf.get_data_path('MADELON')+'combined_valid.data.sel'#+"combined.data.sel"
 
 MADELON_spec = netspec(file_path, command_path, data_file, test_data_file)
 
@@ -34,8 +34,8 @@ MADELON_spec.num_output_units = 1
 MADELON_spec.hidden_output_weights = 'x0.1:1:4'
 MADELON_spec.output_bias = '10'
 
-MADELON_spec.train_range = '1:1900'
-MADELON_spec.test_range = '1901:2000'
+MADELON_spec.train_range = '1:2000'
+MADELON_spec.test_range = '1:600'
 
 MADELON_spec.int_target = 2
 
