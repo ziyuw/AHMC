@@ -204,7 +204,7 @@ class facilities:
 	self.iter_ct = 0
 	self.anneal_const = 0.05
 	self.last_probs = deque([])
-	self.num_probs = 5
+	self.num_probs = 4
 	self.prob_thresh = 0.01
 	self.opt = opt
 	self.reinitialized = False
@@ -213,7 +213,7 @@ class facilities:
 	self.last_probs.append(prob)
 	if len(self.last_probs) == self.num_probs+1:
 	    self.last_probs.popleft()
-	if len(self.last_probs) == self.num_probs and sum([1 for x in self.last_probs if x < self.prob_thresh]) == self.num_probs and not self.reinitialized:
+	if len(self.last_probs) == self.num_probs and sum([1 for x in self.last_probs if x < self.prob_thresh]) + 1>= self.num_probs and not self.reinitialized:
 	    self.opt.reinitialize()
 	    self.reinitialized = True
 	    

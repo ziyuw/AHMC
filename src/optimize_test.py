@@ -5,9 +5,9 @@ from numpy.random import *
 from matplotlib.pyplot import *
 
 def objective(seq):
-    return float(0.5*log(seq)/6.0*cos(seq[0]/50.0)+6.0)
+    return float(0.5*log(seq)/2.0*cos(seq[0]/200.0)+6.0)
 
-lambdas = array([1000])
+lambdas = array([4900])
 
 fn = lambda x, item, epsilon: util.Gaussian_RBF_lambda(x, item, epsilon, lambdas)
 opt = optimize(fn)
@@ -20,25 +20,25 @@ opt = optimize(fn)
 #opt.bf_opt_steps = [0.1]
 #opt.reinitialize()
 
-opt.bounds = [(5.0, 1005.0)]
+opt.bounds = [(105.0, 5005.0)]
 opt.num_basis = 100
-opt.start_point = [50.0]
+opt.start_point = [200.0]
 opt.maxeval = 100
-opt.epsilons =  arange(17.5, 18.0, 0.5)
-opt.bf_opt_steps = [10.0]
+opt.epsilons =  arange(13.5, 14.0, 0.5)
+opt.bf_opt_steps = [20.0]
 opt.reinitialize()
 
-seq = arange(5, 1001.0, 1.0)
+seq = arange(105.0, 5005.0, 1.0)
 #y_value = -(0.5*seq*seq*seq - 0.1*seq*seq)
-y_value = 0.5*log(seq)/6.0*cos(seq/50.0)+6.0
+y_value = 0.5*log(seq)/2.0*cos(seq/200.0)+6.0
 
 xs = []
 ys = []
 x = opt.start_point
-for i in range(40):
+for i in range(50):
     # x = opt.direct(float(i+1)) # Use direct to optimize
     
-    noisy_y = objective(x)# + normal(loc=0.0, scale=0.1)
+    noisy_y = objective(x) + normal(loc=0.0, scale=2.0)
     print i, x, noisy_y
     xs.append(x)
     ys.append(noisy_y)
@@ -48,7 +48,7 @@ for i in range(40):
 print "Training finished."
 
 # Testing
-test_range = arange(5.0, 1005.0, 10.0)
+test_range = arange(105.0, 5005.0, 20.0)
 predictions = []
 upper = []
 lower = []
