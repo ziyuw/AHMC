@@ -179,6 +179,8 @@ class netspec:
 	    cmd.append('tmp')
 	elif self.model_spec == 'real':
 	    cmd.append('tn')
+	elif self.model_spec == 'class':
+	    cmd.append('am')
 	cmd.append(self.file_path)
 	cmd.append(str(discard)+':');
 	
@@ -347,6 +349,8 @@ class facilities:
 	    reward = facilities.class_err(result)
 	elif self.spec.model_spec == 'real':
 	    reward = facilities.sqrt_err(result)
+	elif self.spec.model_spec == 'class':
+	    reward = facilities.class_err(result)
 	print "	Finished prediction."
 	print "	Reward:", reward
 	
