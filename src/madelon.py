@@ -130,7 +130,7 @@ MADELON_spec.use_decay = False
 MADELON_spec.negate = False
 
 
-facility = facilities(super_transition_steps, MADELON_spec, opt)
+facility = facilities(super_transition_steps, MADELON_spec, opt, pure_bayes)
 
 # Starter Run
 facility.starter_run(logger)

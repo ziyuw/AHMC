@@ -208,7 +208,7 @@ class netspec:
 
 class facilities:
     
-    def __init__(self, super_transition_steps, spec, opt):
+    def __init__(self, super_transition_steps, spec, opt, pure_bayes = True, abandon_model = False):
 	self.super_transition_steps = super_transition_steps
 	self.spec = spec
 	self.iter_ct = 0
@@ -218,8 +218,8 @@ class facilities:
 	self.prob_thresh = 0.01
 	self.opt = opt
 	self.reinitialized = False
-	self.pure_bayes = True
-	self.abandon_model = True
+	self.pure_bayes = pure_bayes
+	self.abandon_model = abandon_model
     
 # -----------------------------------------------------------------------------------------------
     def update_last_probs(self, prob):
