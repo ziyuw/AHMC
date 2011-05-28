@@ -100,7 +100,7 @@ if pure_bayes:
     opt.start_point = [0.4, 200.0]
     opt.maxeval = 100
     opt.epsilons =  arange(13.5, 18.0, 0.5)
-    opt.bf_opt_steps = [0.02, 100.0]
+    opt.bf_opt_steps = [0.02, 50.0]
 else:
     opt.bounds = [(10.0, 1010.0)]
     opt.num_basis = 500
