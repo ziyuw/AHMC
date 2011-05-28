@@ -41,7 +41,7 @@ hw_0 = hidden_weights()
 hw_0.index = 0
 hw_0.num_units = 16
 hw_0.ih = '0.1:0.1'
-hw_0.bh = '-'
+hw_0.bh = '0.1:0.1'
 
 MADELON_spec.hidden_layer_specs.append(hw_0)
 

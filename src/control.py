@@ -57,7 +57,11 @@ class netspec:
 	cmd.append(self.file_path); cmd.append(self.num_input_units)
 	for hl in self.hidden_layer_specs:
 	    cmd.append(hl.num_units)
-	cmd.append(self.num_output_units); cmd.append('/')
+	if self.int_target != 0 and self.model_spec == 'class':
+	    cmd.append(self.int_target)
+	else:
+	    cmd.append(self.num_output_units)
+	cmd.append('/')
 	cmd.append(self.input_offset)
 	for hl in self.hidden_layer_specs:
 	    cmd.extend(hl.generate())

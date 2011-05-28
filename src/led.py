@@ -12,8 +12,8 @@ import sys
 conf = config('path_config.cfg')
 cur_counter = str(conf.get_and_set_run_counter())
 
-logger = logging.getLogger('robo' + cur_counter)
-hdlr = logging.FileHandler(conf.get_run_log_path('ROBOARM')+'robo' + cur_counter + '.log')
+logger = logging.getLogger('led' + cur_counter)
+hdlr = logging.FileHandler(conf.get_run_log_path('LED')+'led' + cur_counter + '.log')
 formatter = logging.Formatter('%(message)s')
 hdlr.setFormatter(formatter)
 logger.addHandler(hdlr) 
@@ -21,29 +21,31 @@ logger.setLevel(logging.INFO)
 
 # Find the paths
 command_path = conf.get_command_path()
-file_path = conf.get_file_path()+"robo" + cur_counter + ".net"
-data_file = conf.get_data_path('ROBOARM')+'combined_robot.data'
-test_data_file = conf.get_data_path('ROBOARM')+"combined_robot.data"
+file_path = conf.get_file_path()+"led" + cur_counter + ".net"
+data_file = conf.get_data_path('LED')+'led-noisy.data'
+test_data_file = conf.get_data_path('LED')+"led-noisy.valid"
 
 MADELON_spec = netspec(file_path, command_path, data_file, test_data_file)
 
 MADELON_spec.num_input_units = 24
 MADELON_spec.num_hidden_layers = 1
 
+MADELON_spec.int_target = 10
 MADELON_spec.num_output_units = 1
+
 MADELON_spec.hidden_output_weights = 'x1:0.2:0.2'
 MADELON_spec.output_bias = '1'
 
 MADELON_spec.input_output_weights = '1:0.2:0.2'
 
 MADELON_spec.train_range = '1:200'
-MADELON_spec.test_range = '201:400'
+MADELON_spec.test_range = '1:100'
 
 hw_0 = hidden_weights()
 hw_0.index = 0
 hw_0.num_units = 8
 hw_0.ih = '1:0.2:0.2'
-hw_0.bh = '-'
+hw_0.bh = '1:0.2'
 
 MADELON_spec.hidden_layer_specs.append(hw_0)
 
@@ -72,7 +74,6 @@ netgen_command = MADELON_spec.generate_netgen_command()
 print netspec.to_string(netgen_command)
 retcode = subprocess.check_call(netgen_command)
 print 'net-gen reuslt:', retcode
-
 
 
 # ===========================================================
