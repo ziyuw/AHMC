@@ -82,7 +82,7 @@ if len(sys.argv) > 1:
     pure_bayes = bool(sys.argv[1])
     
 if pure_bayes:
-    lambdas = array([0.4, 7500.0])
+    lambdas = array([0.3, 7950.0])
 else:
     lambdas = array([4900.0])
 

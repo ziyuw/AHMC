@@ -79,22 +79,43 @@ retcode = subprocess.check_call(netgen_command)
 print 'net-gen reuslt:', retcode
 
 
-# Setup opt
-lambdas = array([1000.0])
+# ===========================================================
+# Setup optimization
+# ===========================================================
+pure_bayes = True
+if len(sys.argv) > 1:
+    pure_bayes = bool(sys.argv[1])
+    
+if pure_bayes:
+    lambdas = array([0.3, 3950.0])
+else:
+    lambdas = array([1000.0])
 
 fn = lambda x, item, epsilon: util.Gaussian_RBF_lambda(x, item, epsilon, lambdas)
 opt = optimize(fn)
 
-opt.bounds = [(10.0, 1010.0)]
-opt.num_basis = 500
-opt.start_point = [50.0]
-opt.maxeval = 100
-opt.epsilons =  arange(13.0, 18.0, 0.5)
-opt.bf_opt_steps = [10.0]
+if pure_bayes:
+    opt.bounds = [(0.3, 0.6), (50.0, 4000.0)]
+    opt.num_basis = 500
+    opt.start_point = [0.4, 200.0]
+    opt.maxeval = 100
+    opt.epsilons =  arange(13.5, 18.0, 0.5)
+    opt.bf_opt_steps = [0.02, 100.0]
+else:
+    opt.bounds = [(10.0, 1010.0)]
+    opt.num_basis = 500
+    opt.start_point = [50.0]
+    opt.maxeval = 100
+    opt.epsilons =  arange(13.0, 18.0, 0.5)
+    opt.bf_opt_steps = [10.0]
 opt.reinitialize()
 
+# ===========================================================
+# Setup optimization end
+# ===========================================================
+
 # First run
-super_transition_steps = 10000
+super_transition_steps = 32000
 
 # Starter run setup
 MADELON_spec.lf_step = 100

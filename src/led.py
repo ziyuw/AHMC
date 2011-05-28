@@ -34,7 +34,7 @@ MADELON_spec.int_target = 10
 MADELON_spec.num_output_units = 1
 
 MADELON_spec.hidden_output_weights = 'x1:0.2:0.2'
-MADELON_spec.output_bias = '1'
+MADELON_spec.output_bias = '1:0.2'
 
 MADELON_spec.input_output_weights = '1:0.2:0.2'
 
@@ -115,11 +115,11 @@ opt.reinitialize()
 super_transition_steps = 32000
 
 # Starter run setup
-MADELON_spec.lf_step = 100
-MADELON_spec.window_size = 1
-MADELON_spec.epsilon = 0.02
+MADELON_spec.lf_step = 50
+MADELON_spec.window_size = 5
+MADELON_spec.epsilon = 0.4
 
-MADELON_spec.repeat_iteration = 40
+MADELON_spec.repeat_iteration = 200
 MADELON_spec.ceiling = 10
 MADELON_spec.sample_sigmas = False
 MADELON_spec.use_decay = False
