@@ -22,6 +22,8 @@ class hidden_weights:
 	
 	return cmd
 
+# ===============================================================================================
+
 class netspec:
     def __init__(self, file_path, command_path, data_file, test_data_file):
 	self.file_path = file_path # The location that stores the log file
@@ -195,7 +197,9 @@ class netspec:
 	for i in range(size(cmd)):
 	    cmd_string = cmd_string + cmd[i] + ' '
 	return cmd_string
-	
+
+# ===============================================================================================
+
 class facilities:
     
     def __init__(self, super_transition_steps, spec, opt):
@@ -208,7 +212,10 @@ class facilities:
 	self.prob_thresh = 0.01
 	self.opt = opt
 	self.reinitialized = False
+	self.pure_bayes = True
+	self.abandon_model = True
     
+# -----------------------------------------------------------------------------------------------
     def update_last_probs(self, prob):
 	self.last_probs.append(prob)
 	if len(self.last_probs) == self.num_probs+1:
@@ -220,7 +227,9 @@ class facilities:
 	    return True
 	    
 	return False
-    
+
+# -----------------------------------------------------------------------------------------------
+
     def get_weights(self, t):
 	"""
 	For a future implementation using autocorrelations
@@ -233,7 +242,9 @@ class facilities:
 	w_list = result[0].split('\n')
 	for item in w_list:
 	    print item
-    
+ 
+ # -----------------------------------------------------------------------------------------------
+ 
     def acceptence_rate(self):
 	"""
 	Get the latest acceptence rate
@@ -249,9 +260,13 @@ class facilities:
 	
 	return 1 - mean(w_list)
     
+# -----------------------------------------------------------------------------------------------
+    
     def annealing_schedule(self):
 	return float(self.iter_ct+1.0)**-0.4
-    
+
+# -----------------------------------------------------------------------------------------------
+
     @staticmethod
     def sqrt_err(result):
 	#splited = result.split('\n')
@@ -259,7 +274,9 @@ class facilities:
 	    if 'total' in line:
 		splitted = line.strip('()').split()
 		return float(0.01-float(splitted[len(splitted)-1].split('+-')[0]))*1000
-    
+
+# -----------------------------------------------------------------------------------------------
+
     @staticmethod
     def class_err(result):
 	#splited = result.split('\n')
@@ -268,9 +285,13 @@ class facilities:
 		splitted = line.split()
 		return float(0.2 - float(splitted[len(splitted)-1].split('+-')[0]))*100
 
+# -----------------------------------------------------------------------------------------------
+
     def setup_ceiling(self):
 	self.step_size = int(floor(float(self.super_transition_steps)/self.spec.lf_step))
 	self.spec.ceiling = self.spec.ceiling + self.step_size
+
+# -----------------------------------------------------------------------------------------------
 
     def starter_run(self, logger):
 	# Change stepsize and epsilon
@@ -289,7 +310,9 @@ class facilities:
 	retcode = subprocess.check_call(netmc_command)
 	print "Starter Run: Finished running the chain."
 	logger.info("Starter Run: Finished running the chain.")
-	
+
+# -----------------------------------------------------------------------------------------------
+
     def opt_iter(self, logger):
 	
 	# Change stepsize and epsilon
@@ -326,38 +349,10 @@ class facilities:
 	logger.info("	Finished prediction.")
 	logger.info("	Reward: " + str(reward))
 	
-	extreme_prob = self.opt.prob_obs_x_or_extm([self.spec.epsilon*self.spec.lf_step], reward)[0]
+	# NOTE: Perform Bayesian optimization here
+	self.bayesian_opt(reward, self.pure_bayes, logger)
 	
-	print "	Extreme Prob:", extreme_prob
-	logger.info("	Extreme Prob: " + str(extreme_prob))
-	
-	# NOTE: extreme prob here
-	model_abandoned = self.update_last_probs(extreme_prob)
-	if model_abandoned:
-	    print "MODEL ABANDONED!."
-	    logger.info("MODEL ABANDONED!")
-	
-	# Get the acceptence rate
-	accpt_rate = self.acceptence_rate()
-
-	self.opt.update([self.spec.epsilon*self.spec.lf_step], reward)
-	print "	Finished Update."
-	print "	Average accpt rate:", str(accpt_rate)
-	logger.info("	Finished Update.")
-	logger.info("	Average accpt rate: " + str(accpt_rate))
-	# Do optimization
-	x = self.opt.bf_opt(float(self.iter_ct+1))
-	
-	if accpt_rate > 0.7:
-	    self.spec.epsilon = self.spec.epsilon + self.annealing_schedule()*self.anneal_const
-	elif accpt_rate < 0.6:
-	    self.spec.epsilon = self.spec.epsilon - self.annealing_schedule()*self.anneal_const
-	
-	self.spec.lf_step = int(float(x[0])/self.spec.epsilon)
-	
-	print "	New Trajectory length:", x[0]
 	print "	New params:", self.spec.epsilon, self.spec.lf_step
-	logger.info("	New Trajectory length: " + str(x[0]))
 	logger.info("	New params: " + str(self.spec.epsilon) + " " + str(self.spec.lf_step))
 
 	self.setup_ceiling()
@@ -367,4 +362,53 @@ class facilities:
 	
 	self.iter_ct = self.iter_ct + 1
 	
-	#self.get_weights(self.iter_ct)
+# -----------------------------------------------------------------------------------------------
+
+    def bayesian_opt(self, reward, pure_bayes, logger):
+	
+	if self.abandon_model:
+	    # Get the extreme probability
+	    extreme_prob = 0
+	    if pure_bayes:
+		extreme_prob = self.opt.prob_obs_x_or_extm([self.spec.epsilon, self.spec.lf_step], reward)[0]
+	    else:
+		extreme_prob = self.opt.prob_obs_x_or_extm([self.spec.epsilon*self.spec.lf_step], reward)[0]
+		
+	    print "	Extreme Prob:", extreme_prob
+	    logger.info("	Extreme Prob: " + str(extreme_prob))
+	    
+	    # NOTE: extreme prob here
+	    model_abandoned = self.update_last_probs(extreme_prob)
+	    if model_abandoned:
+		print "MODEL ABANDONED!."
+		logger.info("MODEL ABANDONED!")
+	
+	
+	# Update Model
+	if pure_bayes:
+	    self.opt.update([self.spec.epsilon, self.spec.lf_step], reward)
+	else:
+	    self.opt.update([self.spec.epsilon*self.spec.lf_step], reward)
+	
+	# Get the acceptence rate
+	accpt_rate = self.acceptence_rate()
+
+	print "	Finished Update."
+	print "	Average accpt rate:", str(accpt_rate)
+	logger.info("	Finished Update.")
+	logger.info("	Average accpt rate: " + str(accpt_rate))
+	
+	# Do optimization
+	x = self.opt.bf_opt(float(self.iter_ct+1))
+	
+	if pure_bayes:
+	    self.spec.epsilon = x[0]
+	    self.spec.lf_step = int(floor(x[1]))
+	else:
+	    print "	New Trajectory length:", x[0]
+	    logger.info("	New Trajectory length: " + str(x[0]))
+	    if accpt_rate > 0.7:
+		self.spec.epsilon = self.spec.epsilon + self.annealing_schedule()*self.anneal_const
+	    elif accpt_rate < 0.6:
+		self.spec.epsilon = self.spec.epsilon - self.annealing_schedule()*self.anneal_const
+	    self.spec.lf_step = int(float(x[0])/self.spec.epsilon)

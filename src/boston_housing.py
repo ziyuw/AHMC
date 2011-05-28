@@ -7,7 +7,7 @@ import util
 from config import *
 
 import logging
-import sys
+
 
 conf = config('path_config.cfg')
 cur_counter = str(conf.get_and_set_run_counter())
@@ -73,43 +73,28 @@ retcode = subprocess.check_call(netgen_command)
 print 'net-gen reuslt:', retcode
 
 
-
-# ===========================================================
-# Setup optimization
-# ===========================================================
-pure_bayes = True
-if len(sys.argv) > 1:
-    pure_bayes = bool(sys.argv[1])
-    
-if pure_bayes:
-    lambdas = array([0.4, 7500.0])
-else:
-    lambdas = array([4900.0])
+# Setup opt
+lambdas = array([4900.0])
 
 fn = lambda x, item, epsilon: util.Gaussian_RBF_lambda(x, item, epsilon, lambdas)
 opt = optimize(fn)
 
-if pure_bayes:
-    opt.bounds = [(0.2, 0.6), (50.0, 8000.0)]
-    opt.num_basis = 500
-    opt.start_point = [0.4, 200.0]
-    opt.maxeval = 100
-    opt.epsilons =  arange(13.5, 18.0, 0.5)
-    opt.bf_opt_steps = [0.02, 100.0]
-else:
-    opt.bounds = [(105.0, 5005.0)]
-    opt.num_basis = 200
-    opt.start_point = [50.0]
-    opt.maxeval = 100
-    opt.epsilons =  arange(12.0, 16.0, 0.5)
-    opt.bf_opt_steps = [20.0]
+opt.bounds = [(105.0, 5005.0)]
+opt.num_basis = 100
+opt.start_point = [200.0]
+opt.maxeval = 100
+opt.epsilons =  arange(13.5, 14.0, 0.5)
+opt.bf_opt_steps = [20.0]
+
+#opt.bounds = [(105.0, 5005.0)]
+#opt.num_basis = 200
+#opt.start_point = [50.0]
+#opt.maxeval = 100
+#opt.epsilons =  arange(12.0, 16.0, 0.5)
+#opt.bf_opt_steps = [20.0]
 opt.reinitialize()
 
-# ===========================================================
-# Setup optimization end
-# ===========================================================
-
-# Set up the number of super transition steps
+# First run
 super_transition_steps = 32000
 
 # Starter run setup

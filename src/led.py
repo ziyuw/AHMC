@@ -27,26 +27,27 @@ test_data_file = conf.get_data_path('ROBOARM')+"combined_robot.data"
 
 MADELON_spec = netspec(file_path, command_path, data_file, test_data_file)
 
-MADELON_spec.num_input_units = 2
+MADELON_spec.num_input_units = 24
 MADELON_spec.num_hidden_layers = 1
 
-MADELON_spec.num_output_units = 2
-MADELON_spec.hidden_output_weights = 'x0.1:0.1'
+MADELON_spec.num_output_units = 1
+MADELON_spec.hidden_output_weights = 'x1:0.2:0.2'
 MADELON_spec.output_bias = '1'
+
+MADELON_spec.input_output_weights = '1:0.2:0.2'
 
 MADELON_spec.train_range = '1:200'
 MADELON_spec.test_range = '201:400'
 
 hw_0 = hidden_weights()
 hw_0.index = 0
-hw_0.num_units = 16
-hw_0.ih = '0.1:0.1'
+hw_0.num_units = 8
+hw_0.ih = '1:0.2:0.2'
 hw_0.bh = '-'
 
 MADELON_spec.hidden_layer_specs.append(hw_0)
 
-MADELON_spec.model_spec = 'real'
-MADELON_spec.noise_level = '0.1:0.1'
+MADELON_spec.model_spec = 'class'
 
 # Set up neural net
 netspec_cmd = MADELON_spec.generate_netspec_command()
