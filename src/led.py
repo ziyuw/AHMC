@@ -33,7 +33,7 @@ MADELON_spec.num_hidden_layers = 1
 MADELON_spec.int_target = 10
 MADELON_spec.num_output_units = 1
 
-MADELON_spec.hidden_output_weights = 'x1:0.2:0.2'
+MADELON_spec.hidden_output_weights = 'x1:0.2'
 MADELON_spec.output_bias = '1:0.2'
 
 MADELON_spec.input_output_weights = '1:0.2:0.2'
