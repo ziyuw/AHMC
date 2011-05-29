@@ -325,7 +325,7 @@ class facilities:
 	    result = process.communicate()
 	    
 	    w_list = result[0].strip('\n').split('\n')
-	    w_list = w_list[len(w_list) - step_size - 1:len(w_list)-1]
+	    w_list = w_list[len(w_list) - self.step_size - 1:len(w_list)-1]
 	    w_list = [float(x.split()[1]) for x in w_list]
 	    rates.append(1 - mean(w_list))
 	
@@ -367,6 +367,7 @@ class facilities:
 # -----------------------------------------------------------------------------------------------
 
     def starter_run(self, logger):
+	print "Starter Run: running......"
 	self.pool.map(start_run_func, self.specs)
 	
 	print "Starter Run: Finished running the chain."
@@ -376,7 +377,8 @@ class facilities:
 # -----------------------------------------------------------------------------------------------
 
     def opt_iter(self, logger):
-	#NOTE: This is not finished yet
+	
+	print "	running......"
 	rewards = self.pool.map(net_mc, self.specs)
 	reward = mean(rewards)
 	
