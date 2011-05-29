@@ -16,13 +16,14 @@ total = 200
 conf = config('path_config.cfg')
 cur_counter = str(conf.get_and_set_run_counter())
 
-# Setup logging
+# --------------- Setup logging ---------------
 logger = logging.getLogger('robo' + cur_counter)
 hdlr = logging.FileHandler(conf.get_run_log_path('ROBOARM')+'robo' + cur_counter + '.log')
 formatter = logging.Formatter('%(message)s')
 hdlr.setFormatter(formatter)
 logger.addHandler(hdlr) 
 logger.setLevel(logging.INFO)
+# ---------------------------------------------
 
 data_file = conf.get_data_path('ROBOARM')+'combined_robot.data.train'
 test_data_file = conf.get_data_path('ROBOARM')+"combined_robot.data.train"
@@ -144,6 +145,7 @@ facility.starter_run(logger)
 
 facility.epsilon = 0.1
 facility.lf_step = 500
+facility.setup_ceiling()
 
 for ROBO_spec in ROBO_specs:
     # Final runs setup
@@ -152,7 +154,6 @@ for ROBO_spec in ROBO_specs:
     ROBO_spec.epsilon = facility.epsilon
 
     ROBO_spec.repeat_iteration = 1
-    facility.setup_ceiling()
 
     ROBO_spec.sample_sigmas = True
     #ROBO_spec.use_decay = True

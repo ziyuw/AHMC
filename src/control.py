@@ -402,6 +402,9 @@ class facilities:
 # -----------------------------------------------------------------------------------------------
 
     def bayesian_opt(self, reward, logger):
+	"""
+	Perform Bayesian optimization to find the next set of parameters
+	"""
 	
 	if self.abandon_model:
 	    # Get the extreme probability
@@ -445,6 +448,9 @@ class facilities:
 # -----------------------------------------------------------------------------------------------
 
     def update_specs(self, x, accpt_rate, logger):
+	"""
+	Update the parameters after Bayesian Opt. was performed
+	"""
 	
 	if self.pure_bayes:
 	    self.epsilon = x[0]
