@@ -209,6 +209,10 @@ class group_linreg:
 	x = array(x); x = mat(reshape(x, (1, shape(x)[0])));
 	mean, variance = self.predict(x)
 	
-	alpha = sqrt(2*log(self.dim*t**2*pi**2/float(6*self.delta)))*self.alpha_const
+	# GP-UCB
+	#alpha = sqrt(2*log(self.dim*t**2*pi**2/float(6*self.delta)))*self.alpha_const
+	
+	# Lin UCB
+	alpah = 1.0 + sqrt(log(2.0/self.delta)/2.0) 
 	#alpha = 0.2
 	return mean + alpha*variance
