@@ -28,7 +28,7 @@ logger.setLevel(logging.INFO)
 command_path = conf.get_command_path()
 
 data_file = conf.get_data_path('LED')+'led-noisy.data'
-test_data_file = conf.get_data_path('LED')+"led-noisy.valid"
+test_data_file = conf.get_data_path('LED')+"led-noisy.data"
 
 os.mkdir(conf.get_file_path("led", cur_counter))
 
@@ -50,8 +50,8 @@ for i in range(cv_fold):
 
     LED_spec.input_output_weights = '1:0.2:0.2'
 
-    LED_spec.train_range = '1:200'
-    LED_spec.test_range = '1:100'
+    LED_spec.train_range = '-'+str(i*(total/cv_fold)+1)+':'+str((i+1)*(total/cv_fold))
+    LED_spec.test_range = str(i*(total/cv_fold)+1)+':'+str((i+1)*(total/cv_fold))
 
     hw_0 = hidden_weights()
     hw_0.index = 0
@@ -98,7 +98,7 @@ if len(sys.argv) > 1:
     pure_bayes = bool(sys.argv[1])
     
 if pure_bayes:
-    lambdas = array([0.4, 1450.0])
+    lambdas = array([0.5, 1450.0])
 else:
     lambdas = array([4900.0])
 
@@ -107,7 +107,7 @@ opt = optimize(fn)
 
 if pure_bayes:
     opt.bounds = [(0.2, 0.7), (50.0, 1500.0)]
-    opt.num_basis = 500
+    opt.num_basis = 400
     opt.start_point = [0.4, 200.0]
     opt.maxeval = 100
     opt.epsilons =  arange(13.5, 18.0, 0.5)
@@ -119,6 +119,7 @@ else:
     opt.maxeval = 100
     opt.epsilons =  arange(12.0, 16.0, 0.5)
     opt.bf_opt_steps = [20.0]
+
 opt.reinitialize()
 
 # ===========================================================
