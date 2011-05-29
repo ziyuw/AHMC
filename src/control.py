@@ -235,7 +235,7 @@ def net_mc(spec):
     # Change stepsize and epsilon
     mcspec_command = spec.generate_mcspec_command()
     mcspec_command_str = netspec.to_string(mcspec_command)
-    print mcspec_command_str
+    #print mcspec_command_str
     
     retcode = subprocess.check_call(mcspec_command)
     
