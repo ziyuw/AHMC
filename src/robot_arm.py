@@ -24,8 +24,8 @@ hdlr.setFormatter(formatter)
 logger.addHandler(hdlr) 
 logger.setLevel(logging.INFO)
 
-data_file = conf.get_data_path('ROBOARM')+'combined_robot.data'
-test_data_file = conf.get_data_path('ROBOARM')+"combined_robot.data"
+data_file = conf.get_data_path('ROBOARM')+'combined_robot.data.train'
+test_data_file = conf.get_data_path('ROBOARM')+"combined_robot.data.train"
 
 os.mkdir(conf.get_file_path("robo", cur_counter))
 
