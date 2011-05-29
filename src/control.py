@@ -213,9 +213,6 @@ class netspec:
 # -----------------------------------------------------------------------------------------------
 
 def start_run_func(spec):
-    
-    print "IN START RUN FUNC!"
-    
     # Change stepsize and epsilon
     mcspec_command = spec.generate_mcspec_command()
     mcspec_command_str = netspec.to_string(mcspec_command)
@@ -408,9 +405,9 @@ class facilities:
 	    # Get the extreme probability
 	    extreme_prob = 0
 	    if self.pure_bayes:
-		extreme_prob = self.opt.prob_obs_x_or_extm([self.spec.epsilon, self.spec.lf_step], reward)[0]
+		extreme_prob = self.opt.prob_obs_x_or_extm([self.epsilon, self.lf_step], reward)[0]
 	    else:
-		extreme_prob = self.opt.prob_obs_x_or_extm([self.spec.epsilon*self.spec.lf_step], reward)[0]
+		extreme_prob = self.opt.prob_obs_x_or_extm([self.epsilon*self.lf_step], reward)[0]
 		
 	    print "	Extreme Prob:", extreme_prob
 	    logger.info("	Extreme Prob: " + str(extreme_prob))
@@ -424,9 +421,9 @@ class facilities:
 	
 	# Update Model
 	if self.pure_bayes:
-	    self.opt.update([self.spec.epsilon, self.spec.lf_step], reward)
+	    self.opt.update([self.epsilon, self.lf_step], reward)
 	else:
-	    self.opt.update([self.spec.epsilon*self.spec.lf_step], reward)
+	    self.opt.update([self.epsilon*self.lf_step], reward)
 	
 	print "	Finished Update."
 	logger.info("	Finished Update.")
