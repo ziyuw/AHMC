@@ -143,11 +143,11 @@ facility = facilities(super_transition_steps, ROBO_specs, opt)
 facility.starter_run(logger)
 
 facility.epsilon = 0.1
-facility.spec.lf_step = 500
+facility.lf_step = 500
 
 for ROBO_spec in ROBO_specs:
     # Final runs setup
-    ROBO_spec.lf_step = facility.spec.lf_step
+    ROBO_spec.lf_step = facility.lf_step
     ROBO_spec.window_size = 10
     ROBO_spec.epsilon = facility.epsilon
 
