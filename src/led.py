@@ -8,6 +8,7 @@ from config import *
 
 import logging
 import sys
+import os
 
 total = 200
 cv_fold = 8
