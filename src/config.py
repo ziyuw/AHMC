@@ -35,11 +35,11 @@ class config:
 	
 	return cmd_path
 	
-    def get_file_path(self):
+    def get_file_path(self, name = '', cur_counter = ''):
 	config = ConfigParser.RawConfigParser()
 	config.read(self.config_file)
 	file_path = config.get('Section1', 'file_path')
-	return file_path
+	return file_path + str(name) + str(cur_counter)
 	
     def get_data_path(self, data_set_name):
 	config = ConfigParser.RawConfigParser()

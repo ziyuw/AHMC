@@ -8,10 +8,15 @@ from config import *
 
 import logging
 import sys
+import os
+
+cv_fold = 8
+total = 200
 
 conf = config('path_config.cfg')
 cur_counter = str(conf.get_and_set_run_counter())
 
+# Setup logging
 logger = logging.getLogger('robo' + cur_counter)
 hdlr = logging.FileHandler(conf.get_run_log_path('ROBOARM')+'robo' + cur_counter + '.log')
 formatter = logging.Formatter('%(message)s')
@@ -19,60 +24,67 @@ hdlr.setFormatter(formatter)
 logger.addHandler(hdlr) 
 logger.setLevel(logging.INFO)
 
-# Find the paths
-command_path = conf.get_command_path()
-file_path = conf.get_file_path()+"robo" + cur_counter + ".net"
 data_file = conf.get_data_path('ROBOARM')+'combined_robot.data'
 test_data_file = conf.get_data_path('ROBOARM')+"combined_robot.data"
 
-MADELON_spec = netspec(file_path, command_path, data_file, test_data_file)
+os.mkdir(conf.get_file_path("robo", cur_counter))
 
-MADELON_spec.num_input_units = 2
-MADELON_spec.num_hidden_layers = 1
+command_path = conf.get_command_path()
 
-MADELON_spec.num_output_units = 2
-MADELON_spec.hidden_output_weights = 'x0.1:0.1'
-MADELON_spec.output_bias = '1'
+ROBO_specs = []
 
-MADELON_spec.train_range = '1:150'
-MADELON_spec.test_range = '151:200'
+for i in range(cv_fold):
+    # Find the paths
+    file_path = conf.get_file_path("robo", cur_counter) + "/" + "robo" + str(i) + ".net"
 
-hw_0 = hidden_weights()
-hw_0.index = 0
-hw_0.num_units = 16
-hw_0.ih = '0.1:0.1'
-hw_0.bh = '0.1:0.1'
+    ROBO_spec = netspec(file_path, command_path, data_file, test_data_file)
 
-MADELON_spec.hidden_layer_specs.append(hw_0)
+    ROBO_spec.num_input_units = 2
+    ROBO_spec.num_hidden_layers = 1
 
-MADELON_spec.model_spec = 'real'
-MADELON_spec.noise_level = '0.1:0.1'
+    ROBO_spec.num_output_units = 2
+    ROBO_spec.hidden_output_weights = 'x0.1:0.1'
+    ROBO_spec.output_bias = '1'
 
-# Set up neural net
-netspec_cmd = MADELON_spec.generate_netspec_command()
-print netspec.to_string(netspec_cmd)
-retcode = subprocess.check_call(netspec_cmd)
-print 'net-spec reuslt:', retcode
+    ROBO_spec.train_range = '-'+str(i*(total/cv_fold)+1)+':'+str((i+1)*(total/cv_fold))
+    ROBO_spec.test_range = str(i*(total/cv_fold)+1)+':'+str((i+1)*(total/cv_fold))
 
+    hw_0 = hidden_weights()
+    hw_0.index = 0
+    hw_0.num_units = 16
+    hw_0.ih = '0.1:0.1'
+    hw_0.bh = '0.1:0.1'
 
-modelspec_command = MADELON_spec.generate_modelspec_command()
-print netspec.to_string(modelspec_command)
-retcode = subprocess.check_call(modelspec_command)
-print 'model-spec reuslt:', retcode
+    ROBO_spec.hidden_layer_specs.append(hw_0)
 
+    ROBO_spec.model_spec = 'real'
+    ROBO_spec.noise_level = '0.1:0.1'
 
-dataspec_command = MADELON_spec.generate_dataspec_command()
-print netspec.to_string(dataspec_command)
-retcode = subprocess.check_call(dataspec_command)
-print 'data-spec reuslt:', retcode
+    # Set up neural net
+    netspec_cmd = ROBO_spec.generate_netspec_command()
+    #print netspec.to_string(netspec_cmd)
+    retcode = subprocess.check_call(netspec_cmd)
+    #print 'net-spec reuslt:', retcode
 
 
-netgen_command = MADELON_spec.generate_netgen_command()
-print netspec.to_string(netgen_command)
-retcode = subprocess.check_call(netgen_command)
-print 'net-gen reuslt:', retcode
+    modelspec_command = ROBO_spec.generate_modelspec_command()
+    #print netspec.to_string(modelspec_command)
+    retcode = subprocess.check_call(modelspec_command)
+    #print 'model-spec reuslt:', retcode
 
 
+    dataspec_command = ROBO_spec.generate_dataspec_command()
+    #print netspec.to_string(dataspec_command)
+    retcode = subprocess.check_call(dataspec_command)
+    #print 'data-spec reuslt:', retcode
+
+
+    netgen_command = ROBO_spec.generate_netgen_command()
+    #print netspec.to_string(netgen_command)
+    retcode = subprocess.check_call(netgen_command)
+    #print 'net-gen reuslt:', retcode
+
+    ROBO_specs.append(ROBO_spec)
 
 # ===========================================================
 # Setup optimization
@@ -112,34 +124,39 @@ opt.reinitialize()
 # Set up the number of super transition steps
 super_transition_steps = 32000
 
-# Starter run setup
-MADELON_spec.lf_step = 100
-MADELON_spec.window_size = 1
-MADELON_spec.epsilon = 0.02
+for ROBO_spec in ROBO_specs:
+    # Starter run setup
+    ROBO_spec.lf_step = 100
+    ROBO_spec.window_size = 1
+    ROBO_spec.epsilon = 0.02
 
-MADELON_spec.repeat_iteration = 40
-MADELON_spec.ceiling = 10
-MADELON_spec.sample_sigmas = False
-MADELON_spec.use_decay = False
-MADELON_spec.negate = False
+    ROBO_spec.repeat_iteration = 40
+    ROBO_spec.ceiling = 10
+    ROBO_spec.sample_sigmas = False
+    ROBO_spec.use_decay = False
+    ROBO_spec.negate = False
 
 
-facility = facilities(super_transition_steps, MADELON_spec, opt)
+facility = facilities(super_transition_steps, ROBO_specs, opt)
 
 # Starter Run
 facility.starter_run(logger)
 
-# Final runs setup
-MADELON_spec.lf_step = 500
-MADELON_spec.window_size = 10
-MADELON_spec.epsilon = 0.1
+facility.epsilon = 0.1
+facility.spec.lf_step = 500
 
-MADELON_spec.repeat_iteration = 1
-facility.setup_ceiling()
+for ROBO_spec in ROBO_specs:
+    # Final runs setup
+    ROBO_spec.lf_step = facility.spec.lf_step
+    ROBO_spec.window_size = 10
+    ROBO_spec.epsilon = facility.epsilon
 
-MADELON_spec.sample_sigmas = True
-#MADELON_spec.use_decay = True
-#MADELON_spec.negate = True
+    ROBO_spec.repeat_iteration = 1
+    facility.setup_ceiling()
+
+    ROBO_spec.sample_sigmas = True
+    #ROBO_spec.use_decay = True
+    #ROBO_spec.negate = True
 
 # Loop
 for i in range(200):
