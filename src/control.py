@@ -48,6 +48,9 @@ class netspec:
 	self.sample_sigmas = True; self.decay = '0.8'
 	self.negate = True; self.use_decay = True
 	
+	self.step_size = 0
+	
+	
     def make_string(self, cmd):
 	for i in range(size(cmd)):
 	    cmd[i] = str(cmd[i])
@@ -243,7 +246,7 @@ def net_mc(spec):
     retcode = subprocess.check_call(netmc_command)
     
     # Run prediction and calculate reward
-    netpred_command = spec.generate_netpred_command(spec.ceiling - self.step_size+1)
+    netpred_command = spec.generate_netpred_command(spec.ceiling - spec.step_size+1)
     netpred_command_str = netspec.to_string(netpred_command)
     
     process = subprocess.Popen(netpred_command, shell=False, stdout=subprocess.PIPE)
@@ -362,6 +365,7 @@ class facilities:
 	self.step_size = int(floor(float(self.super_transition_steps)/self.lf_step))
 	for spec in self.specs:
 	    spec.ceiling = spec.ceiling + self.step_size
+	    spec.step_size = self.step_size
 
 # -----------------------------------------------------------------------------------------------
 
