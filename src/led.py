@@ -127,7 +127,7 @@ opt.reinitialize()
 # ===========================================================
 
 # Set up the number of super transition steps
-super_transition_steps = 32000
+super_transition_steps = 10000
 
 for LED_spec in LED_specs:
     # Starter run setup
@@ -155,17 +155,17 @@ facility.setup_ceiling()
 for LED_spec in LED_specs:
     # Final runs setup
     LED_spec.lf_step = facility.lf_step
-    LED_spec.window_size = 10
+    LED_spec.window_size = 5
     LED_spec.epsilon = facility.epsilon
 
-    LED_spec.repeat_iteration = 1
+    LED_spec.repeat_iteration = 10
 
     LED_spec.sample_sigmas = True
     #LED_spec.use_decay = True
     #LED_spec.negate = True
 
 # Loop
-for i in range(100):
+for i in range(150):
     print "Iteration:", i
     logger.info("Iteration: " + str(i))
     facility.opt_iter(logger)
