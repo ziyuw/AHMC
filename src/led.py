@@ -127,7 +127,7 @@ opt.reinitialize()
 # ===========================================================
 
 # Set up the number of super transition steps
-super_transition_steps = 10000
+super_transition_steps = 32000
 
 for LED_spec in LED_specs:
     # Starter run setup
