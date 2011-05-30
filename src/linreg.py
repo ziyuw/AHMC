@@ -2,6 +2,7 @@ from numpy import *
 from numpy.random import *
 import numpy.linalg
 import util
+from multiprocessing import Pool
 
 """
 This file handles Bayesian Linear Regression
@@ -124,9 +125,18 @@ class BayesLinModel:
 	
 	return const
 
+def expected_improvement_func(arg):
+    lin_model = arg[0]
+    x = arg[1]
+    return lin_model.expected_improvement(x)
+
+def predict_func(arg):
+    lin_model = arg[0]
+    x = arg[1]
+    return lin_model.predict(x)
 
 class group_linreg:
-    def __init__(self, epsilons, v_0, w_0, a_0, b_0, basis, RBF_func = None):
+    def __init__(self, epsilons, v_0, w_0, a_0, b_0, basis, RBF_func = None, parallel = True):
 	"""
 	epsilons is a list of epsilons with equal probability
 	"""
@@ -135,6 +145,10 @@ class group_linreg:
 	self.dim = shape(v_0)[0]
 	self.size = size(epsilons)
 	self.linreg_list = []
+	self.parallel = parallel
+	self.pool = None
+	if self.parallel:
+	    self.pool = Pool(processes=self.size)
 	for epsilon in epsilons:
 	    self.linreg_list.append(BayesLinModel(v_0, w_0, a_0, b_0, epsilon, basis, RBF_func))
 	    
@@ -148,6 +162,25 @@ class group_linreg:
 	for lin_model in self.linreg_list:
 	    lin_model.update(mat(x), y_n)
 	
+    def predict_parallel(self, x):
+	"""
+	This returns the expectation and the variance
+	"""
+	
+	arg = [(self.linreg_list[i], mat(x)) for i in range(self.size)]
+	
+	means, variances, dfs = self.pool.map(predict_func, arg)
+	
+	# Total law of Expectation
+	predict_mean = mean(means)
+	
+	# Total law of Variance
+	predict_variance = var(means) + mean(variances)
+	
+	#print predict_variance
+	
+	return predict_mean, predict_variance
+
     def predict(self, x):
 	"""
 	This returns the expectation and the variance
@@ -199,15 +232,22 @@ class group_linreg:
 
     def expected_improvement(self, x):
 	means = empty((self.size, 1))
-	for i in range(self.size):
-	    #print x
-	    means[i] = self.linreg_list[i].expected_improvement(x)
+	if self.parallel:
+	    arg = [[self.linreg_list[i], x] for i in range(self.size)]
+	    means = self.pool.map(expected_improvement_func, arg)
+	else:
+	    for i in range(self.size):
+		#print x
+		means[i] = self.linreg_list[i].expected_improvement(x)
 	return mean(means)
 
     def compute_UCB(self, x, t):
 	# NOTE: Check this out
 	x = array(x); x = mat(reshape(x, (1, shape(x)[0])));
-	mean, variance = self.predict(x)
+	if self.parallel:
+	    mean, variance = self.predict_parallel(x)
+	else:
+	    mean, variance = self.predict(x)
 	
 	# GP-UCB
 	#alpha = sqrt(2*log(self.dim*t**2*pi**2/float(6*self.delta)))*self.alpha_const

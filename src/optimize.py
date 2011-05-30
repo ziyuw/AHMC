@@ -105,7 +105,7 @@ class optimize:
 	    objective = local_objective_func(x, 0)
 	    if objective > best_objective:
 		best_param = x
-		best_objective = local_objective_func(x, 0)
+		best_objective = objective
 		
 		return best_param, best_objective
 	elif i < len(range_list):
