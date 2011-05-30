@@ -3,6 +3,13 @@ import util
 from numpy import *
 from numpy.random import *
 
+def objective_2(x, y):
+    return cos(30*(0.5*exp(-((x-0.3)**2 - ((y-250.0)/1450.0)**2)) + 0.5*exp((-(x-0.5)**2 - ((y-1050.0)/1450.0)**2))))/((x-0.5)**2 + ((y-1050.0)/1450.0)**2+1)
+    
+def objective(x):
+    return objective_2(x[0], x[1])
+
+
 plot = False
 if plot:
     from mpl_toolkits.mplot3d import Axes3D
@@ -11,13 +18,7 @@ if plot:
     import matplotlib.pyplot as plt
 
     contour = False
-
-    def objective_2(x, y):
-	return cos(30*(0.5*exp(-((x-0.3)**2 - ((y-250.0)/1450.0)**2)) + 0.5*exp((-(x-0.5)**2 - ((y-1050.0)/1450.0)**2))))/((x-0.5)**2 + ((y-1050.0)/1450.0)**2+1)
-	
-    def objective(x):
-	return objective_2(x[0], x[1])
-
+    
     X = arange(-0.2, 0.7, 0.02)
     Y = arange(50, 1500, 20.0)
     X, Y = meshgrid(X, Y)
