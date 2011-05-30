@@ -2,6 +2,7 @@ from optimize import *
 import util
 from numpy import *
 from numpy.random import *
+import time
 
 def objective_2(x, y):
     return cos(30*(0.5*exp(-((x-0.3)**2 - ((y-250.0)/1450.0)**2)) + 0.5*exp((-(x-0.5)**2 - ((y-1050.0)/1450.0)**2))))/((x-0.5)**2 + ((y-1050.0)/1450.0)**2+1)
@@ -61,8 +62,13 @@ opt.reinitialize()
 
 x = opt.start_point
 for i in range(100):
+    time1 = time.time()
+    
     noisy_y = objective(x) + normal(loc=0.0, scale=0.1)
     print i, x, noisy_y
     opt.update(x, noisy_y)
     x = opt.bf_opt(float(i+1)) # Use brute force to optimize
     # x = opt.direct(float(i+1)) # Use direct to optimize
+    
+    time2 = time.time()
+    print 'Took:', time2-time1, 'secs'
