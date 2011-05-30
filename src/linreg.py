@@ -152,7 +152,7 @@ def predict_func(arg):
     return lin_model.predict(x)
 
 class group_linreg:
-    def __init__(self, epsilons, v_0, w_0, a_0, b_0, basis, RBF_func = None, parallel = False):
+    def __init__(self, epsilons, v_0, w_0, a_0, b_0, basis, RBF_func = None, parallel = True):
 	"""
 	epsilons is a list of epsilons with equal probability
 	"""
