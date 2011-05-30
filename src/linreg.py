@@ -125,6 +125,22 @@ class BayesLinModel:
 	
 	return const
 
+from multiprocessing import Process, Pipe
+from itertools import izip
+
+def spawn(f):
+    def fun(pipe,x):
+        pipe.send(f(x))
+        pipe.close()
+    return fun
+
+def parmap(f,X):
+    pipe=[Pipe() for x in X]
+    proc=[Process(target=spawn(f),args=(c,x)) for x,(p,c) in izip(X,pipe)]
+    [p.start() for p in proc]
+    [p.join() for p in proc]
+    return [p.recv() for (p,c) in pipe]
+
 def expected_improvement_func(arg):
     lin_model = arg[0]
     x = arg[1]
@@ -136,7 +152,7 @@ def predict_func(arg):
     return lin_model.predict(x)
 
 class group_linreg:
-    def __init__(self, epsilons, v_0, w_0, a_0, b_0, basis, RBF_func = None, parallel = True):
+    def __init__(self, epsilons, v_0, w_0, a_0, b_0, basis, RBF_func = None, parallel = False):
 	"""
 	epsilons is a list of epsilons with equal probability
 	"""
@@ -234,7 +250,7 @@ class group_linreg:
 	means = empty((self.size, 1))
 	if self.parallel:
 	    arg = [[self.linreg_list[i], x] for i in range(self.size)]
-	    means = self.pool.map(expected_improvement_func, arg)
+	    means = parmap(expected_improvement_func, arg)
 	else:
 	    for i in range(self.size):
 		#print x
