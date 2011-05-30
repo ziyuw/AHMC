@@ -95,7 +95,7 @@ if len(sys.argv) > 1:
     pure_bayes = bool(sys.argv[1])
     
 if pure_bayes:
-    lambdas = array([0.3, 4950.0])
+    lambdas = array([0.4, 4950.0])
 else:
     lambdas = array([4900.0])
 
@@ -103,11 +103,11 @@ fn = lambda x, item, epsilon: util.Gaussian_RBF_lambda(x, item, epsilon, lambdas
 opt = optimize(fn)
 
 if pure_bayes:
-    opt.bounds = [(0.3, 0.6), (50.0, 5000.0)]
-    opt.num_basis = 400
+    opt.bounds = [(0.2, 0.6), (50.0, 5000.0)]
+    opt.num_basis = 200
     opt.start_point = [0.4, 200.0]
     opt.maxeval = 100
-    opt.epsilons =  arange(13.5, 18.0, 0.5)
+    opt.epsilons =  arange(0.5, 4.0, 0.5)
     opt.bf_opt_steps = [0.02, 100.0]
 else:
     opt.bounds = [(105.0, 5005.0)]
@@ -160,7 +160,7 @@ for ROBO_spec in ROBO_specs:
     #ROBO_spec.negate = True
 
 # Loop
-for i in range(200):
+for i in range(100):
     print "Iteration:", i
     logger.info("Iteration: " + str(i))
     facility.opt_iter(logger)
