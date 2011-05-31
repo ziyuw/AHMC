@@ -157,7 +157,7 @@ for MADELON_spec in MADELON_specs:
     MADELON_spec.window_size = 8
     MADELON_spec.epsilon = 0.1
 
-    MADELON_spec.repeat_iteration = 5
+    MADELON_spec.repeat_iteration = 1
 
     MADELON_spec.sample_sigmas = True
     MADELON_spec.use_decay = False

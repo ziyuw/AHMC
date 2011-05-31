@@ -158,7 +158,7 @@ for LED_spec in LED_specs:
     LED_spec.window_size = 10
     LED_spec.epsilon = facility.epsilon
 
-    LED_spec.repeat_iteration = 10
+    LED_spec.repeat_iteration = 2
 
     LED_spec.sample_sigmas = True
     #LED_spec.use_decay = True
