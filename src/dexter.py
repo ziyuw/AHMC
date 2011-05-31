@@ -25,8 +25,8 @@ logger.setLevel(logging.INFO)
 
 command_path = conf.get_command_path()
 
-data_file = conf.get_data_path('DEXTER')+'combined.data.sel'
-test_data_file = conf.get_data_path('DEXTER')+"combined.data.sel"#'combined_valid.data.sel'
+data_file = conf.get_data_path('DEXTER')+'combined_train.data.sel'
+test_data_file = conf.get_data_path('DEXTER')+"combined_train.data.sel"#'combined_valid.data.sel'
 
 os.mkdir(conf.get_file_path("dexter", cur_counter))
 
