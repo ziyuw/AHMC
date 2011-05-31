@@ -98,7 +98,7 @@ if len(sys.argv) > 1:
     pure_bayes = bool(sys.argv[1])
     
 if pure_bayes:
-    lambdas = array([0.5, 950.0])
+    lambdas = array([0.5, 1450.0])
 else:
     lambdas = array([4900.0])
 
@@ -106,7 +106,7 @@ fn = lambda x, item, epsilon: util.Gaussian_RBF_lambda(x, item, epsilon, lambdas
 opt = optimize(fn)
 
 if pure_bayes:
-    opt.bounds = [(0.2, 0.7), (50.0, 1000.0)]
+    opt.bounds = [(0.2, 0.7), (50.0, 1500.0)]
     opt.num_basis = 100
     opt.start_point = [0.4, 200.0]
     opt.maxeval = 100
@@ -127,7 +127,7 @@ opt.reinitialize()
 # ===========================================================
 
 # Set up the number of super transition steps
-super_transition_steps = 2500
+super_transition_steps = 3750
 
 for LED_spec in LED_specs:
     # Starter run setup
@@ -165,7 +165,7 @@ for LED_spec in LED_specs:
     #LED_spec.negate = True
 
 # Loop
-for i in range(150):
+for i in range(100):
     print "Iteration:", i
     logger.info("Iteration: " + str(i))
     facility.opt_iter(logger)
