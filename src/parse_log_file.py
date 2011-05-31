@@ -44,7 +44,7 @@ opt.bounds = [(0.3, 0.8), (50.0, 2000.0)]
 opt.num_basis = 200
 opt.start_point = [0.4, 200.0]
 opt.maxeval = 100
-opt.epsilons =  arange(7.5, 8.0, 0.5)
+opt.epsilons =  arange(3.5, 10.0, 0.5)
 opt.bf_opt_steps = [0.05, 50.0]
 
 #opt.bounds = [(0.2, 0.6), (50.0, 5000.0)]
@@ -77,10 +77,6 @@ for line in f:
 	opt.update(pt, reward)
 	pt = None
 	reward = None
-
-print x
-print y
-print z
 
 plot = True
 contour = False

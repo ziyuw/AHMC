@@ -43,6 +43,8 @@ for i in range(cv_fold):
     MADELON_spec.num_output_units = 1
     MADELON_spec.hidden_output_weights = 'x0.1:1:4'
     MADELON_spec.output_bias = '10'
+    
+    MADELON_spec.init_value = 0.5
 
     MADELON_spec.train_range = '-'+str(i*(total/cv_fold)+1)+':'+str((i+1)*(total/cv_fold))
     MADELON_spec.test_range = str(i*(total/cv_fold)+1)+':'+str((i+1)*(total/cv_fold))
@@ -66,25 +68,25 @@ for i in range(cv_fold):
 
     # Set up neural net
     netspec_cmd = MADELON_spec.generate_netspec_command()
-    #print netspec.to_string(netspec_cmd)
+    print netspec.to_string(netspec_cmd)
     retcode = subprocess.check_call(netspec_cmd)
     #print 'net-spec reuslt:', retcode
 
 
     modelspec_command = MADELON_spec.generate_modelspec_command()
-    #print netspec.to_string(modelspec_command)
+    print netspec.to_string(modelspec_command)
     retcode = subprocess.check_call(modelspec_command)
     #print 'model-spec reuslt:', retcode
 
 
     dataspec_command = MADELON_spec.generate_dataspec_command()
-    #print netspec.to_string(dataspec_command)
+    print netspec.to_string(dataspec_command)
     retcode = subprocess.check_call(dataspec_command)
     #print 'data-spec reuslt:', retcode
 
 
     netgen_command = MADELON_spec.generate_netgen_command()
-    #print netspec.to_string(netgen_command)
+    print netspec.to_string(netgen_command)
     retcode = subprocess.check_call(netgen_command)
     #print 'net-gen reuslt:', retcode
 
@@ -98,7 +100,7 @@ if len(sys.argv) > 1:
     pure_bayes = bool(sys.argv[1])
     
 if pure_bayes:
-    lambdas = array([0.6, 1950.0])
+    lambdas = array([1.2, 1950.0])
 else:
     lambdas = array([1000.0])
 
@@ -106,12 +108,12 @@ fn = lambda x, item, epsilon: util.Gaussian_RBF_lambda(x, item, epsilon, lambdas
 opt = optimize(fn)
 
 if pure_bayes:
-    opt.bounds = [(0.3, 0.9), (50.0, 2000.0)]
+    opt.bounds = [(0.3, 2.0), (50.0, 2000.0)]
     opt.num_basis = 200
     opt.start_point = [0.4, 200.0]
     opt.maxeval = 100
     opt.epsilons =  arange(3.5, 10.0, 0.5)
-    opt.bf_opt_steps = [0.05, 50.0]
+    opt.bf_opt_steps = [0.1, 50.0]
 else:
     opt.bounds = [(10.0, 1010.0)]
     opt.num_basis = 500
