@@ -2,14 +2,14 @@ import ConfigParser
 
 config = ConfigParser.RawConfigParser()
 
-home_path = '/home/ziyuw/projects/AHMC/'
+home_path = '/ubc/cs/research/nando/people/ziyuw/AHMC/'
 
 config.add_section('Section1')
 config.set('Section1', 'command_path', home_path+'fbm.2004-11-10/')
 config.set('Section1', 'file_path', home_path+'log/')
 config.add_section('Section2')
-config.set('Section2', 'MADELON', home_path+'Data/MADELON/MADELON/')
-config.set('Section2', 'DEXTER', home_path+'Data/DEXTER/DEXTER/')
+config.set('Section2', 'MADELON', home_path+'Data/MADELON/')
+config.set('Section2', 'DEXTER', home_path+'Data/DEXTER/')
 config.set('Section2', 'ROBOARM', home_path+'Data/RobotArm/')
 config.set('Section2', 'LED', home_path+'Data/LED/')
 config.add_section('Section3')
