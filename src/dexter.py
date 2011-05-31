@@ -37,7 +37,7 @@ for i in range(cv_fold):
 
     DEXTER_spec = netspec(file_path, command_path, data_file, test_data_file)
 
-    DEXTER_spec.num_input_units = 298
+    DEXTER_spec.num_input_units = 295
     DEXTER_spec.num_hidden_layers = 2
 
     DEXTER_spec.num_output_units = 1
