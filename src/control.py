@@ -391,6 +391,10 @@ class facilities:
     def opt_iter(self, logger):
 	
 	print "	running......"
+	
+	
+	print self.specs
+	
 	rewards = self.pool.map(net_mc, self.specs)
 	reward = mean(rewards)
 	
