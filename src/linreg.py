@@ -162,9 +162,6 @@ class group_linreg:
 	self.size = size(epsilons)
 	self.linreg_list = []
 	self.parallel = parallel
-	self.pool = None
-	if self.parallel:
-	    self.pool = Pool(processes=self.size)
 	for epsilon in epsilons:
 	    self.linreg_list.append(BayesLinModel(v_0, w_0, a_0, b_0, epsilon, basis, RBF_func))
 	    
@@ -185,7 +182,7 @@ class group_linreg:
 	
 	arg = [(self.linreg_list[i], mat(x)) for i in range(self.size)]
 	
-	means, variances, dfs = self.pool.map(predict_func, arg)
+	means, variances, dfs = parmap.map(predict_func, arg)
 	
 	# Total law of Expectation
 	predict_mean = mean(means)

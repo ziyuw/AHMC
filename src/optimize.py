@@ -71,7 +71,7 @@ class optimize:
 
     def predict(self, x):
 	x = array(x)
-	x = mat(reshape(x, (1, shape(x)[0])))
+	#x = mat(reshape(x, (1, shape(x)[0])))
 	
 	mean,var = self.linearmodel.predict(x)
 	
