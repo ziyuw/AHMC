@@ -250,11 +250,13 @@ def net_mc(spec):
     result = process.communicate()
     
     if spec.model_spec == 'binary':
-	reward = facilities.class_err(result)
+	reward = facilities.avg_log_prob(result)
+	#reward = facilities.class_err(result)
     elif spec.model_spec == 'real':
 	reward = facilities.sqrt_err(result)
     elif spec.model_spec == 'class':
-	reward = facilities.class_err(result)
+	reward = facilities.avg_log_prob(result)
+	#reward = facilities.class_err(result)
     
     return reward
     
@@ -355,6 +357,16 @@ class facilities:
 	    if 'Fraction of guesses that were wrong' in line:
 		splitted = line.split()
 		return float(0.2 - float(splitted[len(splitted)-1].split('+-')[0]))*100
+
+# -----------------------------------------------------------------------------------------------
+
+    @staticmethod
+    def avg_log_prob(result):
+	#splited = result.split('\n')
+	for line in result:
+	    if 'Average log probability of targets' in line:
+		splitted = line.split()
+		return float(splitted[len(splitted)-1].split('+-')[0])
 
 # -----------------------------------------------------------------------------------------------
 
