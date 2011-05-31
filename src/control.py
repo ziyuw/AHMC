@@ -366,6 +366,7 @@ class facilities:
 	for line in result:
 	    if 'Average log probability of targets' in line:
 		splitted = line.split()
+		print splitted
 		return float(splitted[len(splitted)-1].split('+-')[0])
 
 # -----------------------------------------------------------------------------------------------
