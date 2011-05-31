@@ -250,8 +250,8 @@ def net_mc(spec):
     result = process.communicate()
     
     if spec.model_spec == 'binary':
-	reward = facilities.avg_log_prob(result)
-	#reward = facilities.class_err(result)
+	#reward = facilities.avg_log_prob(result)
+	reward = facilities.class_err(result)
     elif spec.model_spec == 'real':
 	reward = facilities.sqrt_err(result)
     elif spec.model_spec == 'class':

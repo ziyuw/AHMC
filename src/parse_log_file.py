@@ -14,7 +14,7 @@ def func(X, Y):
     return mus
 
 #file_path = "robo61.log"
-file_path = "temp.txt"
+file_path = "madelon3.log"
 
 f = open(file_path, 'r')
 
