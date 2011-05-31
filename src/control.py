@@ -362,11 +362,11 @@ class facilities:
 
     @staticmethod
     def avg_log_prob(result):
+	print result
 	result = result.split('\n')
 	for line in result:
 	    if 'Average log probability of targets' in line:
 		splitted = line.split()
-		print splitted
 		return float(splitted[len(splitted)-1].split('+-')[0])
 
 # -----------------------------------------------------------------------------------------------

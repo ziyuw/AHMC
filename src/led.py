@@ -135,7 +135,7 @@ for LED_spec in LED_specs:
     LED_spec.window_size = 5
     LED_spec.epsilon = 0.4
 
-    LED_spec.repeat_iteration = 200
+    LED_spec.repeat_iteration = 1
     LED_spec.ceiling = 10
     LED_spec.sample_sigmas = False
     LED_spec.use_decay = False
