@@ -342,6 +342,7 @@ class facilities:
 
     @staticmethod
     def sqrt_err(result):
+	result = result[0].split('\n')
 	#splited = result.split('\n')
 	for line in result:
 	    if 'total' in line:
@@ -352,6 +353,7 @@ class facilities:
 
     @staticmethod
     def class_err(result):
+	result = result[0].split('\n')
 	#splited = result.split('\n')
 	for line in result:
 	    if 'Fraction of guesses that were wrong' in line:
@@ -366,7 +368,6 @@ class facilities:
 	for line in result:
 	    if 'Average log probability of targets' in line:
 		splitted = line.split()
-		print splitted
 		return float(splitted[len(splitted)-1].split('+-')[0])
 
 # -----------------------------------------------------------------------------------------------
