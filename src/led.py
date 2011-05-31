@@ -155,7 +155,7 @@ facility.setup_ceiling()
 for LED_spec in LED_specs:
     # Final runs setup
     LED_spec.lf_step = facility.lf_step
-    LED_spec.window_size = 5
+    LED_spec.window_size = 10
     LED_spec.epsilon = facility.epsilon
 
     LED_spec.repeat_iteration = 10
