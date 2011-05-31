@@ -110,7 +110,7 @@ if pure_bayes:
     opt.num_basis = 200
     opt.start_point = [0.4, 200.0]
     opt.maxeval = 100
-    opt.epsilons =  arange(0.5, 4.0, 0.5)
+    opt.epsilons =  arange(3.5, 10.0, 0.5)
     opt.bf_opt_steps = [0.05, 50.0]
 else:
     opt.bounds = [(10.0, 1010.0)]
@@ -126,7 +126,8 @@ opt.reinitialize()
 # ===========================================================
 
 # First run
-super_transition_steps = 32000
+super_transition_steps = 10000
+#super_transition_steps = 32000
 
 for MADELON_spec in MADELON_specs:
     # Starter run setup
@@ -163,7 +164,7 @@ for MADELON_spec in MADELON_specs:
     MADELON_spec.negate = True
 
 # Loop
-for i in range(100):
+for i in range(80):
     print "Iteration:", i
     logger.info("Iteration: " + str(i))
     facility.opt_iter(logger)

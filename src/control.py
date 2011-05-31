@@ -184,7 +184,7 @@ class netspec:
 	elif self.model_spec == 'real':
 	    cmd.append('tn')
 	elif self.model_spec == 'class':
-	    cmd.append('am')
+	    cmd.append('apm')
 	cmd.append(self.file_path)
 	cmd.append(str(discard)+':');
 	
