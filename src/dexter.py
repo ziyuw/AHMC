@@ -100,7 +100,7 @@ if len(sys.argv) > 1:
     pure_bayes = bool(sys.argv[1])
     
 if pure_bayes:
-    lambdas = array([1.2, 1950.0])
+    lambdas = array([0.55, 1950.0])
 else:
     lambdas = array([1000.0])
 
@@ -108,7 +108,7 @@ fn = lambda x, item, epsilon: util.Gaussian_RBF_lambda(x, item, epsilon, lambdas
 opt = optimize(fn)
 
 if pure_bayes:
-    opt.bounds = [(0.3, 1.5), (50.0, 2000.0)]
+    opt.bounds = [(0.05, 0.6), (50.0, 2000.0)]
     opt.num_basis = 200
     opt.start_point = [0.4, 200.0]
     opt.maxeval = 100
