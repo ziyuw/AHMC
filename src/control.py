@@ -255,9 +255,6 @@ def net_mc(spec):
     elif spec.model_spec == 'real':
 	reward = facilities.sqrt_err(result)
     elif spec.model_spec == 'class':
-	
-	print "Here?"
-	
 	reward = facilities.avg_log_prob(result)
 	#reward = facilities.class_err(result)
     
@@ -394,10 +391,6 @@ class facilities:
     def opt_iter(self, logger):
 	
 	print "	running......"
-	
-	
-	print self.specs
-	
 	rewards = self.pool.map(net_mc, self.specs)
 	reward = mean(rewards)
 	
