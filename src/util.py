@@ -31,3 +31,10 @@ def student_t_pdf_mod(x, mu, sigma, df):
 def Gaussian_RBF_lambda(x, item, epsilon, lambdas):
     return exp(-(epsilon*linalg.norm((x - item)/lambdas))**2)
 
+def compute_lambdas(bounds):
+    lambdas = []
+    for bound in bounds:
+	single_lambda = bounds[1]-bounds[0]
+	lambdas.append(single_lambda)
+
+    return array(lambdas)

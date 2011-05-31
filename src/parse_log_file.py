@@ -13,14 +13,15 @@ def func(X, Y):
 	    mus[i,j], sigma = opt.predict(pt_in_func)
     return mus
 
-file_path = "robo61.log"
+#file_path = "robo61.log"
+file_path = "temp.txt"
 
 f = open(file_path, 'r')
 
 pt = [0.1, 500]
 reward = None
 
-lambdas = array([0.4, 4950.0])
+lambdas = array([0.5, 1950.0])
 
 fn = lambda x, item, epsilon: util.Gaussian_RBF_lambda(x, item, epsilon, lambdas)
 opt = optimize(fn)
@@ -39,19 +40,19 @@ opt = optimize(fn)
 #opt.epsilons =  arange(0.5, 6.0, 0.5)
 #opt.bf_opt_steps = [0.05, 50.0]
 
-#opt.bounds = [(0.2, 0.8), (50.0, 2000.0)]
-#opt.num_basis = 200
-#opt.start_point = [0.4, 200.0]
-#opt.maxeval = 100
-#opt.epsilons =  arange(0.5, 4.0, 0.5)
-#opt.bf_opt_steps = [0.05, 50.0]
-
-opt.bounds = [(0.2, 0.6), (50.0, 5000.0)]
+opt.bounds = [(0.3, 0.8), (50.0, 2000.0)]
 opt.num_basis = 200
 opt.start_point = [0.4, 200.0]
 opt.maxeval = 100
-opt.epsilons =  arange(0.5, 4.0, 0.5)
-opt.bf_opt_steps = [0.05, 100.0]
+opt.epsilons =  arange(7.5, 8.0, 0.5)
+opt.bf_opt_steps = [0.05, 50.0]
+
+#opt.bounds = [(0.2, 0.6), (50.0, 5000.0)]
+#opt.num_basis = 200
+#opt.start_point = [0.4, 200.0]
+#opt.maxeval = 100
+#opt.epsilons =  arange(6.5, 7.0, 0.5)
+#opt.bf_opt_steps = [0.05, 100.0]
 
 opt.reinitialize()
 
@@ -91,8 +92,8 @@ if plot:
 
     contour = False
     
-    X = arange(0.3, 0.6, 0.05)
-    Y = arange(50, 5000, 50.0)
+    X = arange(0.3, 0.8, 0.05)
+    Y = arange(50, 2000, 50.0)
     X, Y = meshgrid(X, Y)
     Z = func(X, Y)
 

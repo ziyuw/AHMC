@@ -98,7 +98,7 @@ if len(sys.argv) > 1:
     pure_bayes = bool(sys.argv[1])
     
 if pure_bayes:
-    lambdas = array([0.3, 3950.0])
+    lambdas = array([0.6, 1950.0])
 else:
     lambdas = array([1000.0])
 
@@ -106,7 +106,7 @@ fn = lambda x, item, epsilon: util.Gaussian_RBF_lambda(x, item, epsilon, lambdas
 opt = optimize(fn)
 
 if pure_bayes:
-    opt.bounds = [(0.3, 0.8), (50.0, 2000.0)]
+    opt.bounds = [(0.3, 0.9), (50.0, 2000.0)]
     opt.num_basis = 200
     opt.start_point = [0.4, 200.0]
     opt.maxeval = 100
@@ -156,7 +156,7 @@ for MADELON_spec in MADELON_specs:
     MADELON_spec.window_size = 8
     MADELON_spec.epsilon = 0.1
 
-    MADELON_spec.repeat_iteration = 1
+    MADELON_spec.repeat_iteration = 5
 
     MADELON_spec.sample_sigmas = True
     MADELON_spec.use_decay = False
