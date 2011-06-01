@@ -34,7 +34,7 @@ option = 'bm'
 
 num_folds = 10
 for i in range(num_folds):
-    net_path = net_folder + 'dexter' + str(i) + '.net'
+    net_path = net_folder + '/dexter' + str(i) + '.net'
     cmd = generate_netpred_command(11, net_path, option, command_path, test_data_path)
     
     process = subprocess.Popen(cmd, shell=False, stdout=subprocess.PIPE)
