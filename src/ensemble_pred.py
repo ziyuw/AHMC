@@ -61,4 +61,9 @@ for i in range(dim):
 	else:
 	    result.append('-1')
 
-print result
+print len(result)
+
+f = open('./dexter_valid.resu', 'w')
+for item in result:
+    f.write(item+"\n")
+f.close()
