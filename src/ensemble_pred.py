@@ -19,8 +19,9 @@ def generate_netpred_command(discard, file_path, option, command_path, test_data
     
 def parse_result(result):
     result = result[0].split()
+    print len(result)
     for line in result:
-	print line
+	None
 
 conf = config('path_config.cfg')
 
