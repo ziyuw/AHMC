@@ -56,23 +56,76 @@ Address \\
 \maketitle
 
 \begin{abstract}
-This paper introduces a 
+This paper introduces a novel way of adapting Hybird Monte Carlo (HMC) algorithm by using Bayesian optimization. 
 \end{abstract}
 
 \section{Introduction}
-
 % General introduction
-A common problem in physics, statistics and machine learning is to draw samples from probability distributions $\pi(\cdot)$ that is only known up to a normalization constant. Markov Chain Monte Carlo (MCMC) algorithms \cite{robert2004monte} are one of few methods available to accomplish these sampling tasks.
-% Introduce to HMC and its short comings
+Markov chain Monte Carlo (MCMC) \cite{andrieu2003introduction} algorithms such as the Metropolis-Hastings algorithm \cite{hastings1970monte, metropolis1953equation} have been widely applied in statistics and machine learning to sample from complicated high-dimensional distributions. However, MCMC algorithms often has parameters that must be tuned in each new situation to achieve acceptable performance. These parameters are often tuned by domain experts in a time consuming and error-prone manner. To alleviate this problem, adaptive MCMC algorithms have been developed to automatically adjust these parameters. For a comprehensive review of this field, we refer the readers to \cite{adaptmcmc_tut,atchade_chap,ex_adaptmcmc}.
 
 % Introduce to traditional adaptive MCMC methods
+Adaptive MCMC algorithms based on stochastic approximation have been the most successful among various adaptive MCMC algorithms for two reasons. Firstly, it can be shown theoretically that these algorithms are ergodic despite the Markov chain defined by these algorithms are inhomogeneous \cite{Andrieu2001,Andrieu2006,Saksman2010}. Secondly, these algorithms have been shown to produce impressive results in practice \cite{Haario2001,Vihola2010}. However, there are limitations to the stochastic approximation based approaches. Some of the most successful algorithms require theoretical results like optimal acceptence rate or optimal proposal distribution \cite{roberts2009examples}. Gradient of the objective function of interest is also needed sometimes. Another disadvantage is that these stochastic approximation based methods may require many iterations in some domains.
 
-% Introduce Bayesian optimization and its shortcomings
+% Introduce to HMC and its short comings
+Hybrid Monte Carlo (HMC) is a particular MCMC algorithm based on Hamiltonian mechanics. HMC was first introduced by Buane et al. in \cite{duane1987hybrid} as a fast method for simulating molecular dynamics. It has since been widely applied in a number of fields including statistical physics \cite{gupta1988tuning, sexton1992hamiltonian}, computational chemistry \cite{hansmann1996molecular, tuckerman1993efficient}, and neural networks \cite{zlochin2001manifold, neal1996bayesian}. There are heuristic evidence that suggests HMC might perform better than traditional MCMC algorithms due to its ability to avoid random walks \cite{chen2001exploring, neal2010mcmc}. Despite its potential effectiveness, HMC are especially sensitive to parameter changes and tuning HMC remains a very difficult task. A lack of theoretical results also prevents the application of stochastic approximation based adaptive approaches to HMC. To overcome these shortcomings, this paper proposes a new adaptive method that automatically tunes parameters for HMC by using Bayesian optimization. 
 
 % Introduce the benefits of our approach
 
-\section{Hybrid Monte Carlo}
+% Neal's adapting without adaptation and Bayesian opt in Nim's Paper
 
+% Organisation of the paper potentially
+
+\section{Hybrid Monte Carlo}
+% Introduce M
+To describe HMC, I first introduce the following notation. Suppose we wish to draw samples from $\hat{\pi}({\bf x}) \propto f({\bf x})$, where ${\bf x} = \{x_{1}, x_{2},...,x_{d}\}$. Let $U({\bf x}) =  -\lg(f({\bf x}))$ be the potential energy. We introduce a momentum vector ${\bf p} = \{p_{1}, p_{2},...,p_{d}\}$ and the kinetic energy $K({\bf p}) = {\bf p}^{T}M^{-1}{\bf p}/2$ where $M$ is a symmetric positive definite matrix (often called the mass matrix). Finally we define the total energy to be 
+\begin{equation}
+H({\bf x}, {\bf p}) = U({\bf x}) + K({\bf p}).  
+\end{equation}
+
+Consider the distribution $\pi({\bf x}, {\bf p}) \propto \exp(-H({\bf x}, {\bf p})) = f({\bf x})\times\exp(-K({\bf p}))$. Since $\pi({\bf x}, {\bf p})$ is factorial, the marginal distribution of ${\bf x}$ defined by $\pi({\bf x}, {\bf p})$ is the same as $\hat{\pi}$. Thus to get samples for $\hat{\pi}$ we only have to sample from $\pi({\bf x}, {\bf p})$ and ignore the samples for ${\bf p}$. In the following subsections I describe how to draw samples from $\pi({\bf x}, {\bf p})$ through simulating Hamiltonian dynamics.
+\subsection{Hamiltonian Mechanics}
+Since we can interpret ${\bf x}$ as location parameters, $U({\bf x})$ as potential energy, and $K({\bf p})$ as kinetic energy, we can interpret $H({\bf x}, {\bf p})$ as the Hamiltonian function. Therefore by Hamilton's equation we have the following ordinary differential equations describing the dynamics:
+\begin{equation} 
+ \frac{\partial H}{\partial {\bf x}} = -\dot{{\bf p}}, \mbox{\space \space \space \space \space} \frac{\partial H}{\partial {\bf p}} = \dot{{\bf x}}.
+\end{equation}
+By simulating the Hamiltonian dynamics of the system in fictitious time, $\tau$, we can sample $({\bf x}, {\bf p})$ with the total energy $H$ fixed. There are three important properties of Hamiltonian dynamics which are critical to its use in sampling which I would not prove here since they are part of the standard results of classical mechanics:
+
+\begin{itemize}
+ \item First as ${\bf x}$ and ${\bf p}$ vary according to the Hamiltonian dynamics, the value of H does not change. That is the total energy is conserved.
+ \item The volume of regions in the phase space is invariant under the Hamiltonian dynamics. That is if we simulate the Hamiltonian dynamics on a region $R$ in phase
+ space for time $\tau$, the resulting region would have the same volume as $R$.
+ \item The dynamics is reversible. That is we can recover the original state by reversing time.
+\end{itemize}
+
+To simulate the Hamiltonian dynamics in practice, we must discretise the differential equation that describes the continuous motion. This can be accomplished by the St\"{o}rmer-Verlet or leapfrog scheme \cite{leimkuhler2004simulating}. It is composed of three steps as described below:
+\begin{eqnarray} 
+ {\bf p}_{\tau + \frac{\epsilon}{2}} = {\bf p}_{\tau} - \frac{\epsilon}{2}\left. \frac{\partial U}{\partial {\bf x}}\right|_{{\bf x}_{\tau}}\\
+ {\bf x}_{\tau + \epsilon} = {\bf x}_{\tau} + \epsilon M^{-1}{\bf p}_{\tau + \frac{\epsilon}{2}} \\
+ {\bf p}_{\tau + \epsilon} = {\bf p}_{\tau} - \frac{\epsilon}{2}\left. \frac{\partial U}{\partial {\bf x}}\right|_{{\bf x}_{\tau + \epsilon}}
+\end{eqnarray}
+% reference radford neal
+% Simulating Hamiltonian Dynamics
+where $\tau$ is the current time and $\epsilon$ is the time increment. Notice that the leapfrog scheme no longer guarantees that the total energy is conserved, though it does preserved volume and it is time-reversible. To see that it is time-reversible, one only have to apply the negative value of $\epsilon$ to go back to the original state. The volume is preserved because in each step of the leapfrog scheme, either ${\bf x}$ or ${\bf p}$ is updated by an amount that depends only on the other. This operation produces a Jacobian that is a shear matrix which must have the absolute value of its determinant equal to $1$. Finally, for small values of $\epsilon$, the leapfrog scheme is stable and as $\epsilon\rightarrow0$ we have $|H({\bf x}_{\tau + \epsilon},{\bf p}_{\tau + \epsilon}) - H({\bf x}_{\tau},{\bf p}_{\tau})|\rightarrow0$ \cite{leimkuhler2004simulating}. 
+
+Note that the leapfrog scheme requires the derivative of the negative log density.
+\subsection{The HMC Algorithm}
+% Reference original HMC paper
+Despite the fact that the leapfrog scheme is volume-preserving and time-reversible, it does not preserve energy. In \cite{duane1987hybrid} Duane et al. suggest using the Metropolis rule to correct the error introduced. The full algorithm operates as follows:
+\begin{itemize}
+ \item[${\bf 1.}$]Sample ${\bf p}^{t} \sim N({\bf 0}, M)$ .
+ \item[${\bf 2.}$]Given $\epsilon$ and $L$, apply the leapfrog scheme $L$ times with time increment $\epsilon$ starting from the current state $({\bf x}^{t},{\bf p}^{t})$ to generate a proposal state $({\bf x}^{*},{\bf p}^{*}) = ({\bf x}_{L\epsilon},{\bf p}_{L\epsilon})$.
+ \item[${\bf 3.}$]Accept the proposal state from the second step with the probability,
+\begin{equation} 
+ \min\{1, \exp(H({\bf x}^{t},{\bf p}^{t}) - H({\bf x}^{*},{\bf p}^{*}))\}.
+\end{equation}
+That is with the probability described in (7) ${\bf x}^{t+1} = {\bf x}^{*}$ and with the remaining probability ${\bf x}^{t+1} = {\bf x}^{t}$.
+\end{itemize}
+In the HMC algorithm $\epsilon$ and $L$ are often chosen manually. Small $\epsilon$ would lead to high acceptance rate since in this case the value of $H$ would oscillate along the true trajectory. It is often beneficial to choose $L$ to be large since by choosing large values of $L$ we can wander further away from the current state thus avoiding random walk behaviour. However, as it is clear from the algorithm larger $L$ would lead to high computational cost.
+
+% mackenzie 1989
+Typically, HMC algorithm is ergodic. That means the algorithm will eventually converge to the stationary distribution of the Markov chain it defines. However, in rare cases, it is possible for the Markov chain defined by HMC to be periodic. The potential problem can be solved by randomly choosing $\epsilon$ or $L$ (or both) from a small interval \cite{mackenzie1989improved}.
+
+For convenience define the mapping in the HMC algorithm acquired by performing the leapfrog scheme $L$ times with time increment $\epsilon$ each time as $\Phi_{L \epsilon}({\bf x},{\bf p})$.
 \section{Adaptive MCMC}
 
 \section{Adaptive HMC}
