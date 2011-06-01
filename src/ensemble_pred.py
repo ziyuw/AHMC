@@ -37,7 +37,7 @@ for i in range(num_folds):
     net_path = net_folder + 'dexter' + str(i) + '.net'
     cmd = generate_netpred_command(11, net_path, option, command_path, test_data_path)
     
-    process = subprocess.Popen(netpred_command, shell=False, stdout=subprocess.PIPE)
+    process = subprocess.Popen(cmd, shell=False, stdout=subprocess.PIPE)
     result = process.communicate()
     
     parse_result(result)
