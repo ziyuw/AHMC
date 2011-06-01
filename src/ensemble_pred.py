@@ -29,7 +29,7 @@ conf = config('path_config.cfg')
 
 command_path = conf.get_command_path()
 
-test_data_path = conf.get_data_path('DEXTER')+"combined_valid.data.sel"#'combined_valid.data.sel'
+test_data_path = conf.get_data_path('DEXTER')+"test.data.sel"#+"combined_valid.data.sel"#'combined_valid.data.sel'
 
 cur_counter = '105'
 net_folder = conf.get_file_path("dexter", cur_counter)
@@ -63,7 +63,7 @@ for i in range(dim):
 
 print len(result)
 
-f = open('./dexter_valid.resu', 'w')
+f = open('./dexter_test.resu', 'w')
 for item in result:
     f.write(item+"\n")
 f.close()
