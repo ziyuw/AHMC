@@ -14,7 +14,7 @@ def generate_netpred_command(discard, file_path, option, command_path, test_data
     cmd.append(option)
     cmd.append(file_path)
     cmd.append(str(discard)+':'); cmd.append('/')
-    cmd.append(test_data_path); cmd.append('.')
+    cmd.append(test_data_path)
     
     return cmd
     
@@ -71,6 +71,6 @@ def write_in_file(data_file_name, result_file_name):
 	f.write(item+"\n")
     f.close()
     
-write_in_file("test.data.sel", './dexter_test.resu')
+#write_in_file("test.data.sel", './dexter_test.resu')
 write_in_file("combined_valid.data.sel", './dexter_valid.resu')
 write_in_file("combined_train.data.sel", './dexter_train.resu')
