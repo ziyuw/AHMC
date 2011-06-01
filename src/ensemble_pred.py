@@ -1,6 +1,7 @@
 import subprocess
 from collections import deque
 from numpy import *
+from config import *
 
 def generate_netpred_command(discard, file_path, option, command_path, test_data_path):
     """
