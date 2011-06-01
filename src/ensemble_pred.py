@@ -1,6 +1,7 @@
 import subprocess
 from collections import deque
 from numpy import *
+from numpy.random import *
 from config import *
 
 def generate_netpred_command(discard, file_path, option, command_path, test_data_path):
@@ -19,9 +20,10 @@ def generate_netpred_command(discard, file_path, option, command_path, test_data
     
 def parse_result(result):
     result = result[0].split()
-    print len(result)
+    l = []
     for line in result:
-	None
+	l.append(int(line))
+    return l
 
 conf = config('path_config.cfg')
 
@@ -34,6 +36,8 @@ net_folder = conf.get_file_path("dexter", cur_counter)
 option = 'bm'
 
 num_folds = 10
+
+ls = []
 for i in range(num_folds):
     net_path = net_folder + '/dexter' + str(i) + '.net'
     cmd = generate_netpred_command(11, net_path, option, command_path, test_data_path)
@@ -41,5 +45,20 @@ for i in range(num_folds):
     process = subprocess.Popen(cmd, shell=False, stdout=subprocess.PIPE)
     result = process.communicate()
     
-    parse_result(result)
+    ls.append(parse_result(result))
 
+result = []
+dim = len(ls[0])
+for i in range(dim):
+    s = sum([ls[j][i] for j in range(len(ls))])
+    if s > len(ls) - s:
+	result.append('1')
+    elif s < len(ls) - s:
+	result.append('-1')
+    else:
+	if random() > 0.5:
+	    result.append('1')
+	else:
+	    result.append('-1')
+
+print result
