@@ -18,7 +18,7 @@ def generate_netpred_command(discard, file_path, option, command_path, test_data
     return cmd
     
 def parse_result(result):
-    result = result.split()
+    result = result[0].split()
     for line in result:
 	print line
 
