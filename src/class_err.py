@@ -55,9 +55,7 @@ def write_in_file(data_file_name, start, finish):
     
     return mean(ls), var(ls)    
 
-f = open(result_file_name, 'w')
-for item in result:
-    
+f = open(result_file_name, 'w')    
 
 jump_size = 50
 for i in range(30):
