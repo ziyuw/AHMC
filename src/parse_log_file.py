@@ -14,9 +14,9 @@ def func(X, Y):
     return mus
 
 #file_path = "temp.txt"
-file_path = "dexter105.log"
+#file_path = "dexter105.log"
 #file_path = "madelon16.log"
-#file_path = "robo61.log"
+file_path = "robo61.log"
 #file_path = "madelon3.log"
 
 f = open(file_path, 'r')
@@ -24,7 +24,7 @@ f = open(file_path, 'r')
 pt = [0.1, 500]
 reward = None
 
-lambdas = array([0.55, 1950.0])
+lambdas = array([0.4, 4950.0])
 
 fn = lambda x, item, epsilon: util.Gaussian_RBF_lambda(x, item, epsilon, lambdas)
 opt = optimize(fn)
@@ -44,28 +44,28 @@ opt = optimize(fn)
 #opt.bf_opt_steps = [0.05, 50.0]
 
 # Madelon
-opt.bounds = [(0.3, 0.9), (50.0, 2000.0)]
-opt.num_basis = 200
-opt.start_point = [0.4, 200.0]
-opt.maxeval = 100
-opt.epsilons =  arange(3.5, 10.0, 0.5)
-opt.bf_opt_steps = [0.05, 50.0]
-
-#opt.bounds = [(0.2, 0.6), (50.0, 5000.0)]
+#opt.bounds = [(0.3, 0.9), (50.0, 2000.0)]
 #opt.num_basis = 200
 #opt.start_point = [0.4, 200.0]
 #opt.maxeval = 100
-#opt.epsilons =  arange(6.5, 7.0, 0.5)
-#opt.bf_opt_steps = [0.05, 100.0]
+#opt.epsilons =  arange(3.5, 10.0, 0.5)
+#opt.bf_opt_steps = [0.05, 50.0]
 
-
-# Dexter
-opt.bounds = [(0.05, 0.6), (50.0, 2000.0)]
+opt.bounds = [(0.2, 0.6), (50.0, 5000.0)]
 opt.num_basis = 200
 opt.start_point = [0.4, 200.0]
 opt.maxeval = 100
-opt.epsilons =  arange(3.5, 10.0, 0.5)
-opt.bf_opt_steps = [0.05, 50.0]
+opt.epsilons =  arange(0.5, 4.0, 0.5)
+opt.bf_opt_steps = [0.05, 100.0]
+
+
+# Dexter
+#opt.bounds = [(0.05, 0.6), (50.0, 2000.0)]
+#opt.num_basis = 200
+#opt.start_point = [0.4, 200.0]
+#opt.maxeval = 100
+#opt.epsilons =  arange(3.5, 10.0, 0.5)
+#opt.bf_opt_steps = [0.05, 50.0]
 
 opt.reinitialize()
 
@@ -83,6 +83,10 @@ for line in f:
 	pt.append(float(line_spt[1]))
     
     if pt != None and reward != None:
+	# For robo arm
+	#reward = reward/1000.0 + 0.99
+	
+	
 	print pt, reward
 	x.append(pt[0])
 	y.append(pt[1])
@@ -101,8 +105,8 @@ if plot:
 
     contour = False
     
-    X = arange(0.05, 0.6, 0.05)
-    Y = arange(50, 2000, 50.0)
+    X = arange(0.2, 0.6, 0.02)
+    Y = arange(100, 4800, 20.0)
     X, Y = meshgrid(X, Y)
     Z = func(X, Y)
 
@@ -110,15 +114,25 @@ if plot:
 	plt.figure()
 	CS = plt.contour(X, Y, Z)
 	plt.clabel(CS, inline=1, fontsize=10)
-	plt.title('Simplest default with labels')
+	plt.title('Surface learned by Bayesian ')
     else:
 	fig = plt.figure()
 	ax = Axes3D(fig)
 	
-	ax.scatter(x, y, z)
+	scatter = ax.scatter(x, y, z, label='Samples drawn')
 	
 	surf = ax.plot_surface(X, Y, Z, rstride=1, cstride=1, cmap=cm.jet,
-		linewidth=0, antialiased=False)
+		linewidth=0, antialiased=False, label='Surface learned by contexual bandits')
 	fig.colorbar(surf, shrink=0.5, aspect=5)
+	
+	
+	ax.set_xlabel('Step size adjustment', fontsize=16)
+	ax.set_ylabel('No. of leapfrog steps', fontsize=16)
+	ax.set_zlabel('Reward', fontsize=16)
+	
+	#plt.rcParams['label.fontsize'] = 10
+	
+	# For robot arm
+	#ax.set_zlim3d(0.98, 1.00)
 
     plt.show()

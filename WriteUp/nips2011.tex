@@ -2,8 +2,42 @@
 \usepackage{nips11submit_e,times}
 %\documentstyle[nips10submit_09,times,art10]{article} % For LaTeX 2.09
 
+% Math notation from Kevin's style file.
+\include{mydef}
 
-\title{Adaptive Hybrid Monte Carlo with Bayesian Optimization}
+\usepackage{graphicx} 
+
+% For citations
+%\usepackage{natbib}
+
+% For algorithms
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\newcommand{\vectornorm}[1]{\left|\left|#1\right|\right|}
+\def\sigman{\sigma}
+\newcommand{\SSR}{\mbox{SSR}}
+\newcommand{\murf}{\mu_{\mathtt{rf}}}
+\newcommand{\sigrf}{\sigma^2_{\mathtt{rf}}}
+\newcommand{\eirf}{EI_{\mathtt{rf}}}
+\newcommand{\func}{(\cdot)}
+\newcommand{\tree}{\mathcal{T}}
+\newcommand{\fmap}{\widehat{\mathbf{f}}}
+\newcommand{\vxstar}{\mathbf{x}^{\star}}
+\newcommand{\vxbest}{\mathbf{x}^{+}}
+\newcommand\TT{\rule{0pt}{2.6ex}}
+\newcommand\BB{\rule[-1.2ex]{0pt}{0pt}}
+\newcommand{\FIM}{{\bf J}}
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
+\newcommand{\sfrac}[2]{\leavevmode\kern.1em
+           \raise.5ex\hbox{\footnotesize #1}\kern-.1em
+                   /\kern-.15em\lower.25ex\hbox{\footnotesize #2}}
+\def\mnote#1{\marginpar{\tiny #1}}
+\def\rmnote#1{\reversemarginpar{\tiny #1}}
+\def\capstyle#1{\small \emph{#1}}
+
+\title{Adaptive Hybrid Monte Carlo with Contextual Bandits}
 
 
 \author{
@@ -56,72 +90,28 @@ Address \\
 \maketitle
 
 \begin{abstract}
-This paper introduces a novel way of adapting Hybird Monte Carlo (HMC) algorithm by using Bayesian optimization. 
+This paper introduces a novel way of adapting the Hybrid Monte Carlo (HMC) algorithm using Bayesian optimization. 
+HMC is a very popular and widely used Markov chain Monte Carlo (MCMC) method, but it requires careful tuning of its hyper-parameters. We propose a parametric Bayesian optimization technique to carry out the adaptation of the hyper-parameters while the Markov chain runs. We show that this adaptation technique can be mapped to the problem of contextual bandits with nonlinear features, which is known to have bounded regret. This bound ensures that we meet the asymptotic vanishing adaptation requirement of adaptive MCMC methods. The paper also proposes the use of cross-validation error measures for adaptation, which we believe are more pragmatic than many existing adaptation objectives. The new measures take the intended use of the model, whose parameters are estimated by HMC, into consideration. We show on several datasets that the adaptive algorithm can tune HMC automatically and that it often does better than human experts.
 \end{abstract}
 
-\section{Introduction}
-% General introduction
-Markov chain Monte Carlo (MCMC) \cite{andrieu2003introduction} algorithms such as the Metropolis-Hastings algorithm \cite{hastings1970monte, metropolis1953equation} have been widely applied in statistics and machine learning to sample from complicated high-dimensional distributions. However, MCMC algorithms often has parameters that must be tuned in each new situation to achieve acceptable performance. These parameters are often tuned by domain experts in a time consuming and error-prone manner. To alleviate this problem, adaptive MCMC algorithms have been developed to automatically adjust these parameters. For a comprehensive review of this field, we refer the readers to \cite{adaptmcmc_tut,atchade_chap,ex_adaptmcmc}.
-
-% Introduce to traditional adaptive MCMC methods
-Adaptive MCMC algorithms based on stochastic approximation have been the most successful among various adaptive MCMC algorithms for two reasons. Firstly, it can be shown theoretically that these algorithms are ergodic despite the Markov chain defined by these algorithms are inhomogeneous \cite{Andrieu2001,Andrieu2006,Saksman2010}. Secondly, these algorithms have been shown to produce impressive results in practice \cite{Haario2001,Vihola2010}. However, there are limitations to the stochastic approximation based approaches. Some of the most successful algorithms require theoretical results like optimal acceptence rate or optimal proposal distribution \cite{roberts2009examples}. Gradient of the objective function of interest is also needed sometimes. Another disadvantage is that these stochastic approximation based methods may require many iterations in some domains.
-
-% Introduce to HMC and its short comings
-Hybrid Monte Carlo (HMC) is a particular MCMC algorithm based on Hamiltonian mechanics. HMC was first introduced by Buane et al. in \cite{duane1987hybrid} as a fast method for simulating molecular dynamics. It has since been widely applied in a number of fields including statistical physics \cite{gupta1988tuning, sexton1992hamiltonian}, computational chemistry \cite{hansmann1996molecular, tuckerman1993efficient}, and neural networks \cite{zlochin2001manifold, neal1996bayesian}. There are heuristic evidence that suggests HMC might perform better than traditional MCMC algorithms due to its ability to avoid random walks \cite{chen2001exploring, neal2010mcmc}. Despite its potential effectiveness, HMC are especially sensitive to parameter changes and tuning HMC remains a very difficult task. A lack of theoretical results also prevents the application of stochastic approximation based adaptive approaches to HMC. To overcome these shortcomings, this paper proposes a new adaptive method that automatically tunes parameters for HMC by using Bayesian optimization. 
-
-% Introduce the benefits of our approach
-
-% Neal's adapting without adaptation and Bayesian opt in Nim's Paper
+\input{introduction}
+% Neal's adapting without adaptation
 
 % Organisation of the paper potentially
 
-\section{Hybrid Monte Carlo}
-% Introduce M
-To describe HMC, I first introduce the following notation. Suppose we wish to draw samples from $\hat{\pi}({\bf x}) \propto f({\bf x})$, where ${\bf x} = (x_{1}, x_{2},...,x_{d})$. Let $U({\bf x}) =  -\lg(f({\bf x}))$ be the potential energy. We introduce a momentum vector ${\bf p} = (p_{1}, p_{2},...,p_{d})$ and the kinetic energy $K({\bf p}) = {\bf p}^{T}M^{-1}{\bf p}/2$ where $M$ is a symmetric positive definite matrix (often called the mass matrix). Finally we define the total energy to be $H({\bf x}, {\bf p}) = U({\bf x}) + K({\bf p})$.  
+\input{hybridmc}
 
 
-Consider the distribution $\pi({\bf x}, {\bf p}) \propto \exp(-H({\bf x}, {\bf p})) = f({\bf x})\times\exp(-K({\bf p}))$. Since $\pi({\bf x}, {\bf p})$ is factorial, the marginal distribution of ${\bf x}$ defined by $\pi({\bf x}, {\bf p})$ is the same as $\hat{\pi}$. Thus to get samples for $\hat{\pi}$ we only have to sample from $\pi({\bf x}, {\bf p})$ and discard the samples for ${\bf p}$.
-
-Since we can interpret ${\bf x}$ as location parameters, $U({\bf x})$ as potential energy, and $K({\bf p})$ as kinetic energy, we can interpret $H({\bf x}, {\bf p})$ as the Hamiltonian function. Therefore the dynamics can be described by Hamilton's equations:
-\begin{equation} 
- \frac{\partial H}{\partial {\bf x}} = -\dot{{\bf p}}, \mbox{\space \space \space \space \space} \frac{\partial H}{\partial {\bf p}} = \dot{{\bf x}}.
-\end{equation}
-
-To simulate the Hamiltonian dynamics in practice, we must discretise the differential equation that describes the continuous motion. This can be accomplished by the St\"{o}rmer-Verlet or leapfrog scheme \cite{leimkuhler2004simulating}. It is composed of three steps as described below:
-\begin{eqnarray} 
- {\bf p}_{\tau + \frac{\epsilon}{2}} = {\bf p}_{\tau} - \frac{\epsilon}{2}\left. \frac{\partial U}{\partial {\bf x}}\right|_{{\bf x}_{\tau}}\\
- {\bf x}_{\tau + \epsilon} = {\bf x}_{\tau} + \epsilon M^{-1}{\bf p}_{\tau + \frac{\epsilon}{2}} \\
- {\bf p}_{\tau + \epsilon} = {\bf p}_{\tau} - \frac{\epsilon}{2}\left. \frac{\partial U}{\partial {\bf x}}\right|_{{\bf x}_{\tau + \epsilon}}
-\end{eqnarray}
-% reference radford neal
-% Simulating Hamiltonian Dynamics
-where $\tau$ is the current time and $\epsilon$ is the stepsize. Although it does preserve volume in the phase space and it is time-reversible, the leapfrog scheme does not conserve the total energy. To correct this error introduced by discretization, Duane et al. suggested using the Metropolis rule \cite{duane1987hybrid} which gives rise to HMC. The full HMC algorithm operates as follows:
-\begin{itemize}
- \item[${\bf 1.}$]Sample ${\bf p}^{t} \sim N({\bf 0}, M)$,
- \item[${\bf 2.}$]Given $\epsilon$ and $L$, apply the leapfrog scheme $L$ times with stepsize $\epsilon$ starting from the current state $({\bf x}^{t},{\bf p}^{t})$ to generate a proposal state $({\bf x}^{*},{\bf p}^{*})$,
- \item[${\bf 3.}$]Let $({\bf x}^{t+1},{\bf p}^{t+1}) = ({\bf x}^{*},{\bf p}^{*})$ with probability $\min[1, \exp(H({\bf x}^{t},{\bf p}^{t}) - H({\bf x}^{*},{\bf p}^{*}))]$. Let $({\bf x}^{t+1},{\bf p}^{t+1})$ = $({\bf x}^{t},{\bf p}^{t})$ with the remaining probability.
-\end{itemize}
-
-It can be shown that Markov chain defined by HMC statisfies the detailed-balance condition \cite{neal2010mcmc}. HMC has the potential of overcoming random walk behaviour which has been illustrated in \cite{neal2010mcmc, chen2001exploring}. However, despite this advantage HMC has not been extensively adopted in practice as a practical inference method \cite{girolami2011riemann}. One reason for this is HMC's sensitivity to parameters changes. To overcome this problem, we introduce our method of using Bayesian optimization to adapt the parameters of HMC in the following section.
-
-
-\section{Adaptive HMC}
-
-\subsection{Bayesian Optimization by Bayesian Linear Regression}
-
-\subsection{Objective Functions}
+\input{adaptiveHMC}
+\subsection{Choices of Rewards}
 There is much work on the optimal acceptance rate of the HMC algorithm. In \cite{beskos2010optimal}, Beskos et al. showed rigorously that under the assumption that $\exp(-H)$ consist of $d >> 1$ i.i.d. components we have the acceptance to be around $0.651$. An optimal acceptance rate of 0.65 has been shown by Neal in \cite{neal2010mcmc} by approximation. Many similar works suggests similar values \cite{creutz1988global} \cite{sexton1992hamiltonian} \cite{kennedy1991acceptances}. Chen et al. stated that their experiments suggested the optimal acceptance ratio is around 0.7 \cite{chen2001exploring}. Therefore it is possible to tune $\epsilon$ and $L$ based on acceptence rate.
 
 
-\section{Application to Bayesian Neural Networks}
 
-\subsection{Robot Arm Data}
-
-\subsection{Dexter Dataset}
-
+\input{experiments}
 
 \small{
-\bibliography{refs, adaptsaw,thesis,mc}{}
+\bibliography{refs, adaptsaw,thesis,mc, bandits}{}
 \bibliographystyle{plain}
 }
 
