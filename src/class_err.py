@@ -53,13 +53,13 @@ def write_in_file(data_file_name, start, finish):
 	ls.append(class_err(result))
 
     
-    return mean(ls), var(ls)    
+    return mean(ls), var(ls), ls
 
 f = open('myownfile', 'w')    
 
 jump_size = 50
 for i in range(31):
     start = 15; finish = start + (i+1)*jump_size
-    m, v = write_in_file("combined_valid.data.sel", start, finish)
-    print m, v
-    f.write( str((i+1)*jump_size)+ " " + str(m) + str(v) +"\n")
+    m, v, ls = write_in_file("combined_valid.data.sel", start, finish)
+    print m, v, ls
+    f.write( str((i+1)*jump_size)+ " " + str(m) + " " + str(v) + str(ls) +"\n")
