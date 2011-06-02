@@ -97,19 +97,27 @@ To simulate the Hamiltonian dynamics in practice, we must discretise the differe
 % Simulating Hamiltonian Dynamics
 where $\tau$ is the current time and $\epsilon$ is the stepsize. Although it does preserve volume in the phase space and it is time-reversible, the leapfrog scheme does not conserve the total energy. To correct this error introduced by discretization, Duane et al. suggested using the Metropolis rule \cite{duane1987hybrid} which gives rise to HMC. The full HMC algorithm operates as follows:
 \begin{itemize}
- \item[${\bf 1.}$]Sample ${\bf p}^{t} \sim N({\bf 0}, M)$ .
- \item[${\bf 2.}$]Given $\epsilon$ and $L$, apply the leapfrog scheme $L$ times with stepsize $\epsilon$ starting from the current state $({\bf x}^{t},{\bf p}^{t})$ to generate a proposal state $({\bf x}^{*},{\bf p}^{*})$.
+ \item[${\bf 1.}$]Sample ${\bf p}^{t} \sim N({\bf 0}, M)$,
+ \item[${\bf 2.}$]Given $\epsilon$ and $L$, apply the leapfrog scheme $L$ times with stepsize $\epsilon$ starting from the current state $({\bf x}^{t},{\bf p}^{t})$ to generate a proposal state $({\bf x}^{*},{\bf p}^{*})$,
  \item[${\bf 3.}$]Let $({\bf x}^{t+1},{\bf p}^{t+1}) = ({\bf x}^{*},{\bf p}^{*})$ with probability $\min[1, \exp(H({\bf x}^{t},{\bf p}^{t}) - H({\bf x}^{*},{\bf p}^{*}))]$. Let $({\bf x}^{t+1},{\bf p}^{t+1})$ = $({\bf x}^{t},{\bf p}^{t})$ with the remaining probability.
 \end{itemize}
 
-Typically, the Markov chain defined by HMC is ergodic. However, in rare cases, it is possible for the chain to be periodic. The potential problem can be solved by randomly choosing $\epsilon$ or $L$ (or both) from a small interval \cite{mackenzie1989improved}.
+It can be shown that Markov chain defined by HMC statisfies the detailed-balance condition \cite{neal2010mcmc}. HMC has the potential of overcoming random walk behaviour which has been illustrated in \cite{neal2010mcmc, chen2001exploring}. However, despite this advantage HMC has not been extensively adopted in practice as a practical inference method \cite{girolami2011riemann}. One reason for this is HMC's sensitivity to parameters changes. To overcome this problem, we introduce our method of using Bayesian optimization to adapt the parameters of HMC in the following section.
 
-There is much work on the optimal acceptance rate of the HMC algorithm. In \cite{beskos2010optimal}, Beskos et al. showed rigorously that under the assumption that $\exp(-H)$ consist of $d >> 1$ i.i.d. components we have the acceptance to be around $0.651$. An optimal acceptance rate of 0.65 has been shown by Neal in \cite{neal2010mcmc} by approximation. Many similar works suggests similar values \cite{creutz1988global} \cite{sexton1992hamiltonian} \cite{kennedy1991acceptances}. Chen et al. stated that their experiments suggested the optimal acceptance ratio is around 0.7 \cite{chen2001exploring}. Therefore it is possible to tune $\epsilon$ and $L$ based on acceptence rate.
 
 \section{Adaptive HMC}
 
 \subsection{Bayesian Optimization by Bayesian Linear Regression}
 
+\subsection{Objective Functions}
+There is much work on the optimal acceptance rate of the HMC algorithm. In \cite{beskos2010optimal}, Beskos et al. showed rigorously that under the assumption that $\exp(-H)$ consist of $d >> 1$ i.i.d. components we have the acceptance to be around $0.651$. An optimal acceptance rate of 0.65 has been shown by Neal in \cite{neal2010mcmc} by approximation. Many similar works suggests similar values \cite{creutz1988global} \cite{sexton1992hamiltonian} \cite{kennedy1991acceptances}. Chen et al. stated that their experiments suggested the optimal acceptance ratio is around 0.7 \cite{chen2001exploring}. Therefore it is possible to tune $\epsilon$ and $L$ based on acceptence rate.
+
+
+\section{Application to Bayesian Neural Networks}
+
+\subsection{Robot Arm Data}
+
+\subsection{Dexter Dataset}
 
 
 \small{
