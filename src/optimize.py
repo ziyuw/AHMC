@@ -120,9 +120,11 @@ class optimize:
 	
 	def obj_func(x):
 	    return self.linearmodel.expected_improvement(x)
-	
+
 	optv, optx = optimize_direct.direct(obj_func, self.bounds, maxiter=self.maxeval)
-	
+
+	print optv, optx
+
 	## Using DIRECT as the optimization scheme
 	#opt = nlopt.opt(nlopt.GN_DIRECT, self.dim)
 

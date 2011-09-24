@@ -108,7 +108,7 @@ if pure_bayes:
     opt.start_point = [0.4, 200.0]
     opt.maxeval = 100
     opt.epsilons =  arange(3.5, 10.0, 0.5)
-    opt.bf_opt_steps = [0.05, 100.0]
+    opt.bf_opt_steps = [0.01, 50.0]
 else:
     opt.bounds = [(105.0, 5005.0)]
     opt.num_basis = 200
@@ -160,7 +160,7 @@ for ROBO_spec in ROBO_specs:
     #ROBO_spec.negate = True
 
 # Loop
-for i in range(150):
+for i in range(100):
     print "Iteration:", i
     logger.info("Iteration: " + str(i))
     facility.opt_iter(logger)

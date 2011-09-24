@@ -3,12 +3,12 @@ import util
 from numpy import *
 from numpy.random import *
 
-plot = False
+plot = True
 if plot:
     from matplotlib.pyplot import *
 
 def objective(seq):
-    return float(0.5*log(seq)/2.0*cos(seq[0]/200.0)+6.0)
+    return float(0.125*log(seq)*cos(seq[0]/200.0)+1)
 
 lambdas = array([4900])
 
@@ -32,7 +32,7 @@ opt = optimize(fn)
 
 opt.bounds = [(105.0, 5005.0)]
 opt.num_basis = 50
-opt.start_point = [250.0]
+opt.start_point = [150.0]
 opt.maxeval = 100
 opt.epsilons =  arange(6.5, 7.0, 0.5)
 opt.bf_opt_steps = [20.0]
@@ -48,20 +48,21 @@ opt.reinitialize()
 
 seq = arange(105.0, 5005.0, 1.0)
 #y_value = -(0.5*seq*seq*seq - 0.1*seq*seq)
-y_value = 0.5*log(seq)/2.0*cos(seq/200.0)+6.0
+y_value = 0.125*log(seq)*cos(seq/200.0)+1
 
 xs = []
 ys = []
 x = opt.start_point
-for i in range(50):
+for i in range(20):
     # x = opt.direct(float(i+1)) # Use direct to optimize
     
-    noisy_y = objective(x) + normal(loc=0.0, scale=2.0)
+    noisy_y = objective(x) + normal(loc=0.0, scale=0.2)
     print i, x, noisy_y
     xs.append(x)
     ys.append(noisy_y)
     opt.update(x, noisy_y)
-    x = opt.direct(float(i+1)) # Use brute force to optimize
+    x = opt.bf_opt(float(i+1)) # Use brute force to optimize
+    #x = opt.direct(float(i+1))
     
 print "Training finished."
 
