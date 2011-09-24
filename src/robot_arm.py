@@ -160,7 +160,7 @@ for ROBO_spec in ROBO_specs:
     #ROBO_spec.negate = True
 
 # Loop
-for i in range(100):
+for i in range(150):
     print "Iteration:", i
     logger.info("Iteration: " + str(i))
     facility.opt_iter(logger)

@@ -46,7 +46,6 @@ def write_in_file(data_file_name, start, finish):
     for i in range(num_folds):
 	net_path = net_folder + '/dexter' + str(i) + '.net'
 	cmd = generate_netpred_command(ran, net_path, option, command_path, test_data_path)
-	
 	process = subprocess.Popen(cmd, shell=False, stdout=subprocess.PIPE)
 	result = process.communicate()
 	
@@ -59,7 +58,8 @@ f = open('myownfile', 'w')
 
 jump_size = 50
 for i in range(31):
-    start = 15; finish = start + (i+1)*jump_size
+    start = i*jump_size + 1; 
+    finish = (i+1)*jump_size
     m, v, ls = write_in_file("combined_valid.data.sel", start, finish)
     print m, v, ls
     f.write( str((i+1)*jump_size)+ " " + str(m) + " " + str(v) + str(ls) +"\n")
