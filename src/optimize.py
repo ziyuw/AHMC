@@ -116,28 +116,31 @@ class optimize:
 	return best_param, best_objective
 	
     def direct(self, alpha):
-	import nlopt
+	import optimize_direct
 	
-	fn = lambda x, grad: self.objective_func(x, grad, alpha)
+	def obj_func(x):
+	    return self.linearmodel.expected_improvement(x)
 	
-	# Using DIRECT as the optimization scheme
-	opt = nlopt.opt(nlopt.GN_DIRECT, self.dim)
+	optv, optx = optimize_direct.direct(obj_func, self.bounds, maxiter=self.maxeval)
+	
+	## Using DIRECT as the optimization scheme
+	#opt = nlopt.opt(nlopt.GN_DIRECT, self.dim)
 
-	# Set the objective
-	opt.set_max_objective(fn)
+	## Set the objective
+	#opt.set_max_objective(fn)
 
-	# Set the maximum number of iterations
-	opt.set_maxeval(self.maxeval)
+	## Set the maximum number of iterations
+	#opt.set_maxeval(self.maxeval)
 
-	# Set lower and upper bounds
-	opt.set_lower_bounds(self.lb)
-	opt.set_upper_bounds(self.ub)
+	## Set lower and upper bounds
+	#opt.set_lower_bounds(self.lb)
+	#opt.set_upper_bounds(self.ub)
 
-	# Optimize with starting point
-	x = opt.optimize(self.start_point)
-	#minf = opt.last_optimum_value()
-	#print "optimum at ", x[0]
-	#print "minimum value = ", minf
-	#print "result code = ", opt.last_optimize_result()
+	## Optimize with starting point
+	#x = opt.optimize(self.start_point)
+	##minf = opt.last_optimum_value()
+	##print "optimum at ", x[0]
+	##print "minimum value = ", minf
+	##print "result code = ", opt.last_optimize_result()
 
 	return x
