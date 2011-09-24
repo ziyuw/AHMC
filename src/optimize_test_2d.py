@@ -27,8 +27,8 @@ opt.bounds = [(0.2, 0.7), (50.0, 1500.0)]
 opt.num_basis = 100
 opt.start_point = [0.4, 200.0]
 opt.maxeval = 100
-opt.epsilons =  arange(3.5, 10.0, 0.5)
-opt.bf_opt_steps = [0.05, 50.0]
+opt.epsilons =  arange(3.5, 8.0, 0.5)
+opt.bf_opt_steps = [0.1, 100.0]
 
 opt.reinitialize()
 
@@ -54,8 +54,8 @@ if plot:
 
     contour = False
     
-    X = arange(-0.2, 0.7, 0.02)
-    Y = arange(50, 1500, 20.0)
+    X = arange(-0.2, 0.7, 0.2)
+    Y = arange(50, 1500, 50.0)
     X, Y = meshgrid(X, Y)
     Z = objective_2(X, Y)
 

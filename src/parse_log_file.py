@@ -13,10 +13,22 @@ def func(X, Y):
 	    mus[i,j], sigma = opt.predict(pt_in_func)
     return mus
 
+def twodFunc(X, y):
+    ucb = zeros(X.shape)
+    lcb = zeros(X.shape)
+    mus = zeros(X.shape)
+    
+    for i in xrange(X.shape[0]):
+	pt = [y, X[i]]
+	mus[i], sigma = opt.predict(pt)
+	ucb[i] = mus[i] + sqrt(sigma)
+	lcb[i] = mus[i] - sqrt(sigma)
+    return ucb, lcb, mus
+
 #file_path = "temp.txt"
-file_path = "dexter105.log"
+#file_path = "dexter105.log"
 #file_path = "madelon16.log"
-#file_path = "robo61.log"
+file_path = "robo111.log"
 #file_path = "madelon3.log"
 
 f = open(file_path, 'r')
@@ -44,28 +56,28 @@ opt = optimize(fn)
 #opt.bf_opt_steps = [0.05, 50.0]
 
 # Madelon
-opt.bounds = [(0.3, 0.9), (50.0, 2000.0)]
-opt.num_basis = 200
-opt.start_point = [0.4, 200.0]
-opt.maxeval = 100
-opt.epsilons =  arange(3.5, 10.0, 0.5)
-opt.bf_opt_steps = [0.05, 50.0]
-
-#opt.bounds = [(0.2, 0.6), (50.0, 5000.0)]
+#opt.bounds = [(0.3, 0.9), (50.0, 2000.0)]
 #opt.num_basis = 200
 #opt.start_point = [0.4, 200.0]
 #opt.maxeval = 100
-#opt.epsilons =  arange(6.5, 7.0, 0.5)
-#opt.bf_opt_steps = [0.05, 100.0]
+#opt.epsilons =  arange(3.5, 10.0, 0.5)
+#opt.bf_opt_steps = [0.05, 50.0]
 
-
-# Dexter
-opt.bounds = [(0.05, 0.6), (50.0, 2000.0)]
+# Robo
+opt.bounds = [(0.2, 0.6), (50.0, 5000.0)]
 opt.num_basis = 200
 opt.start_point = [0.4, 200.0]
 opt.maxeval = 100
 opt.epsilons =  arange(3.5, 10.0, 0.5)
-opt.bf_opt_steps = [0.05, 50.0]
+opt.bf_opt_steps = [0.05, 100.0]
+
+# Dexter
+#opt.bounds = [(0.05, 0.6), (50.0, 2000.0)]
+#opt.num_basis = 200
+#opt.start_point = [0.4, 200.0]
+#opt.maxeval = 100
+#opt.epsilons =  arange(3.5, 10.0, 0.5)
+#opt.bf_opt_steps = [0.05, 50.0]
 
 opt.reinitialize()
 
@@ -91,18 +103,18 @@ for line in f:
 	pt = None
 	reward = None
 
-plot = True
+plot = False
 contour = False
 if plot:
     from mpl_toolkits.mplot3d import Axes3D
     from matplotlib import cm
     from matplotlib.ticker import LinearLocator, FixedLocator, FormatStrFormatter
     import matplotlib.pyplot as plt
-
+    
     contour = False
     
-    X = arange(0.05, 0.6, 0.05)
-    Y = arange(50, 2000, 50.0)
+    X = arange(0.2, 0.6, 0.05)
+    Y = arange(50, 5000, 50.0)
     X, Y = meshgrid(X, Y)
     Z = func(X, Y)
 
@@ -122,3 +134,19 @@ if plot:
 	fig.colorbar(surf, shrink=0.5, aspect=5)
 
     plt.show()
+    
+twodplot = True
+if twodplot:
+    import matplotlib.pyplot as plt
+    
+    X = arange(50, 5000, 50.0)
+    y = 0.35
+    ucbs, lcbs, mus = twodFunc(X, y)
+    
+    plt.plot(X, mus, 'r')
+    plt.fill_between(X, ucbs, lcbs, color='#0066FF')
+    plt.xlabel('L', fontsize=16)
+    plt.ylabel('Reward', fontsize=16)
+    
+    plt.show()
+    
