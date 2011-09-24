@@ -2,7 +2,10 @@ from optimize import *
 import util
 from numpy import *
 from numpy.random import *
-from matplotlib.pyplot import *
+
+plot = False
+if plot:
+    from matplotlib.pyplot import *
 
 def objective(seq):
     return float(0.5*log(seq)/2.0*cos(seq[0]/200.0)+6.0)
@@ -73,15 +76,15 @@ for pt in test_range:
     upper.append(mu+sigma)
     lower.append(mu-sigma)
 
+if plot:
+    #print predictions
+    line1 = plot(seq, y_value)
+    line2 = plot(test_range, predictions, '-r*')
+    line3 = plot(test_range, upper, '--')
+    line4 = plot(test_range, lower, '-.k')
+    line5 = plot(xs, ys, 'bo')
 
-#print predictions
-line1 = plot(seq, y_value)
-line2 = plot(test_range, predictions, '-r*')
-line3 = plot(test_range, upper, '--')
-line4 = plot(test_range, lower, '-.k')
-line5 = plot(xs, ys, 'bo')
-
-figlegend( (line1, line2, line3, line4, line5),
-           ('True Function', 'Predictions (After Opt.)', 'Upper Confidence Bound', 'Lower Confidence Bound', 'Sampled points (During Opt.)'),
-           'lower right' )
-show()
+    figlegend( (line1, line2, line3, line4, line5),
+	    ('True Function', 'Predictions (After Opt.)', 'Upper Confidence Bound', 'Lower Confidence Bound', 'Sampled points (During Opt.)'),
+	    'lower right' )
+    show()
