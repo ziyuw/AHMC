@@ -143,4 +143,4 @@ class optimize:
 	##print "minimum value = ", minf
 	##print "result code = ", opt.last_optimize_result()
 
-	return x
+	return optx

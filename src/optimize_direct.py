@@ -26,7 +26,6 @@ import ctypes
 import ctypes.util
 from ctypes import c_int, c_double, POINTER, cdll, c_char_p, CFUNCTYPE
 
-import matplotlib.pyplot as plt
 from numpy import sum, array, sin, double
 from numpy.random import random_sample
 
