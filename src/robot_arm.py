@@ -103,12 +103,12 @@ fn = lambda x, item, epsilon: util.Gaussian_RBF_lambda(x, item, epsilon, lambdas
 opt = optimize(fn)
 
 if pure_bayes:
-    opt.bounds = [(0.2, 0.6), (50.0, 5000.0)]
-    opt.num_basis = 200
+    opt.bounds = [(0.01, 1.0), (10.0, 5000.0)]
+    opt.num_basis = 500
     opt.start_point = [0.4, 200.0]
     opt.maxeval = 100
     opt.epsilons =  arange(3.5, 10.0, 0.5)
-    opt.bf_opt_steps = [0.01, 50.0]
+    opt.bf_opt_steps = [0.01, 10.0]
 else:
     opt.bounds = [(105.0, 5005.0)]
     opt.num_basis = 200
