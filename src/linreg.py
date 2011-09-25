@@ -11,7 +11,7 @@ given by basis
 """
 
 class BayesLinModel:
-    def __init__(self, v_0, w_0, a_0, b_0, epsilon, basis, RBF_func = None):
+    def __init__(self, v_0, w_0, a_0, b_0, epsilon, basis, RBF_func = None, basis_dict = None):
 	"""
 	All variables are initialized as matrices except for scalors
 	"""
@@ -30,6 +30,7 @@ class BayesLinModel:
 	self.const_for_mean = self.cov_inv*w_0
 	self.RBF_func = RBF_func
 	
+	self.basis_dict = basis_dict
 	self.best_obj = None
     
     def update(self, x, y_n):
@@ -92,6 +93,10 @@ class BayesLinModel:
 	x is a column vector
 	NOTE: rescale the RBF seems necessary
 	"""
+	
+	if str(x) in self.basis_dict:
+	    return self.basis_dict[str(x)]
+	
 	if shape(x)[0] > 1:
 	    x = reshape(x, (1, shape(x)[0]))
 	size = shape(self.basis)[0]
@@ -106,6 +111,8 @@ class BayesLinModel:
 	    else:
 		features[counter] = self.RBF_func(x, item, self.epsilon)
 	    counter = counter + 1
+	
+	self.basis_dict[str(x)] = features
 	
 	return features
 	
@@ -152,7 +159,7 @@ def predict_func(arg):
     return lin_model.predict(x)
 
 class group_linreg:
-    def __init__(self, epsilons, v_0, w_0, a_0, b_0, basis, RBF_func = None, parallel = True):
+    def __init__(self, epsilons, v_0, w_0, a_0, b_0, basis, RBF_func = None, parallel = False):
 	"""
 	epsilons is a list of epsilons with equal probability
 	"""
@@ -162,8 +169,9 @@ class group_linreg:
 	self.size = size(epsilons)
 	self.linreg_list = []
 	self.parallel = parallel
+	dictionary = {}
 	for epsilon in epsilons:
-	    self.linreg_list.append(BayesLinModel(v_0, w_0, a_0, b_0, epsilon, basis, RBF_func))
+	    self.linreg_list.append(BayesLinModel(v_0, w_0, a_0, b_0, epsilon, basis, RBF_func, dictionary))
 	    
     def update(self, x, y_n):
 	"""

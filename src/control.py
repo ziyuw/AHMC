@@ -347,7 +347,7 @@ class facilities:
 	for line in result:
 	    if 'total' in line:
 		splitted = line.strip('()').split()
-		return float(0.01-float(splitted[len(splitted)-1].split('+-')[0]))*1000
+		return float(0.01-float(splitted[len(splitted)-1].split('+-')[0]))*1000 - 3.5
 
 # -----------------------------------------------------------------------------------------------
 

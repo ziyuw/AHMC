@@ -31,7 +31,7 @@ opt = optimize(fn)
 #opt.bf_opt_steps = [20.0]
 
 opt.bounds = [(105.0, 5005.0)]
-opt.num_basis = 50
+opt.num_basis = 200
 opt.start_point = [150.0]
 opt.maxeval = 100
 opt.epsilons =  arange(6.5, 7.0, 0.5)
