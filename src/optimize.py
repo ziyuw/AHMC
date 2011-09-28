@@ -39,6 +39,9 @@ class optimize:
 	
 	self.bf_opt_steps = [0.02, 100.0]
 	
+    def acquisition(self, x):
+	return self.linearmodel.expected_improvement(x)
+    
     def set_lower_bound(self):
 	self.lb = []
 	for tuples in self.bounds:
