@@ -5,63 +5,84 @@ from numpy.random import *
 import time
 
 def objective_2(x, y):
-    return cos(30*(0.5*exp(-((x-0.3)**2 - ((y-250.0)/1450.0)**2)) + 0.5*exp((-(x-0.5)**2 - ((y-1050.0)/1450.0)**2))))/((x-0.5)**2 + ((y-1050.0)/1450.0)**2+1)
+    return cos(30*(0.5*exp(-((x-0.3)**2 - ((y-250.0)/4980.0)**2)) + 0.5*exp((-(x-0.5)**2 - ((y-1050.0)/4980.0)**2))))/((x-0.5)**2 + ((y-1050.0)/4980.0)**2+1)
     
 def objective(x):
     return objective_2(x[0], x[1])
 
+def twodFunc(X, y):
+    ucb = zeros(X.shape)
+    lcb = zeros(X.shape)
+    mus = zeros(X.shape)
+    
+    for i in xrange(X.shape[0]):
+	pt = [y, X[i]]
+	mus[i], sigma = opt.predict(pt)
+	ucb[i] = mus[i] + sqrt(sigma)
+	lcb[i] = mus[i] - sqrt(sigma)
+    return ucb, lcb, mus
 
-lambdas = array([0.5, 1450.0])
+lambdas = array([1.0, 4980.0])
 
 fn = lambda x, item, epsilon: util.Gaussian_RBF_lambda(x, item, epsilon, lambdas)
 opt = optimize(fn)
 
-#opt.bounds = [(0.2, 0.6), (50.0, 5000.0)]
-#opt.num_basis = 200
-#opt.start_point = [0.4, 300.0]
-#opt.maxeval = 100
-#opt.epsilons =  arange(2.5, 3.0, 0.5)
-#opt.bf_opt_steps = [0.05, 100.0]
-
-opt.bounds = [(0.2, 0.7), (50.0, 1500.0)]
-opt.num_basis = 100
+opt.bounds = [(0.01, 1.01), (20.0, 5000.0)]
+opt.num_basis = 300
 opt.start_point = [0.4, 200.0]
 opt.maxeval = 100
-opt.epsilons =  arange(3.5, 8.0, 0.5)
+opt.epsilons =  arange(4.0, 16.1, 3.0)
 opt.bf_opt_steps = [0.1, 100.0]
+
+#opt.bounds = [(0.2, 0.7), (50.0, 1500.0)]
+#opt.num_basis = 100
+#opt.start_point = [0.4, 200.0]
+#opt.maxeval = 100
+#opt.epsilons =  arange(3.5, 8.0, 0.5)
+#opt.bf_opt_steps = [0.1, 100.0]
 
 opt.reinitialize()
 
-x = opt.start_point
+x = []
+y = []
+z = []
+
+pt = opt.start_point
 for i in range(100):
     time1 = time.time()
     
-    noisy_y = objective(x) + normal(loc=0.0, scale=0.5)
-    print i, x, noisy_y
-    opt.update(x, noisy_y)
-    x = opt.bf_opt(float(i+1)) # Use brute force to optimize
-    # x = opt.direct(float(i+1)) # Use direct to optimize
+    noisy_y = objective(pt) + normal(loc=0.0, scale=0.1)
+    print i, pt, noisy_y
+    opt.update(pt, noisy_y)
+    pt = opt.bf_opt(float(i+1)) # Use brute force to optimize
+    # pt = opt.direct(float(i+1)) # Use direct to optimize
     
     time2 = time.time()
     print 'Took:', time2-time1, 'secs'
+    
+    x.append(pt[0])
+    y.append(pt[1])
+    z.append(noisy_y)
 
-plot = True
+
+plot = False
 if plot:
     from mpl_toolkits.mplot3d import Axes3D
     from matplotlib import cm
     from matplotlib.ticker import LinearLocator, FixedLocator, FormatStrFormatter
     import matplotlib.pyplot as plt
 
-    contour = False
+    contour = True
     
-    X = arange(-0.2, 0.7, 0.2)
-    Y = arange(50, 1500, 50.0)
+    X = arange(0.0, 1.02, 0.01)
+    Y = arange(20, 5000, 50.0)
     X, Y = meshgrid(X, Y)
     Z = objective_2(X, Y)
 
     if contour == True:
 	plt.figure()
 	CS = plt.contour(X, Y, Z)
+	plt.scatter(x, y)
 	plt.clabel(CS, inline=1, fontsize=10)
 	plt.title('Simplest default with labels')
     else:
@@ -72,3 +93,18 @@ if plot:
 	fig.colorbar(surf, shrink=0.5, aspect=5)
 
     plt.show()
+
+if not plot:
+    import matplotlib.pyplot as plt
+    
+    X = arange(50, 5000, 50.0)
+    y = 0.41
+    ucbs, lcbs, mus = twodFunc(X, y)
+    
+    plt.plot(X, mus, 'r')
+    plt.fill_between(X, ucbs, lcbs, color='#0066FF')
+    plt.xlabel('L', fontsize=16)
+    plt.ylabel('Reward', fontsize=16)
+    #plt.axis([50, 5000, 3, 5])
+    plt.show()
+    
