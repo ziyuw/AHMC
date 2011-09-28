@@ -94,8 +94,8 @@ class BayesLinModel:
 	NOTE: rescale the RBF seems necessary
 	"""
 	
-	if str(x) in self.basis_dict:
-	    return self.basis_dict[str(x)]
+	if str(x)+str(self.epsilon) in self.basis_dict:
+	    return self.basis_dict[str(x)+str(self.epsilon)]
 	
 	if shape(x)[0] > 1:
 	    x = reshape(x, (1, shape(x)[0]))
@@ -112,7 +112,7 @@ class BayesLinModel:
 		features[counter] = self.RBF_func(x, item, self.epsilon)
 	    counter = counter + 1
 	
-	self.basis_dict[str(x)] = features
+	self.basis_dict[str(x)+str(self.epsilon)] = features
 	
 	return features
 	
