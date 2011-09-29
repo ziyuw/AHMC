@@ -15,7 +15,7 @@ class BayesLinModel:
 	"""
 	All variables are initialized as matrices except for scalors
 	"""
-	
+	self.v_0 = v_0
 	self.basis = basis # This is generated from latin hyper cube
 	self.n = 0.0	# The number of points we have seen so far
 	self.cov = v_0	# The covariance function
@@ -61,6 +61,12 @@ class BayesLinModel:
 	
 	if self.best_obj == None or self.best_obj < y_n:
 	    self.best_obj = y_n
+
+    def logmarginal(self):
+	
+	logmar = 0.5*log(linalg.det(self.cov)) - 0.5*log(linalg.det(self.v_0)) + self.a_0*log(self.b_0) - self.a_n*log(self.b_n) + math.lgamma(self.a_n) - math.lgamma(self.a_0) - self.n*log(2*sqrt(pi))
+	
+	return logmar
 
     def predict(self, x):
 	"""
@@ -127,7 +133,7 @@ class BayesLinModel:
 	
 	#print 'in lin', x, const
 	
-	const = const + mean*(1-util.student_t_cdf(0.0, mean, sigma, df))
+	const = const + (mean+self.best_obj)*(1-util.student_t_cdf(0.0, mean, sigma, df))
 	
 	
 	return const
@@ -169,10 +175,27 @@ class group_linreg:
 	self.size = size(epsilons)
 	self.linreg_list = []
 	self.parallel = parallel
+	
+	# Initialize the probability to be equal
+	self.posterior_probs = [1.0/len(epsilons) for i in xrange(len(epsilons))]
+	
 	dictionary = {}
 	for epsilon in epsilons:
 	    self.linreg_list.append(BayesLinModel(v_0, w_0, a_0, b_0, epsilon, basis, RBF_func, dictionary))
+
+    def resample(self):
+	mars = []
+	
+	for i in range(self.size):
+	    mars.append(float(exp(self.linreg_list[i].logmarginal())))
 	    
+	total = sum(mars)
+	
+	for i in range(self.size):
+	    self.posterior_probs[i] = mars[i]/total
+	    
+	print self.posterior_probs
+
     def update(self, x, y_n):
 	"""
 	Updates each linear model after seeing a new point
@@ -221,6 +244,11 @@ class group_linreg:
 	
 	#print predict_variance
 	
+	predict_mean = sum([self.posterior_probs[i]*means[i] for i in range(self.size)])
+	
+	predict_variance = sum([self.posterior_probs[i]*variances[i] for i in range(self.size)])
+	predict_variance = predict_variance + sum([self.posterior_probs[i]*means[i]**2 for i in range(self.size)]) - predict_mean**2
+	
 	return predict_mean, predict_variance
 
     def prob_obs_x_or_extm(self, x, y_n):
@@ -260,7 +288,9 @@ class group_linreg:
 	    for i in range(self.size):
 		#print x
 		means[i] = self.linreg_list[i].expected_improvement(x)
-	return mean(means)
+	
+	return sum([self.posterior_probs[i]*means[i] for i in range(self.size)])
+	#return mean(means)
 
     def compute_UCB(self, x, t):
 	# NOTE: Check this out
