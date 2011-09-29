@@ -20,8 +20,8 @@ class optimize:
 	
 	# NOTE: original value of a_0 and b_0 are 5 and 10.
 	
-	self.a_0 = 3.0
-	self.b_0 = 1.0
+	self.a_0 = 5.0
+	self.b_0 = 10.0
 	self.start_point = [0.1, 100]
 	self.maxeval = 1000
 	self.lb = []
@@ -68,6 +68,9 @@ class optimize:
 	
     def prob_obs_x_or_extm(self, x, y_n):
 	return self.linearmodel.prob_obs_x_or_extm(x, y_n)
+
+    def resample(self):
+	self.linearmodel.resample()
 	
     def update(self, x, y):
 	# NOTE: Pay attention to the shape of x
