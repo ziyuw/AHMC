@@ -18,8 +18,10 @@ class optimize:
 	self.v_0 = mat(eye(self.num_basis))
 	self.w_0 = mat(zeros((self.num_basis, 1)))
 	
-	self.a_0 = 5.0
-	self.b_0 = 10.0
+	# NOTE: original value of a_0 and b_0 are 5 and 10.
+	
+	self.a_0 = 3.0
+	self.b_0 = 1.0
 	self.start_point = [0.1, 100]
 	self.maxeval = 1000
 	self.lb = []
@@ -29,6 +31,7 @@ class optimize:
 	
 	# NOTE: How to choose a_0 and b_0?
 	# NOTE: This can be chosen in smart ways probably
+	# NOTE: Look at inverse-gamma prior.
 	self.epsilons =  arange(15.0, 20.0, 1.0)
 
 	self.dim = len(self.bounds)
@@ -126,7 +129,7 @@ class optimize:
 
 	optv, optx = optimize_direct.direct(obj_func, self.bounds, maxiter=self.maxeval)
 
-	print optv, optx
+	#print optv, optx
 
 	## Using DIRECT as the optimization scheme
 	#opt = nlopt.opt(nlopt.GN_DIRECT, self.dim)

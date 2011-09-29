@@ -27,13 +27,15 @@ lambdas = array([1.0, 4980.0])
 fn = lambda x, item, epsilon: util.Gaussian_RBF_lambda(x, item, epsilon, lambdas)
 opt = optimize(fn)
 
-opt.bounds = [(0.01, 1.01), (20.0, 5000.0)]
+# Simulate the Robo-Arm problem
+opt.bounds = [(0.01, 1.01), (20.0, 5021.0)]
 opt.num_basis = 300
 opt.start_point = [0.4, 200.0]
 opt.maxeval = 100
-opt.epsilons =  arange(4.0, 16.1, 3.0)
-opt.bf_opt_steps = [0.1, 100.0]
+opt.epsilons =  arange(6.0, 22.1, 4.0)
+opt.bf_opt_steps = [0.02, 100.0]
 
+# Simulate the Dexter problem
 #opt.bounds = [(0.2, 0.7), (50.0, 1500.0)]
 #opt.num_basis = 100
 #opt.start_point = [0.4, 200.0]
@@ -55,7 +57,7 @@ for i in range(100):
     print i, pt, noisy_y
     opt.update(pt, noisy_y)
     pt = opt.bf_opt(float(i+1)) # Use brute force to optimize
-    # pt = opt.direct(float(i+1)) # Use direct to optimize
+    #pt = opt.direct(float(i+1)) # Use direct to optimize
     
     time2 = time.time()
     print 'Took:', time2-time1, 'secs'
