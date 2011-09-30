@@ -20,8 +20,8 @@ class optimize:
 	self.num_basis = 500
 	self.bounds = [(0.01,0.51), (10.0, 2000.0)]
 	self.basis = lhsample(self.num_basis, self.bounds)
-	self.v_0 = mat(eye(self.num_basis))
-	self.w_0 = mat(zeros((self.num_basis, 1)))
+	self.v_0 = mat(eye(self.num_basis+1))
+	self.w_0 = mat(zeros((self.num_basis+1, 1)))
 	
 	# NOTE: original value of a_0 and b_0 are 5 and 10.
 	
@@ -42,7 +42,7 @@ class optimize:
 	self.epsilons =  arange(15.0, 20.0, 1.0)
 
 	self.dim = len(self.bounds)
-	self.linearmodel = group_linreg(self.epsilons, self.v_0, self.w_0, self.a_0, self.b_0, self.basis, RBF_func = self.RBF_func)
+	self.linearmodel = group_linreg(self.epsilons, self.v_0, self.w_0, self.a_0, self.b_0, self.basis, RBF_func = self.RBF_func, resample = self.resampling)
 	#self.objective_func = lambda x, grad, alpha: self.linearmodel.compute_UCB(x, alpha)
 	self.objective_func = lambda x, grad, alpha: self.linearmodel.expected_improvement(x)
 	self.set_lower_bound(); self.set_upper_bound()
@@ -64,8 +64,8 @@ class optimize:
 
     def reinitialize(self):
 	self.basis = lhsample(self.num_basis, self.bounds)
-	self.v_0 = mat(eye(self.num_basis))
-	self.w_0 = mat(zeros((self.num_basis, 1)))
+	self.v_0 = mat(eye(self.num_basis+1))*10e10
+	self.w_0 = mat(zeros((self.num_basis+1, 1)))
 	
 	self.dim = len(self.bounds)
 	self.set_lower_bound(); self.set_upper_bound()
@@ -77,7 +77,7 @@ class optimize:
 	return self.linearmodel.prob_obs_x_or_extm(x, y_n)
 
     def resample(self):
-	self.linearmodel.resample()
+	self.linearmodel.re_sample()
 	
     def update(self, x, y):
 	# NOTE: Pay attention to the shape of x

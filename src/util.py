@@ -25,8 +25,13 @@ def student_t_cdf(x, mu, sigma, df):
 def student_t_pdf_mod(x, mu, sigma, df):
     
     const = exp(gammln(float(df + 1)/2)-gammln(float(df)/2))/sigma
-    const = const * power(float(df)*pi, -0.5)
-    return (float(1+((x-mu)/sigma)**2/float(df)))**(-(float(df-1)/2))
+    const = const*(float(df)*pi)**(-0.5)
+    
+    return const*(float(1+((x-mu)/sigma)**2/float(df)))**(-(float(df-1)/2))
+    
+    #const = gammln(float(df + 1)/2)-gammln(float(df)/2) - log(sigma)
+    #const = const - 0.5*log(float(df)*pi)
+    
 
 def Gaussian_RBF_lambda(x, item, epsilon, lambdas):
     return exp(-(epsilon*linalg.norm((x - item)/lambdas))**2)

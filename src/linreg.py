@@ -108,7 +108,7 @@ class BayesLinModel:
 	size = shape(self.basis)[0]
 	
 	# Features is a column vector
-	features = mat(zeros((size, 1)))
+	features = mat(ones((size+1, 1)))
 	
 	counter = 0
 	for item in self.basis:
@@ -129,12 +129,12 @@ class BayesLinModel:
 	
 	mean = mean - self.best_obj
 	sigma = sqrt(variance)
-	const = util.student_t_pdf_mod(0.0, mean, sigma, df-2)/(float(df-1)/(float(df)*variance))
+	const = util.student_t_pdf_mod(0.0, mean, sigma, df)/(float(df-1)/(float(df)*variance))
 	
 	#print 'in lin', x, const
 	
 	const = const + mean*(1-util.student_t_cdf(0.0, mean, sigma, df))
-	
+
 	if const < 0:
 	    print const
 
@@ -167,16 +167,18 @@ def predict_func(arg):
     return lin_model.predict(x)
 
 class group_linreg:
-    def __init__(self, epsilons, v_0, w_0, a_0, b_0, basis, RBF_func = None, parallel = False):
+    def __init__(self, epsilons, v_0, w_0, a_0, b_0, basis, RBF_func = None, parallel = False, resample = 0):
 	"""
 	epsilons is a list of epsilons with equal probability
 	"""
+	self.n = 0
 	self.alpha_const = 1.0
 	self.delta = 0.05
 	self.dim = shape(v_0)[0]
 	self.size = size(epsilons)
 	self.linreg_list = []
 	self.parallel = parallel
+	self.resample = resample
 	
 	# Initialize the probability to be equal
 	self.posterior_probs = [1.0/len(epsilons) for i in xrange(len(epsilons))]
@@ -185,7 +187,7 @@ class group_linreg:
 	for epsilon in epsilons:
 	    self.linreg_list.append(BayesLinModel(v_0, w_0, a_0, b_0, epsilon, basis, RBF_func, dictionary))
 
-    def resample(self):
+    def re_sample(self):
 	mars = []
 	
 	for i in range(self.size):
@@ -207,6 +209,11 @@ class group_linreg:
 	"""
 	for lin_model in self.linreg_list:
 	    lin_model.update(mat(x), y_n)
+	
+	self.n = self.n + 1
+	
+	if self.resample > 0 and self.n%self.resample == 0:
+	    self.re_sample()
 	
     def predict_parallel(self, x):
 	"""
@@ -291,7 +298,7 @@ class group_linreg:
 		#print x
 		means[i] = self.linreg_list[i].expected_improvement(x)
 	
-	return sum([self.posterior_probs[i]*means[i] for i in range(self.size)])
+	return sum([self.posterior_probs[i]*means[i] for i in xrange(self.size)])
 	#return mean(means)
 
     def compute_UCB(self, x, t):
