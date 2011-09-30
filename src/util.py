@@ -26,7 +26,7 @@ def student_t_pdf_mod(x, mu, sigma, df):
     
     const = exp(gammln(float(df + 1)/2)-gammln(float(df)/2))/sigma
     const = const * power(float(df)*pi, -0.5)
-    return (float(1+((x-mu)/sigma)**2/float(df)))**(-(float(df+1)/2))
+    return (float(1+((x-mu)/sigma)**2/float(df)))**(-(float(df-1)/2))
 
 def Gaussian_RBF_lambda(x, item, epsilon, lambdas):
     return exp(-(epsilon*linalg.norm((x - item)/lambdas))**2)
