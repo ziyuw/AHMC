@@ -11,7 +11,12 @@ def myfunc(x, grad):
 
 
 class optimize:
-    def __init__(self, RBF_func = None):
+    def __init__(self, RBF_func = None, resampling = 0):
+	# resampling specifies whether the length scale should be resampled
+	# If resampling = 0 the no resampling is done
+	# If resampling = n for n > 0 then resampling happens every n steps
+	# NOTE: this is not finished
+	
 	self.num_basis = 500
 	self.bounds = [(0.01,0.51), (10.0, 2000.0)]
 	self.basis = lhsample(self.num_basis, self.bounds)
@@ -26,6 +31,8 @@ class optimize:
 	self.maxeval = 1000
 	self.lb = []
 	self.ub = []
+	
+	self.resampling = resampling
 	
 	self.RBF_func = RBF_func
 	

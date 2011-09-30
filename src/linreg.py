@@ -129,13 +129,15 @@ class BayesLinModel:
 	
 	mean = mean - self.best_obj
 	sigma = sqrt(variance)
-	const = -util.student_t_pdf_mod(0.0, mean, sigma, df)/(-float(df-1)/(df*variance))
+	const = util.student_t_pdf_mod(0.0, mean, sigma, df-2)/(float(df-1)/(float(df)*variance))
 	
 	#print 'in lin', x, const
 	
-	const = const + (mean+self.best_obj)*(1-util.student_t_cdf(0.0, mean, sigma, df))
+	const = const + mean*(1-util.student_t_cdf(0.0, mean, sigma, df))
 	
-	
+	if const < 0:
+	    print const
+
 	return const
 
 from multiprocessing import Process, Pipe

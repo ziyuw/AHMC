@@ -27,9 +27,9 @@ def twodFunc(X, y):
     return ucb, lcb, mus, acq
 
 #file_path = "temp.txt"
-file_path = "dexter105.log"
+#file_path = "dexter105.log"
 #file_path = "madelon16.log"
-#file_path = "robo118.log"
+file_path = "robo119.log"
 #file_path = "madelon3.log"
 
 f = open(file_path, 'r')
@@ -37,7 +37,7 @@ f = open(file_path, 'r')
 pt = [0.1, 500]
 reward = None
 
-lambdas = array([0.55, 1950.0])
+lambdas = array([1.0, 5001.0])
 
 fn = lambda x, item, epsilon: util.Gaussian_RBF_lambda(x, item, epsilon, lambdas)
 opt = optimize(fn)
@@ -64,7 +64,7 @@ opt = optimize(fn)
 #opt.epsilons =  arange(3.5, 10.0, 0.5)
 #opt.bf_opt_steps = [0.05, 50.0]
 
-# Robo
+# Robo old
 #opt.bounds = [(0.01, 1.01), (20.0, 5000.0)]
 #opt.num_basis = 300
 #opt.start_point = [0.4, 200.0]
@@ -72,13 +72,21 @@ opt = optimize(fn)
 #opt.epsilons =  arange(3.5, 10.0, 0.5)
 #opt.bf_opt_steps = [0.02, 20.0]
 
-# Dexter
-opt.bounds = [(0.05, 0.6), (50.0, 2000.0)]
-opt.num_basis = 200
+# Robo Sept. 29th. 2011
+opt.bounds = [(0.01, 1.01), (20.0, 5021.0)]
+opt.num_basis = 300
 opt.start_point = [0.4, 200.0]
 opt.maxeval = 100
-opt.epsilons =  arange(3.5, 10.0, 0.5)
-opt.bf_opt_steps = [0.05, 50.0]
+opt.epsilons =  arange(6.0, 22.1, 4.0)
+opt.bf_opt_steps = [0.02, 100.0]
+
+# Dexter
+#opt.bounds = [(0.05, 0.6), (50.0, 2000.0)]
+#opt.num_basis = 200
+#opt.start_point = [0.4, 200.0]
+#opt.maxeval = 100
+#opt.epsilons =  arange(3.5, 10.0, 0.5)
+#opt.bf_opt_steps = [0.05, 50.0]
 
 opt.reinitialize()
 
@@ -114,8 +122,8 @@ if plot:
     
     contour = False
     
-    X = arange(0.05, 0.6, 0.02)
-    Y = arange(50, 2000, 20.0)
+    X = arange(0.01, 1.01, 0.02)
+    Y = arange(20, 5021, 100.0)
     X, Y = meshgrid(X, Y)
     Z = func(X, Y)
 
@@ -143,8 +151,8 @@ twodplot = True
 if twodplot:
     import matplotlib.pyplot as plt
     
-    X = arange(49, 2009, 20.0)
-    y = 0.3
+    X = arange(20.0, 5021.0, 20.0)
+    y = 0.4
     ucbs, lcbs, mus, acqs = twodFunc(X, y)
     
     plt.subplot(211)
