@@ -53,6 +53,9 @@ pt = opt.start_point
 for i in range(100):
     time1 = time.time()
     
+    if (i+1)%20 == 0:
+	opt.resample()
+    
     noisy_y = objective(pt) + normal(loc=0.0, scale=0.1)
     print i, pt, noisy_y
     opt.update(pt, noisy_y)
