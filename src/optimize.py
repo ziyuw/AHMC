@@ -64,7 +64,9 @@ class optimize:
 
     def reinitialize(self):
 	self.basis = lhsample(self.num_basis, self.bounds)
-	self.v_0 = mat(eye(self.num_basis+1))*10e10
+	
+	# This is like a non-informative prior
+	self.v_0 = mat(eye(self.num_basis+1))*5
 	self.w_0 = mat(zeros((self.num_basis+1, 1)))
 	
 	self.dim = len(self.bounds)

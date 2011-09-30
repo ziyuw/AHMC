@@ -10,6 +10,9 @@ with Normal-Inverse-Gamma prior and fixed basis
 given by basis
 """
 
+# WARNING: Potential bugs:
+    # self.b_n can be negative for reasons I don't understand
+
 class BayesLinModel:
     def __init__(self, v_0, w_0, a_0, b_0, epsilon, basis, RBF_func = None, basis_dict = None):
 	"""
@@ -54,10 +57,13 @@ class BayesLinModel:
 	self.const_for_mean = self.const_for_mean + y_n*x
 	self.mean = self.cov*self.const_for_mean
 	
+	
 	# update a_n and b_n
 	self.a_n = self.a_0 + self.n/2
 	self.const_for_b_n = self.const_for_b_n + y_n**2
 	self.b_n = self.b_0 + 0.5*(self.const_for_b_n - self.mean.H*self.cov_inv*self.mean)
+	
+	# WARNING: self.b_n can be negative. Have to guard against it!!
 	
 	if self.best_obj == None or self.best_obj < y_n:
 	    self.best_obj = y_n
@@ -87,8 +93,6 @@ class BayesLinModel:
 	predict_mean = x.H*self.mean
 	predict_var = (self.b_n/self.a_n)*(1.0 + x.H*self.cov*x)
 	df = float(2*self.a_n)
-	
-	#print x, float(df*predict_var/(df-2))
 	
 	return float(predict_mean), float(df*predict_var/(df-2)), df
 	

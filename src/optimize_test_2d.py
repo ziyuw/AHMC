@@ -34,8 +34,8 @@ opt.bounds = [(0.01, 1.01), (20.0, 5021.0)]
 opt.num_basis = 300
 opt.start_point = [0.4, 200.0]
 opt.maxeval = 100
-opt.epsilons =  arange(4.0, 6.1, 4.0)
-opt.bf_opt_steps = [0.1, 200.0]
+opt.epsilons =  arange(10.0, 22.1, 4.0)
+opt.bf_opt_steps = [0.02, 100.0]
 
 # Simulate the Dexter problem
 #opt.bounds = [(0.2, 0.7), (50.0, 1500.0)]
@@ -52,13 +52,13 @@ y = []
 z = []
 
 pt = opt.start_point
-for i in range(40):
+for i in range(100):
     time1 = time.time()
     
     #if (i+1)%10 == 0:
 	#opt.resample()
     
-    noisy_y = objective(pt) #+ normal(loc=0.0, scale=0.5)
+    noisy_y = objective(pt) + normal(loc=0.0, scale=0.1)
     print i, pt, noisy_y
     opt.update(pt, noisy_y)
     pt = opt.bf_opt(float(i+1)) # Use brute force to optimize
