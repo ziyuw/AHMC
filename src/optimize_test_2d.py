@@ -52,11 +52,11 @@ y = []
 z = []
 
 pt = opt.start_point
-for i in range(100):
+for i in range(200):
     time1 = time.time()
     
-    #if (i+1)%10 == 0:
-	#opt.resample()
+    if (i+1)%40 == 0:
+	opt.resample()
     
     noisy_y = objective(pt) + normal(loc=0.0, scale=0.1)
     print i, pt, noisy_y

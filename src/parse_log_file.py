@@ -13,13 +13,16 @@ def func(X, Y):
 	    mus[i,j], sigma = opt.predict(pt_in_func)
     return mus
 
-def twodFunc(X, y):
+def twodFunc(X, y, flip = False):
     ucb = zeros(X.shape)
     lcb = zeros(X.shape)
     mus = zeros(X.shape)
     acq = zeros(X.shape)
     for i in xrange(X.shape[0]):
-	pt = [y, X[i]]
+	if not flip:
+	    pt = [X[i], y]
+	else:    
+	    pt = [y, X[i]]
 	mus[i], sigma = opt.predict(pt)
 	ucb[i] = mus[i] + sqrt(sigma)
 	lcb[i] = mus[i] - sqrt(sigma)
@@ -29,7 +32,7 @@ def twodFunc(X, y):
 #file_path = "temp.txt"
 #file_path = "dexter105.log"
 #file_path = "madelon16.log"
-file_path = "robo119.log"
+file_path = "robo120.log"
 #file_path = "madelon3.log"
 
 f = open(file_path, 'r')
@@ -77,7 +80,7 @@ opt.bounds = [(0.01, 1.01), (20.0, 5021.0)]
 opt.num_basis = 300
 opt.start_point = [0.4, 200.0]
 opt.maxeval = 100
-opt.epsilons =  arange(6.0, 22.1, 4.0)
+opt.epsilons =  arange(10.0, 22.1, 4.0)
 opt.bf_opt_steps = [0.02, 100.0]
 
 # Dexter
@@ -113,17 +116,16 @@ for line in f:
 	reward = None
 
 plot = False
-contour = False
+contour = True
 if plot:
     from mpl_toolkits.mplot3d import Axes3D
     from matplotlib import cm
     from matplotlib.ticker import LinearLocator, FixedLocator, FormatStrFormatter
     import matplotlib.pyplot as plt
     
-    contour = False
     
     X = arange(0.01, 1.01, 0.02)
-    Y = arange(20, 5021, 100.0)
+    Y = arange(20, 5021, 50.0)
     X, Y = meshgrid(X, Y)
     Z = func(X, Y)
 
@@ -151,9 +153,15 @@ twodplot = True
 if twodplot:
     import matplotlib.pyplot as plt
     
-    X = arange(20.0, 5021.0, 20.0)
-    y = 0.4
-    ucbs, lcbs, mus, acqs = twodFunc(X, y)
+    #doflip = True
+    #X = arange(20.0, 5021.0, 20.0)
+    #y = 0.4
+    
+    doflip = False
+    X = arange(0.01, 1.01, 0.01)
+    y = 3520
+    
+    ucbs, lcbs, mus, acqs = twodFunc(X, y, flip = doflip)
     
     plt.subplot(211)
     plt.plot(X, mus, 'r')
@@ -161,12 +169,12 @@ if twodplot:
     
     plt.xlabel('Step Size Adjustment', fontsize=16)
     plt.ylabel('Reward', fontsize=16)
-    #plt.axis([0, 1.02, -1, 1])
+    plt.axis([0.01, 1.01, -1, 1])
     
     plt.subplot(212)
     plt.fill_between(X, acqs, 0, color='#99CC99')
     plt.xlabel('Step Size Adjustment', fontsize=16)
     plt.ylabel('Acquisition Function Value', fontsize=16)
-    #plt.axis([0, 1.02, 0, 0.1])
+    plt.axis([0.01, 1.01, 0, 0.2])
     plt.show()
     
