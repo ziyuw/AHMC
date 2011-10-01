@@ -358,7 +358,7 @@ class facilities:
 	for line in result:
 	    if 'Fraction of guesses that were wrong' in line:
 		splitted = line.split()
-		return float(0.2 - float(splitted[len(splitted)-1].split('+-')[0]))*100
+		return float(0.17 - float(splitted[len(splitted)-1].split('+-')[0]))*9
 
 # -----------------------------------------------------------------------------------------------
 
