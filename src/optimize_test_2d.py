@@ -7,7 +7,11 @@ import time
 def objective_2(x, y):
     #return cos(50*(0.5*exp(-((x-0.3)**2 - ((y-250.0)/4980.0)**2)) + 0.5*exp((-(x-0.5)**2 - ((y-1050.0)/4980.0)**2))))/((x-0.5)**2 + ((y-1050.0)/4980.0)**2+1)
     
-    return cos(30*(0.5*exp(-((x-0.3)**2 - ((y-250.0)/4980.0)**2)) + 0.5*exp((-(x-0.5)**2 - ((y-1050.0)/4980.0)**2))))/((x-0.5)**2 + ((y-1050.0)/4980.0)**2+1)
+    # For Robot Arm
+    #return cos(30*(0.5*exp(-((x-0.3)**2 - ((y-250.0)/4980.0)**2)) + 0.5*exp((-(x-0.5)**2 - ((y-1050.0)/4980.0)**2))))/((x-0.5)**2 + ((y-1050.0)/4980.0)**2+1)
+
+    # For Dexter
+    return cos(30*(0.5*exp(-((x-0.3)**2 - ((y-250.0)/1980.0)**2)) + 0.5*exp((-(x-0.5)**2 - ((y-1050.0)/4980.0)**2))))/((x-0.5)**2 + ((y-1050.0)/4980.0)**2+1)
     
 def objective(x):
     return objective_2(x[0], x[1])
@@ -24,26 +28,26 @@ def twodFunc(X, y):
 	lcb[i] = mus[i] - sqrt(sigma)
     return ucb, lcb, mus
 
-lambdas = array([1.0, 5001.0])
+lambdas = array([0.6, 1981.0])
 
 fn = lambda x, item, epsilon: util.Gaussian_RBF_lambda(x, item, epsilon, lambdas)
 opt = optimize(fn)
 
 # Simulate the Robo-Arm problem
-opt.bounds = [(0.01, 1.01), (20.0, 5021.0)]
+#opt.bounds = [(0.01, 1.01), (20.0, 5021.0)]
+#opt.num_basis = 300
+#opt.start_point = [0.4, 200.0]
+#opt.maxeval = 100
+#opt.epsilons =  arange(10.0, 22.1, 4.0)
+#opt.bf_opt_steps = [0.02, 100.0]
+
+# Simulate the Dexter problem
+opt.bounds = [(0.01, 0.61), (20.0, 2001.0)]
 opt.num_basis = 300
 opt.start_point = [0.4, 200.0]
 opt.maxeval = 100
 opt.epsilons =  arange(10.0, 22.1, 4.0)
-opt.bf_opt_steps = [0.02, 100.0]
-
-# Simulate the Dexter problem
-#opt.bounds = [(0.2, 0.7), (50.0, 1500.0)]
-#opt.num_basis = 100
-#opt.start_point = [0.4, 200.0]
-#opt.maxeval = 100
-#opt.epsilons =  arange(3.5, 8.0, 0.5)
-#opt.bf_opt_steps = [0.1, 100.0]
+opt.bf_opt_steps = [0.03, 60.0]
 
 opt.reinitialize()
 
@@ -52,11 +56,11 @@ y = []
 z = []
 
 pt = opt.start_point
-for i in range(200):
+for i in range(80):
     time1 = time.time()
     
-    if (i+1)%40 == 0:
-	opt.resample()
+    #if (i+1)%20 == 0:
+	#opt.resample()
     
     noisy_y = objective(pt) + normal(loc=0.0, scale=0.1)
     print i, pt, noisy_y
@@ -72,7 +76,7 @@ for i in range(200):
     z.append(noisy_y)
 
 
-plot = False
+plot = True
 if plot:
     from mpl_toolkits.mplot3d import Axes3D
     from matplotlib import cm
@@ -81,8 +85,8 @@ if plot:
 
     contour = True
     
-    X = arange(0.0, 1.02, 0.01)
-    Y = arange(20, 5000, 50.0)
+    X = arange(0.01, 0.61, 0.02)
+    Y = arange(20.0, 2001.0, 50.0)
     X, Y = meshgrid(X, Y)
     Z = objective_2(X, Y)
 
@@ -104,7 +108,7 @@ if plot:
 if not plot:
     import matplotlib.pyplot as plt
     
-    X = arange(50, 5000, 50.0)
+    X = arange(20.0, 2021.0, 50.0)
     y = 0.51
     ucbs, lcbs, mus = twodFunc(X, y)
     
