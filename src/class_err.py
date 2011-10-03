@@ -32,7 +32,7 @@ def num_samples(result):
     for line in result:
 	if 'Number of iterations used' in line:
 	    splitted = line.split()
-	    return float(splitted[1])
+	    return float(splitted[len(splitted)-1])
 
 def write_in_file(data_file_name, start, finish, num_folds):
 
