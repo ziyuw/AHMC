@@ -68,7 +68,7 @@ num_folds = 10
 f = open('myownfile', 'w')    
 
 # Determine total number of samples
-m, v, ls, num_samples = write_in_file("combined_valid.data.sel", start, finish, 1)
+m, v, ls, num_samples = write_in_file("combined_valid.data.sel", start, "", 1)
 
 jump_size = 300
 for i in range(2):
