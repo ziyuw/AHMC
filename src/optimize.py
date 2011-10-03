@@ -17,10 +17,12 @@ class optimize:
 	# If resampling = n for n > 0 then resampling happens every n steps
 	# NOTE: this is not finished
 	
+	self.lamda = 5.0
+	
 	self.num_basis = 500
 	self.bounds = [(0.01,0.51), (10.0, 2000.0)]
 	self.basis = lhsample(self.num_basis, self.bounds)
-	self.v_0 = mat(eye(self.num_basis+1))
+	self.v_0 = mat(eye(self.num_basis+1))*self.lamda
 	self.w_0 = mat(zeros((self.num_basis+1, 1)))
 	
 	# NOTE: original value of a_0 and b_0 are 5 and 10.
@@ -66,7 +68,7 @@ class optimize:
 	self.basis = lhsample(self.num_basis, self.bounds)
 	
 	# This is like a non-informative prior
-	self.v_0 = mat(eye(self.num_basis+1))*5
+	self.v_0 = mat(eye(self.num_basis+1))*self.lamda
 	self.w_0 = mat(zeros((self.num_basis+1, 1)))
 	
 	self.dim = len(self.bounds)

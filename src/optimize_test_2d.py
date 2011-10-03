@@ -49,8 +49,8 @@ opt.maxeval = 100
 opt.epsilons =  arange(10.0, 22.1, 4.0)
 opt.bf_opt_steps = [0.03, 60.0]
 
-opt.a_0 = 3
-opt.b_0 = 1
+opt.a_0 = 3.0
+opt.b_0 = 1.0
 
 # Re-initialize opt with the new parameters specified.
 opt.reinitialize()
