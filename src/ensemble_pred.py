@@ -34,7 +34,7 @@ def write_in_file(data_file_name, result_file_name):
 
     test_data_path = conf.get_data_path('DEXTER') + data_file_name #+"test.data.sel"#+"combined_valid.data.sel"#'combined_valid.data.sel'
 
-    cur_counter = '105'
+    cur_counter = '122'
     net_folder = conf.get_file_path("dexter", cur_counter)
     option = 'bm'
 
