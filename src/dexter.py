@@ -126,7 +126,7 @@ if pure_bayes:
     
     opt.a_0 = 3.0
     opt.b_0 = 1.0
-    #opt.lamda = 3.0
+    opt.lamda = 3.0
 else:
     opt.bounds = [(10.0, 1010.0)]
     opt.num_basis = 500
