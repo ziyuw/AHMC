@@ -26,7 +26,15 @@ def class_err(result):
 	    splitted = line.split()
 	    return float(splitted[len(splitted)-1].split('+-')[0])
 
-def write_in_file(data_file_name, start, finish):
+def num_samples(result):
+    result = result[0].split('\n')
+    #splited = result.split('\n')
+    for line in result:
+	if 'Number of iterations used' in line:
+	    splitted = line.split()
+	    return float(splitted[1])
+
+def write_in_file(data_file_name, start, finish, num_folds):
 
     conf = config('path_config.cfg')
 
@@ -34,13 +42,12 @@ def write_in_file(data_file_name, start, finish):
 
     test_data_path = conf.get_data_path('DEXTER') + data_file_name #+"test.data.sel"#+"combined_valid.data.sel"#'combined_valid.data.sel'
 
-    cur_counter = '124'
     net_folder = conf.get_file_path("dexter", cur_counter)
     option = 'am'
 
-    num_folds = 10
-
     ran = str(start)+":"+str(finish)
+    
+    numsamples = 0
 
     ls = []
     for i in range(num_folds):
@@ -50,16 +57,23 @@ def write_in_file(data_file_name, start, finish):
 	result = process.communicate()
 	
 	ls.append(class_err(result))
-
+	numsamples = num_samples(result)
     
-    return mean(ls), var(ls), ls
+    return mean(ls), var(ls), ls, num_samples
+
+cur_counter = '124'
+start = 1200;
+num_folds = 10
 
 f = open('myownfile', 'w')    
 
+# Determine total number of samples
+m, v, ls, num_samples = write_in_file("combined_valid.data.sel", start, finish, 1)
+
 jump_size = 300
 for i in range(2):
-    start = 1200; 
-    finish = start+(i+1)*jump_size
-    m, v, ls = write_in_file("combined_valid.data.sel", start, finish)
+     
+    finish = max(start+(i+1)*jump_size, num_samples)
+    m, v, ls,  = write_in_file("combined_valid.data.sel", start, finish, num_folds)
     print m, v, ls
     f.write( str((i+1)*jump_size)+ " " + str(m) + " " + str(v) + str(ls) +"\n")
