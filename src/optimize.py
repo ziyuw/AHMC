@@ -71,7 +71,7 @@ class optimize:
 	
 	self.dim = len(self.bounds)
 	self.set_lower_bound(); self.set_upper_bound()
-	self.linearmodel = group_linreg(self.epsilons, self.v_0, self.w_0, self.a_0, self.b_0, self.basis, RBF_func = self.RBF_func)
+	self.linearmodel = group_linreg(self.epsilons, self.v_0, self.w_0, self.a_0, self.b_0, self.basis, RBF_func = self.RBF_func, resample = self.resampling)
 	#self.objective_func = lambda x, grad, alpha: self.linearmodel.compute_UCB(x, alpha)
 	self.objective_func = lambda x, grad, alpha: self.linearmodel.expected_improvement(x)
 	

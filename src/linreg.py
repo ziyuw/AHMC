@@ -216,7 +216,7 @@ class group_linreg:
 	
 	self.n = self.n + 1
 	
-	if self.resample > 0 and self.n%self.resample == 0:
+	if self.resample > 0 and self.n % self.resample == 0:
 	    self.re_sample()
 	
     def predict_parallel(self, x):

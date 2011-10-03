@@ -31,7 +31,7 @@ def twodFunc(X, y):
 lambdas = array([0.6, 1981.0])
 
 fn = lambda x, item, epsilon: util.Gaussian_RBF_lambda(x, item, epsilon, lambdas)
-opt = optimize(fn)
+opt = optimize(fn, resampling=0)
 
 # Simulate the Robo-Arm problem
 #opt.bounds = [(0.01, 1.01), (20.0, 5021.0)]
@@ -49,6 +49,10 @@ opt.maxeval = 100
 opt.epsilons =  arange(10.0, 22.1, 4.0)
 opt.bf_opt_steps = [0.03, 60.0]
 
+opt.a_0 = 3
+opt.b_0 = 1
+
+# Re-initialize opt with the new parameters specified.
 opt.reinitialize()
 
 x = []
