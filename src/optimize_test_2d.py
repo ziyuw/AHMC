@@ -51,6 +51,7 @@ opt.bf_opt_steps = [0.03, 60.0]
 
 opt.a_0 = 3.0
 opt.b_0 = 1.0
+#opt.lamda = 3.0
 
 # Re-initialize opt with the new parameters specified.
 opt.reinitialize()
