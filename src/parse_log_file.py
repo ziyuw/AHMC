@@ -30,7 +30,7 @@ def twodFunc(X, y, flip = False):
     return ucb, lcb, mus, acq
 
 #file_path = "temp.txt"
-file_path = "dexter128.log"
+file_path = "dexter130.log"
 #file_path = "madelon16.log"
 #file_path = "robo120.log"
 #file_path = "madelon3.log"
@@ -103,7 +103,7 @@ z = []
 first = True
 super_size = 10000
 num_iter = 0
-max_iter = 200
+max_iter = 170
 num_total_samples = super_size/opt.start_point[1]
 
 for line in f:
@@ -175,7 +175,7 @@ if plot:
 
     plt.show()
     
-twodplot = True
+twodplot = False
 if twodplot:
     import matplotlib.pyplot as plt
     
@@ -183,9 +183,12 @@ if twodplot:
     #X = arange(20.0, 5021.0, 20.0)
     #y = 0.4
     
-    doflip = False
-    X = arange(0.01, 0.61, 0.01)
-    y = 400
+    doflip = True
+    #X = arange(0.01, 0.61, 0.01)
+    #y = 400
+    
+    y = 0.4
+    X = arange(20, 2001, 20)
     
     ucbs, lcbs, mus, acqs = twodFunc(X, y, flip = doflip)
     
@@ -195,12 +198,12 @@ if twodplot:
     
     plt.xlabel('Step Size Adjustment', fontsize=16)
     plt.ylabel('Reward', fontsize=16)
-    plt.axis([0.01, 0.61, -0.5, 1.5])
+    #plt.axis([0.01, 0.61, -0.5, 1.5])
     
     plt.subplot(212)
     plt.fill_between(X, acqs, 0, color='#99CC99')
     plt.xlabel('Step Size Adjustment', fontsize=16)
     plt.ylabel('Acquisition Function Value', fontsize=16)
-    plt.axis([0.01, 0.61, 0, 0.2])
+    #plt.axis([0.01, 0.61, 0, 0.2])
     plt.show()
     

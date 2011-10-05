@@ -105,7 +105,7 @@ else:
     lambdas = array([1000.0])
 
 fn = lambda x, item, epsilon: util.Gaussian_RBF_lambda(x, item, epsilon, lambdas)
-opt = optimize(fn)
+opt = optimize(fn, , resampling=20)
 
 if pure_bayes:
     #Old June 2011
