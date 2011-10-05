@@ -30,7 +30,7 @@ def twodFunc(X, y, flip = False):
     return ucb, lcb, mus, acq
 
 #file_path = "temp.txt"
-file_path = "dexter124.log"
+file_path = "dexter128.log"
 #file_path = "madelon16.log"
 #file_path = "robo120.log"
 #file_path = "madelon3.log"
@@ -101,22 +101,36 @@ y = []
 z = []
 
 first = True
+super_size = 10000
+num_iter = 0
+max_iter = 200
+num_total_samples = super_size/opt.start_point[1]
 
 for line in f:
+    if 'Iteration' in line:
+	cur_iter = int(line.split(':')[1].strip())
+	if cur_iter >= max_iter:
+	    break
+	
+    if 'step_size:' in line:
+	num_samples = int(line.split(':')[1].strip())
+	num_total_samples = num_total_samples + num_samples
+    
     if 'Reward' in line and not first:
 	reward = float(line.split(':')[1].strip())
     elif 'Reward' in line and first:
 	first = False
 	reward = float(line.split(':')[1].strip())
 	pt = opt.start_point
-    elif 'New params:' in line:
+
+    if 'New params:' in line:
 	line_spt = line.split(':')[1].split()
 	pt = []
 	pt.append(float(line_spt[0]))
 	pt.append(float(line_spt[1]))
     
     if pt != None and reward != None:
-	print pt, reward
+	print cur_iter, pt, reward
 	x.append(pt[0])
 	y.append(pt[1])
 	z.append(reward)
@@ -124,8 +138,10 @@ for line in f:
 	pt = None
 	reward = None
 
-plot = False
-contour = True
+print num_total_samples
+
+plot = True
+contour = False
 if plot:
     from mpl_toolkits.mplot3d import Axes3D
     from matplotlib import cm
@@ -133,7 +149,7 @@ if plot:
     import matplotlib.pyplot as plt
     
     
-    X = arange(0.01, 0.62, 0.06)
+    X = arange(0.01, 0.62, 0.02)
     Y = arange(20, 2001, 50.0)
     X, Y = meshgrid(X, Y)
     Z = func(X, Y)
