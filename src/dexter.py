@@ -141,7 +141,7 @@ opt.reinitialize()
 # ===========================================================
 
 # First run
-super_transition_steps = 10000
+super_transition_steps = 40000
 #super_transition_steps = 32000
 
 for DEXTER_spec in DEXTER_specs:
