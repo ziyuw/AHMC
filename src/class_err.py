@@ -32,7 +32,7 @@ def num_samples(result):
     for line in result:
 	if 'Number of iterations used' in line:
 	    splitted = line.split()
-	    return float(splitted[len(splitted)-1])
+	    return int(splitted[len(splitted)-1])
 
 def write_in_file(data_file_name, start, finish, num_folds):
 
@@ -59,21 +59,26 @@ def write_in_file(data_file_name, start, finish, num_folds):
 	ls.append(class_err(result))
 	numsamples = num_samples(result)
     
-    return mean(ls), var(ls), ls, num_samples
+    return mean(ls), var(ls), ls, numsamples
 
-cur_counter = '124'
-start = 1200;
+cur_counter = '178'
+start = 6000
 num_folds = 10
 
 f = open('myownfile', 'w')    
 
 # Determine total number of samples
-m, v, ls, num_samples = write_in_file("combined_valid.data.sel", start, "", 1)
+m, v, ls, ns = write_in_file("combined_valid.data.sel", '1', '', 1)
+print 'Number of Samples:', ns
+ms = 100000
+ns = min(ns,ms)
 
-jump_size = 300
-for i in range(2):
+jump_size = 50
+num_steps = (ns-start+1)/jump_size + 1
+
+for i in range(num_steps):
      
-    finish = max(start+(i+1)*jump_size, num_samples)
-    m, v, ls,  = write_in_file("combined_valid.data.sel", start, finish, num_folds)
-    print m, v, ls
+    finish = min(start+(i+1)*jump_size, ns)
+    m, v, ls, not_used = write_in_file("combined_valid.data.sel", start, finish, num_folds)
+    print finish, m, v, ls
     f.write( str((i+1)*jump_size)+ " " + str(m) + " " + str(v) + str(ls) +"\n")

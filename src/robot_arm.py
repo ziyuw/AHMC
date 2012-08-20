@@ -6,6 +6,8 @@ from numpy import *
 import util
 from config import *
 
+from gpbo import *
+
 import logging
 import sys
 import os
@@ -127,6 +129,14 @@ else:
     opt.bf_opt_steps = [20.0]
 opt.reinitialize()
 
+    
+
+alpha = 0.2
+bound = [(0.01, 1.01), (20.0, 5021.0)]
+kernel_hyperparms = array([(bound[0][1] - bound[0][0])*alpha, \
+			(bound[1][1] - bound[1][0])*alpha])
+opt = GPBO(bound, kernel_hyperparms)
+
 # ===========================================================
 # Setup optimization end
 # ===========================================================
@@ -173,3 +183,5 @@ for i in range(200):
     print "Iteration:", i
     logger.info("Iteration: " + str(i))
     facility.opt_iter(logger)
+
+opt.plot_response_surface(contour=False)

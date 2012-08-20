@@ -5,6 +5,7 @@ from optimize import *
 from numpy import *
 import util
 from config import *
+from gpbo import *
 
 import logging
 import sys
@@ -135,6 +136,12 @@ else:
     opt.epsilons =  arange(13.0, 18.0, 0.5)
     opt.bf_opt_steps = [10.0]
 opt.reinitialize()
+
+alpha = 0.2
+bound = bounds = [(0.01, 0.61), (20.0, 2001.0)]
+kernel_hyperparms = array([(bound[0][1] - bound[0][0])*alpha, \
+			(bound[1][1] - bound[1][0])*alpha])
+opt = GPBO(bound, kernel_hyperparms)
 
 # ===========================================================
 # Setup optimization end

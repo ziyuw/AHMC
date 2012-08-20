@@ -34,7 +34,7 @@ def write_in_file(data_file_name, result_file_name):
 
     test_data_path = conf.get_data_path('DEXTER') + data_file_name #+"test.data.sel"#+"combined_valid.data.sel"#'combined_valid.data.sel'
 
-    cur_counter = '128'
+    cur_counter = '178'
     net_folder = conf.get_file_path("dexter", cur_counter)
     option = 'bm'
 
@@ -43,7 +43,7 @@ def write_in_file(data_file_name, result_file_name):
     ls = []
     for i in range(num_folds):
 	net_path = net_folder + '/dexter' + str(i) + '.net'
-	cmd = generate_netpred_command(1800, 2404, net_path, option, command_path, test_data_path)
+	cmd = generate_netpred_command(6000, 7603, net_path, option, command_path, test_data_path)
 	
 	process = subprocess.Popen(cmd, shell=False, stdout=subprocess.PIPE)
 	result = process.communicate()

@@ -248,7 +248,6 @@ def net_mc(spec):
     
     process = subprocess.Popen(netpred_command, shell=False, stdout=subprocess.PIPE)
     result = process.communicate()
-    
     if spec.model_spec == 'binary':
 	#reward = facilities.avg_log_prob(result)
 	reward = facilities.class_err(result)
