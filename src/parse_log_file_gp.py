@@ -31,14 +31,24 @@ def twodFunc(X, y, flip = False):
     return ucb, lcb, mus, acq
 
 file_path = "../run_log/dexter178.log"
+file_path = "../run_log/robo177.log"
 f = open(file_path, 'r')
 
 pt = [0.1, 500]
 reward = None
 
 # Dexter
-alpha = 0.25
+alpha = 0.2
 bound = bounds = [(0.01, 0.61), (20.0, 2001.0)]
+
+# ========================
+# Robo-arm
+# ========================
+alpha = 0.2
+bound = [(0.01, 1.01), (20.0, 5021.0)]
+# ========================
+
+
 kernel_hyperparms = array([(bound[0][1] - bound[0][0])*alpha, \
 			(bound[1][1] - bound[1][0])*alpha])
 opt = GPBO(bound, kernel_hyperparms)
@@ -88,6 +98,6 @@ for line in f:
 	pt = None
 	reward = None
 
-#opt.plot_response_surface(contour=False)
+opt.plot_response_surface(contour=True)
 opt.slice_plot()
 

@@ -3,6 +3,7 @@ from collections import deque
 from numpy import *
 from numpy.random import *
 from config import *
+import os
 
 def generate_netpred_command(start, finish, file_path, option, command_path, test_data_path):
     """
@@ -32,7 +33,7 @@ def write_in_file(data_file_name, result_file_name):
 
     command_path = conf.get_command_path()
 
-    test_data_path = conf.get_data_path('DEXTER') + data_file_name #+"test.data.sel"#+"combined_valid.data.sel"#'combined_valid.data.sel'
+    test_data_path = conf.get_data_path('DEXTER') + data_file_name 
 
     cur_counter = '178'
     net_folder = conf.get_file_path("dexter", cur_counter)
@@ -43,13 +44,14 @@ def write_in_file(data_file_name, result_file_name):
     ls = []
     for i in range(num_folds):
 	net_path = net_folder + '/dexter' + str(i) + '.net'
-	cmd = generate_netpred_command(6000, 7603, net_path, option, command_path, test_data_path)
+	cmd = generate_netpred_command(6000, 7603, net_path, option, \
+	    command_path, test_data_path)
 	
 	process = subprocess.Popen(cmd, shell=False, stdout=subprocess.PIPE)
 	result = process.communicate()
 	
 	ls.append(parse_result(result))
-
+    
     result = []
     dim = len(ls[0])
     for i in range(dim):
@@ -64,13 +66,25 @@ def write_in_file(data_file_name, result_file_name):
 	    else:
 		result.append('-1')
 
-    print len(result)
-
     f = open(result_file_name, 'w')
     for item in result:
 	f.write(item+"\n")
     f.close()
     
-write_in_file("test.data.sel", './dexter_test.resu')
-write_in_file("combined_valid.data.sel", './dexter_valid.resu')
-write_in_file("combined_train.data.sel", './dexter_train.resu')
+    save_individual_results(ls, result_file_name)
+
+def save_individual_results(ls, result_file_name):
+    for idx, result in enumerate(ls):
+	directory = './dexter_result/dexter_{0}/'.format(idx)
+	if not os.path.exists(directory):
+	    os.makedirs(directory)
+	f = open(directory+result_file_name, 'w')
+	for item in result:
+	    f.write(str(item*2-1)+"\n")
+	f.close()
+
+if __name__ == "__main__":
+    
+    write_in_file("test.data.sel", './dexter_test.resu')
+    write_in_file("combined_valid.data.sel", './dexter_valid.resu')
+    write_in_file("combined_train.data.sel", './dexter_train.resu')

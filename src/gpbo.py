@@ -6,6 +6,8 @@ from ego.gaussianprocess import GaussianProcess
 from ego.gaussianprocess.kernel import GaussianKernel_ard
 from ego.acquisition import EI, UCB, maximizeEI, maximizeUCB
 
+import matplotlib
+matplotlib.use('Agg')
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
 from matplotlib.ticker import LinearLocator, FixedLocator, FormatStrFormatter
@@ -65,6 +67,8 @@ class GPBO:
 	    CS = plt.contour(X, Y, Z, 20)
 	    plt.scatter(x, y)
 	    plt.clabel(CS, inline=1, fontsize=10)
+	    plt.xlabel('Step size adjustment', fontsize = 16)
+	    plt.ylabel('No. of leapfrog steps', fontsize = 16)
 	    plt.show()
 	else:
 	    fig = plt.figure(1)
@@ -72,14 +76,18 @@ class GPBO:
 	    surf = ax.plot_surface(X, Y, Z, rstride=1, cstride=1, \
 		cmap=cm.jet, linewidth=0, antialiased=False)
 	    ax.scatter(x, y, z)
+	    ax.set_xlabel('Step size adjustment', fontsize = 16)
+	    ax.set_ylabel('No. of leapfrog steps', fontsize = 16)
+	    ax.set_zlabel('Reward', fontsize = 16)
 	    fig.colorbar(surf, shrink=0.5, aspect=5)
 	    plt.show()
-	    pass
+	    
 	
     def slice_plot(self):
-	X = arange(self.bound[1][0], self.bound[1][1], \
-	    (self.bound[1][1]-self.bound[1][0])/100.0)
-	y = 0.2
+	axis = 0
+	X = arange(self.bound[axis][0], self.bound[axis][1], \
+	    (self.bound[axis][1]-self.bound[axis][0])/100.0)
+	y = 1500
 	prob = self.annealing_schedule(self.counter - 1)
 	ucb = UCB(self.gp, len(self.bound), delta=0.1, scale=prob)
 	
@@ -87,7 +95,11 @@ class GPBO:
 	mean = []
 	var = []
 	for x in X:
-	    z = array([y, x])
+	    if axis == 0:
+		z = array([x, y])
+	    elif axis == 1:
+		z = array([y, x])
+		
 	    res = self.gp.posterior(z)
 	    mean.append(res[0])
 	    var.append(res[1])
@@ -98,15 +110,15 @@ class GPBO:
 	plt.plot(X, mean, 'r')
 	plt.fill_between(X, mean+sqrt(var), mean-sqrt(var), color='#0066FF')
 	
-	plt.axis([self.bound[1][0], self.bound[1][1], min(mean-sqrt(var))-0.2, max(mean+sqrt(var))+0.2])
+	plt.axis([self.bound[axis][0], self.bound[axis][1], min(mean-sqrt(var))-0.05, max(mean+sqrt(var))+0.05])
 	plt.xlabel('Step Size Adjustment', fontsize=16)
 	plt.ylabel('Reward', fontsize=16)
 	
-	acqs = mean+ucb.sBeta*sqrt(var)
+	acqs = mean+self.annealing_schedule(self.counter - 1)*ucb.sBeta*sqrt(var)
 	
 	plt.subplot(212)
 	plt.fill_between(X, acqs, 0, color='#99CC99')
-	plt.axis([self.bound[1][0], self.bound[1][1], min(acqs), max(acqs)+0.5])
+	plt.axis([self.bound[axis][0], self.bound[axis][1], min(acqs), max(acqs)+0.5])
 	plt.xlabel('Step Size Adjustment', fontsize=16)
 	plt.ylabel('Acquisition Function Value', fontsize=16)
 	plt.show()

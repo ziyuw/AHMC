@@ -3,6 +3,7 @@ import util
 from numpy import *
 from numpy.random import *
 import time
+from gpbo import *
 
 def objective_2(x, y):
     #return cos(50*(0.5*exp(-((x-0.3)**2 - ((y-250.0)/4980.0)**2)) + 0.5*exp((-(x-0.5)**2 - ((y-1050.0)/4980.0)**2))))/((x-0.5)**2 + ((y-1050.0)/4980.0)**2+1)
@@ -46,21 +47,28 @@ opt.bounds = [(0.01, 0.61), (20.0, 2001.0)]
 opt.num_basis = 300
 opt.start_point = [0.4, 200.0]
 opt.maxeval = 100
-opt.epsilons =  arange(10.0, 22.1, 4.0)
+#opt.epsilons =  arange(2.0, 14.1, 4.0)
 opt.bf_opt_steps = [0.03, 60.0]
 
-opt.a_0 = 3.0
-opt.b_0 = 1.0
+
+#opt.a_0 = 10.0
+#opt.b_0 = 1.0
 #opt.lamda = 3.0
 
 # Re-initialize opt with the new parameters specified.
 opt.reinitialize()
 
+#alpha = 0.2
+#bound = bounds = [(0.01, 0.61), (20.0, 2001.0)]
+#kernel_hyperparms = array([(bound[0][1] - bound[0][0])*alpha, \
+			#(bound[1][1] - bound[1][0])*alpha])
+#opt = GPBO(bound, kernel_hyperparms)
+
 x = []
 y = []
 z = []
-
-pt = opt.start_point
+pt = array([0.4, 200.0])
+#pt = opt.start_point
 for i in range(80):
     time1 = time.time()
     
@@ -70,8 +78,8 @@ for i in range(80):
     noisy_y = objective(pt) + normal(loc=0.0, scale=0.1)
     print i, pt, noisy_y
     opt.update(pt, noisy_y)
-    pt = opt.bf_opt(float(i+1)) # Use brute force to optimize
-    #pt = opt.direct(float(i+1)) # Use direct to optimize
+    #pt = opt.bf_opt(float(i+1)) # Use brute force to optimize
+    pt = opt.direct(float(i+1)) # Use direct to optimize
     
     time2 = time.time()
     print 'Took:', time2-time1, 'secs'
@@ -110,11 +118,11 @@ if plot:
 
     plt.show()
 
-if not plot:
+if True:
     import matplotlib.pyplot as plt
     
     X = arange(20.0, 2021.0, 50.0)
-    y = 0.51
+    y = 0.58
     ucbs, lcbs, mus = twodFunc(X, y)
     
     plt.plot(X, mus, 'r')

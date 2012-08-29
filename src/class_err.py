@@ -73,7 +73,7 @@ print 'Number of Samples:', ns
 ms = 100000
 ns = min(ns,ms)
 
-jump_size = 50
+jump_size = 200
 num_steps = (ns-start+1)/jump_size + 1
 
 for i in range(num_steps):
